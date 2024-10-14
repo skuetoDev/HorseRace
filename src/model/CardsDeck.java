@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CardsDeck {
     private ArrayList<Card> cardsDeck = new ArrayList<>();
-    private int [] num = {1, 2, 3, 4, 5, 6, 7};
+    private int [] num = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     private CardSuit[] cardSuits = {CardSuit.GOLD, CardSuit.CLUBS, CardSuit.CUPS, CardSuit.SWORDS};
 
     private CardFace[] cardFaces = {CardFace.JACK, CardFace.KNIGHT, CardFace.KING};

@@ -14,4 +14,6 @@ public abstract class Card {
 
     public abstract String getCardCode();
 
+    public abstract String getDescription();
+
 }

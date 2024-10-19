@@ -1,14 +1,14 @@
 package src;
 
 
-import src.model.Card;
-import src.model.CardsDeck;
+import src.logic.GameLogic;
+
 
 public class Main {
         public static void main(String[] args) {
-            CardsDeck cardsDeck = new CardsDeck();
-            Card card = cardsDeck.getCardFromDeck();
-            System.out.println(card);
+
+            GameLogic juego = new GameLogic();
+            juego.horseMovemnt();
         }
 
 }

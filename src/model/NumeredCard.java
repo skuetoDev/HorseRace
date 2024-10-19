@@ -25,8 +25,8 @@ public class NumeredCard extends Card{
     }
 
     @Override
-    public String getCardCode() {
-        return this.num+"_"+suit;
+    public String getDescription() {
+        return this.num+" of "+suit;
     }
 
 }

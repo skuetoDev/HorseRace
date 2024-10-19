@@ -20,7 +20,7 @@ public class FacedCard extends Card{
     }
 
     @Override
-    public String getCardCode() {
-        return this.face.toString()+"_"+suit;
+    public String getDescription() {
+        return this.face.toString()+" of "+suit;
     }
 }

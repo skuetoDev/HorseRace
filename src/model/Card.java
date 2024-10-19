@@ -12,6 +12,13 @@ public abstract class Card {
        return String.format("%7s of %6s, value %.1f",numberOrFace,suit, value);
     }
 
-    public abstract String getCardCode();
+    public abstract String getDescription();
 
+    public CardSuit getSuit() {
+        return suit;
+    }
+
+    public void setSuit(CardSuit suit) {
+        this.suit = suit;
+    }
 }

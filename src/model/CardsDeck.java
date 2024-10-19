@@ -38,40 +38,32 @@ public class CardsDeck {
     }
 
     /**
-     * Metode per repartir un nova carta aleatoria a la ma
-     * @return --> Carta donada
+     * Method to make relation between numCarta(int) until cardsDeck(Card)
+     * @return Card that isnt repeated
      */
     public Card getCardFromDeck(){
         Card cartadonada;
-        int numcarta = comprovarNumCartes();
+        int numCarta = comprovarNumCartes();
 
-        cartadonada = cardsDeck.get(numcarta) ;
+        cartadonada = cardsDeck.get(numCarta) ;
         return cartadonada;
     }
 
     /**
-     * Helper method that returns a random card from Deck that has not been given before
-     * @return --> Card not given before
+     * Helper method that returns a random number whose not exist in numCartes and was added
+     * @return a number thats was added in numCartes
      */
     private int comprovarNumCartes (){
         boolean trobada ;
-        int numcarta;
+        int numCarta;
         do{
             trobada = false;
-            numcarta = (int) (Math.random() * 40 + 1);
-            if (numCartes.isEmpty()){
-                trobada = false;
-            }else {
-                for (Integer x : numCartes) {
-                    if (numcarta == x) {
-                        //System.out.println("carta"+x+" cartaRandom"+numcarta);
-                        trobada = true;
-                    }
-                }
-            }
-            //System.out.println(numcarta);
+            numCarta = (int) (Math.random() * 40);
+            if (!numCartes.isEmpty())
+                if (numCartes.contains(numCarta))
+                    trobada = true;
         }while(trobada);
-        numCartes.add(numcarta-1);
-        return numcarta-1;
+        numCartes.add(numCarta);
+        return numCarta;
     }
 }

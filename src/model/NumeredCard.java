@@ -24,10 +24,6 @@ public class NumeredCard extends Card{
         return super.toString(String.valueOf(this.num));
     }
 
-    @Override
-    public String getDescription() {
-        return this.num+" of "+suit;
-    }
     /**
      * Method to get description from NumeredCard
      * @return a String whose content card information, implements from Card class

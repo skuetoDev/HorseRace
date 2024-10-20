@@ -10,11 +10,6 @@ public class FacedCard extends Card{
         this.face = cardFace;
     }
 
-    @Override
-    public String getDescription() {
-        return this.face.toString()+" of "+suit;
-    }
-
 
     /**
      * Method to get description from facedCard

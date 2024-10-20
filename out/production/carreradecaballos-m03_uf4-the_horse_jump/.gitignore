@@ -1,3 +1,5 @@
 # Default ignored files
+src/Main.java
+out
 /shelf/
 /.idea

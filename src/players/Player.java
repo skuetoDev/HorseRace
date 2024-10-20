@@ -1,14 +1,17 @@
 package src.players;
 
-import src.model.CardSuit;
-
 public abstract class Player  {
 
     //fields
-    private float bet;
+    protected int bet;
 
-    private CardSuit suit;
+    protected String name;
 
 
 
+    //methods
+    public abstract double getBet();
+
+
+    public abstract double setBet();
 }

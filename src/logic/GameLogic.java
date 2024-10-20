@@ -109,7 +109,7 @@ public class GameLogic {
 
 
     private void addPosition(int road){
-        if (horsesPosition[road][9] == 1) {
+        if (horsesPosition[road][column-1] == 1) {
             winner = true;
             return;
         }

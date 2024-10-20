@@ -2,6 +2,8 @@ package src.model;
 
 import java.util.ArrayList;
 
+import static src.helper.Prints.printText;
+
 public class CardsDeck {
     private ArrayList<Card> cardsDeck = new ArrayList<>();
     private int [] num = {1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -59,9 +61,14 @@ public class CardsDeck {
         do{
             trobada = false;
             numCarta = (int) (Math.random() * 40);
-            if (!numCartes.isEmpty())
-                if (numCartes.contains(numCarta))
-                    trobada = true;
+            if(numCartes.size() > 39){
+                numCartes.clear();
+                printText("SHUFFLING AGAIN....\n");
+            }else {
+                if (!numCartes.isEmpty())
+                    if (numCartes.contains(numCarta))
+                        trobada = true;
+            }
         }while(trobada);
         numCartes.add(numCarta);
         return numCarta;

@@ -28,5 +28,14 @@ public class NumeredCard extends Card{
     public String getDescription() {
         return this.num+" of "+suit;
     }
+    /**
+     * Method to get description from NumeredCard
+     * @return a String whose content card information, implements from Card class
+     */
+    @Override
+    public String getDescription() {
+
+        return num + " of " + suit ;
+    }
 
 }

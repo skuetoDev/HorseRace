@@ -58,7 +58,7 @@ public  abstract class Prints {
         for ( int i = 0 ; i <4 ; i ++){
             System.out.println("Player´s " + (i+1) + " name :" + players.get(i).getName());
             System.out.println(players.get(i).getName() + "´s bet :" + players.get(i).getBet() + " €");
-            System.out.println(players.get(i).getName() + " choose " + players.get(i).getHorseSuit() + " as horsesuit\n");
+            System.out.println(players.get(i).getName() + " choose  the horse of " + players.get(i).getHorseSuit() + "\n");
         }
 
     }

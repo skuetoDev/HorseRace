@@ -1,6 +1,5 @@
 package src.logic;
 
-import src.helper.Prints;
 import src.players.*;
 
 import java.util.ArrayList;
@@ -30,6 +29,7 @@ public class Croupier {
     public void configureUsers() {
         boolean exit = false;
         printWelcome();
+        printHorseRace();
         do {
         printText("How many users are Human? (1-4)");
         int users = getInt();
@@ -38,6 +38,9 @@ public class Croupier {
                 createHumanPlayers(users);
                 createBotPlayers(users);
                 printPlayers(players);
+                printText(" GAME  IS ABOUT TO START....\n");
+                GameLogic horseRace = new GameLogic();
+                horseRace.horseMovemnt();
                 //continuar
                 exit = true;
 

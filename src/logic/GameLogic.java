@@ -134,9 +134,7 @@ public class GameLogic {
             }
         }
     }
-    // a eliminar
-    public int[][] getHorsesPosition() {
-        return horsesPosition;
-    }
+
+
 }
 

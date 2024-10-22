@@ -76,16 +76,18 @@ public class GameLogic {
             round++;
             if (round % 5 == 0) {
                 printTextNumber(croupierVoice() + "ROUND " + restore(), round);
+                printTextLineBreak(croupierVoice() + "JUMP BACKWARD" + restore());
                 pauseSelection(1);
                 bakckward(card);
                 halfPause(1);
-                printTextLineBreak(croupierVoice() + "JUMP BACKWARD" + restore());
+
             } else {
                 printTextNumber("ROUND : ", round);
+                printTextLineBreak(croupierVoice() + "JUMP FORDWARD" + restore());
                 pauseSelection(1);
                 fordward(card);
                 halfPause(1);
-                printTextLineBreak(croupierVoice() + "JUMP FORDWARD" + restore());
+
             }
         } while (!winner);
     }
@@ -105,6 +107,7 @@ public class GameLogic {
         suit = String.valueOf(card.getSuit());
         switch (suit) {
             case "GOLD":
+                //
                 addPosition(1, goldYellow());
                 break;
             case "CLUBS":

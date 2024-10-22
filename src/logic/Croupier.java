@@ -5,6 +5,7 @@ import players.*;
 import java.util.ArrayList;
 
 import static helper.Colour.croupierVoice;
+import static helper.Colour.restore;
 import static helper.Pause.*;
 import static helper.Prints.*;
 import static helper.Reads.*;
@@ -41,17 +42,22 @@ public class Croupier {
 
             if (users >= 1 && users <= 4) {
                 createHumanPlayers(users);
+
                 createBotPlayers(users);
+
                 printPlayers(players);
+
                 printJackpotMessage(jackpotSum(players));
+
                 GameLogic horseRace = new GameLogic();
                 horseRace.horseMovemnt();
+
                 if(horseRace.winner){
                     printTextLineBreak(croupierVoice() + "FINISH");
-                    printTextLineBreak("THE \u001B[33mTHE CUP ♞" + croupierVoice() + "CHAMPION IS");
+                    printTextLineBreak("THE \u001B[33mTHE CUP ♞ " + croupierVoice() + "´S CHAMPION IS");
                     dotsLineBreak();
-                    printTextLineBreak(croupierVoice() + "THE HORSE OF " + horseRace.championSuit);
-                    printTextLineBreak("THEREFORE THE WINNER OF THE JACKPOT IS");
+                    printTextLineBreak(croupierVoice() + "THE HORSE OF "+restore() + horseRace.championSuit);
+                    printTextLineBreak(croupierVoice()+"THEREFORE THE WINNER OF THE JACKPOT IS"+restore());
                     dotsLineBreak();
                     printText(playerSuit(horseRace.championSuit));
                 }
@@ -67,9 +73,9 @@ public class Croupier {
 
     private void createHumanPlayers(int humanPlayer){
         for (int i = 0; i < humanPlayer; i++) {
-            printTextNumber("\u001B[34mNAME OF PLAYER ", (i + 1));
+            printTextNumber(croupierVoice()+"NAME OF PLAYER "+restore(), (i + 1));
             String namePlayer = getText();
-            printTextLineBreak(namePlayer + "´S BET\u001B[0m");
+            printTextLineBreak(croupierVoice()+namePlayer + "´S BET"+restore());
             pauseSelection(1);
             int bet = getInt();
             boolean exit = false;

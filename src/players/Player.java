@@ -1,6 +1,6 @@
-package src.players;
+package players;
 
-import src.model.CardSuit;
+import model.CardSuit;
 
 public abstract class Player  {
 

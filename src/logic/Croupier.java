@@ -1,11 +1,13 @@
-package src.logic;
+package logic;
 
-import src.players.*;
+import players.*;
 
 import java.util.ArrayList;
 
-import static src.helper.Prints.*;
-import static src.helper.Reads.*;
+import static helper.Colour.croupierVoice;
+import static helper.Pause.*;
+import static helper.Prints.*;
+import static helper.Reads.*;
 
 
 public class Croupier {
@@ -14,6 +16,7 @@ public class Croupier {
     //fields
     private int balance;
     private ArrayList<Player> players;
+    private int jackpot ;
 
 
     //constructor
@@ -29,19 +32,29 @@ public class Croupier {
     public void configureUsers() {
         boolean exit = false;
         printWelcome();
+        pauseSelection(2);
         printHorseRace();
+        pauseLineBreak(1);
         do {
-        printText("How many users are Human? (1-4)");
+        printTextLineBreak("\u001B[34m HOW MANY PLAYERS ARE HUMAN? (1-4)\u001B[0m");
         int users = getInt();
 
             if (users >= 1 && users <= 4) {
                 createHumanPlayers(users);
                 createBotPlayers(users);
                 printPlayers(players);
-                printText(" GAME  IS ABOUT TO START....\n");
+                printJackpotMessage(jackpotSum(players));
                 GameLogic horseRace = new GameLogic();
                 horseRace.horseMovemnt();
-                //continuar
+                if(horseRace.winner){
+                    printTextLineBreak(croupierVoice() + "FINISH");
+                    printTextLineBreak("THE \u001B[33mTHE CUP ♞" + croupierVoice() + "CHAMPION IS");
+                    dotsLineBreak();
+                    printTextLineBreak(croupierVoice() + "THE HORSE OF " + horseRace.championSuit);
+                    printTextLineBreak("THEREFORE THE WINNER OF THE JACKPOT IS");
+                    dotsLineBreak();
+                    printText(playerSuit(horseRace.championSuit));
+                }
                 exit = true;
 
             } else {
@@ -54,9 +67,10 @@ public class Croupier {
 
     private void createHumanPlayers(int humanPlayer){
         for (int i = 0; i < humanPlayer; i++) {
-            printTextNumber("Name of Player ", (i + 1));
+            printTextNumber("\u001B[34mNAME OF PLAYER ", (i + 1));
             String namePlayer = getText();
-            printText(namePlayer + "´s bet");
+            printTextLineBreak(namePlayer + "´S BET\u001B[0m");
+            pauseSelection(1);
             int bet = getInt();
             boolean exit = false;
             while (!exit) {
@@ -67,7 +81,7 @@ public class Croupier {
                     players.add(human);
                     exit = true;
                 }else{
-                    printText("This suit is already chosen, please choose another.");
+                    printTextLineBreak("This suit is already chosen, please choose another.");
                 }
             }
 
@@ -104,5 +118,25 @@ public class Croupier {
         }
         return false;
 
+    }
+
+    private int jackpotSum (ArrayList<Player> players){
+        int jackpotSum = 0;
+
+        for( Player x : players){
+            jackpotSum += x.getBet();
+        }
+
+        return jackpotSum;
+    }
+    private String playerSuit(String suit){
+        String name= "";
+        for (Player p : players) {
+            if (p.getHorseSuit().equalsIgnoreCase(suit)) {
+                name= p.getName();
+            }
+        }
+
+        return name;
     }
 }

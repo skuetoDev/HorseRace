@@ -1,4 +1,4 @@
-package src.model;
+package model;
 
 //jack(sota), knight(caballo) y king(rey)
 public enum CardFace {

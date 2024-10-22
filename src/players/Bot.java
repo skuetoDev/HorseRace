@@ -1,11 +1,11 @@
-package src.players;
-import src.model.CardSuit;
+package players;
+import model.CardSuit;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Bot extends Player{
+public class Bot extends Player {
     private Random random ;
     private BotName[] names = {BotName.DAENERYS, BotName.ARIA, BotName.JOHN};
     private CardSuit[] horseSuit = {CardSuit.CLUBS, CardSuit.CUPS,CardSuit.GOLD,CardSuit.SWORDS};

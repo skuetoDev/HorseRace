@@ -1,8 +1,8 @@
-package src.model;
+package model;
 
 import java.util.ArrayList;
 
-import static src.helper.Prints.printText;
+import static helper.Prints.printTextLineBreak;
 
 public class CardsDeck {
     private ArrayList<Card> cardsDeck = new ArrayList<>();
@@ -63,7 +63,7 @@ public class CardsDeck {
             numCarta = (int) (Math.random() * 40);
             if(numCartes.size() > 39){
                 numCartes.clear();
-                printText("SHUFFLING AGAIN....\n");
+                printTextLineBreak("SHUFFLING AGAIN....\n");
             }else {
                 if (!numCartes.isEmpty())
                     if (numCartes.contains(numCarta))

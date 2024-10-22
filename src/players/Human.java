@@ -1,9 +1,9 @@
-package src.players;
+package players;
 
-import src.model.CardSuit;
+import model.CardSuit;
 
 import static java.lang.String.valueOf;
-import static src.helper.Prints.printText;
+import static helper.Prints.printTextLineBreak;
 
 public class Human extends Player {
 
@@ -47,7 +47,7 @@ public class Human extends Player {
                 suit = valueOf(CardSuit.SWORDS);
                 break;
             default:
-                printText("Error: 3");
+                printTextLineBreak("Error: 3");
                 break;
         }
         return suit;

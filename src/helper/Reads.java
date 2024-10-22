@@ -1,9 +1,9 @@
-package src.helper;
+package helper;
 
 import java.util.Scanner;
 
-import static src.helper.Prints.printValidNumber;
-import static src.helper.Prints.printValidText;
+import static helper.Prints.printValidNumber;
+import static helper.Prints.printValidText;
 
 public class Reads {
     static Scanner input = new Scanner(System.in);

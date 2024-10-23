@@ -50,7 +50,7 @@ public class Croupier {
             printJackpotMessage();
 
             GameLogic horseRace = new GameLogic();
-            horseRace.horseMovemnt();
+
 
             if (isWinner()) {
                 printWinner();

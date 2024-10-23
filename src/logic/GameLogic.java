@@ -8,111 +8,78 @@ import static helper.Colour.*;
 import static helper.Pause.*;
 import static helper.Prints.*;
 import static logic.Croupier.*;
+import static logic.GameBoard.placeHorseOnBoard;
 
 
 public class GameLogic {
 
     //fields
-    private int row = 9;
-    private int column = 81;
-    protected String[][] board;
+    private static int row = 4;
+    private static int column = 10;
+    protected static int [][] horsePositions;
     private static int round = 0;
     private CardsDeck cardsDeck;
     private static Card card;
     private static boolean winner = false;
     private static String championSuit = "";
-
-
+    private GameBoard gameBoard;
 
     //constructor
     public GameLogic() {
-        board = new String[row][column];
+        horsePositions = new int[row][column];
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
-                if (i % 2 == 0) {
-                    // Filas impares para asteriscos y guiones
-                    if (j == 2) {
-                        board[i][j] = "     ";
-                    } else if (j % 8 == 0 & j > 0) {
-                        board[i][j] = "\u001B[95m*\u001B[0m";
-                    } else if (j > 8) {
-                        board[i][j] = "\u001B[94m─\u001B[0m";
-                    } else {
-                        board[i][j] = " ";
-                    }
-                } else {
-                    // Filas de celdas para nombres y
-                    if (i == 1 && j == 3) {
-                        board[i][j] = goldYellow() + "GOLD " + restore();
-                    } else if (i == 1 && j == 12) {
-                        board[i][j] = goldYellow() + "█" + restore();
-                    } else if (i == 3 && j == 3) {
-                        board[i][j] = clubGreen() + "CLUBS" + restore();
-                    } else if (i == 3 && j == 12) {
-                        board[3][12] = clubGreen() + "█" + restore();
-                    } else if (i == 5 && j == 3) {
-                        board[i][j] = cupRed() + "CUPS " + restore();
-                    } else if (i == 5 && j == 12) {
-                        board[5][12] = cupRed() + "█" + restore();
-                    } else if (i == 7 && j == 3) {
-                        board[i][j] = swordBlue() + "SWORD" + restore();
-                    } else if (i == 7 && j == 12) {
-                        board[7][12] = swordBlue() + "█" + restore();
-                    } else if (j % 8 == 0 && j > 0) {
-                        board[i][j] = "\u001B[34m│\u001B[0m";
-                    } else {
-                        board[i][j] = " ";
-                    }
+                if (j == 0){
+                    horsePositions[i][j] = 1;
+                }else{
+                    horsePositions[i][j] = 0;
                 }
             }
-
         }
-        printPositions(board, row, column);
         cardsDeck = new CardsDeck();
+        gameBoard = new GameBoard();
+        gameMovement();
     }
 
-    public void horseMovemnt() {
+    private void gameMovement(){
         do {
             card = cardsDeck.getCardFromDeck();
             round++;
             printRoundNumber();
             printPullCard();
             String suit = String.valueOf(card.getSuit());
-
-            switch (suit) {
+            switch (suit){
                 case "GOLD":
                     if ((round % 5 == 0)) {
-                        bakckward(1, goldYellow());
+                        bakckward(0);
                     } else {
-                        fordward(1, goldYellow());
+                        fordward(0);
                     }
                     break;
                 case "CLUBS":
                     if ((round % 5 == 0)) {
-                        bakckward(3, clubGreen());
+                        bakckward(1);
                     } else {
-                        fordward(3, clubGreen());
+                        fordward(1);
                     }
                     break;
                 case "CUPS":
                     if ((round % 5 == 0)) {
-                        bakckward(5, cupRed());
+                        bakckward(2);
                     } else {
-                        fordward(5, cupRed());
+                        fordward(2);
                     }
                     break;
                 case "SWORDS":
                     if ((round % 5 == 0)) {
-                        bakckward(7, swordBlue());
+                        bakckward(3);
                     } else {
-                        fordward(7, swordBlue());
+                        fordward(3);
                     }
                     break;
-                default:
-                    printError();
-                    break;
+
             }
-        } while (!winner);
+        }while(!winner);
     }
 
 
@@ -121,54 +88,60 @@ public class GameLogic {
      *
      * @param road from the deck to get the suit
      */
-    private void fordward(int road, String color) {
-        String simbol = "█";
+    private void fordward(int road) {
 
-        if (board[road][76].contains(simbol)) {
+
+        if (horsePositions[road][9] == 1) {
             winner = true;
             championSuit = championSuit(road);
             setPlayerWin(playerSuit(championSuit));
             return;
         }
-        for (int j = 0; j < board[road].length; j++) {
-            if (board[road][j].contains(simbol)) {
-                board[road][j + 8] = color + simbol + restore();
-                board[road][j] = " ";
+        for (int j = 0; j < horsePositions[road].length; j++) {
+            if (horsePositions[road][j] == 1) {
+                horsePositions[road][j + 1] = 1;
+                horsePositions[road][j] = 0;
                 break;
             }
         }
         printFordward();
-        printPositions(board, row, column);
+        placeHorseOnBoard(horsePositions);
+        printViewBoard();
+        //printHorsesPosition();
         pauseLineBreak(1);
     }
 
-    private void bakckward(int road, String color) {
-        String simbol = "█";
+    private void bakckward(int road) {
 
-        if (board[road][12].contains(simbol)) {
+
+        if (horsePositions[road][0] == 1) {
             printNoMovement();
-            printPositions(board, row, column);
+            placeHorseOnBoard(horsePositions);
+            printViewBoard();
+            //printHorsesPosition();
             return;
         }
-        for (int j = 0; j < board[road].length; j++) {
-            if (board[road][j].contains(simbol)) {
-                board[road][j - 8] = color + simbol + restore();
-                board[road][j] = " ";
+        for (int j = 0; j < getHorsePositions().length; j++) {
+            if (horsePositions[road][j] == 1) {
+                horsePositions[road][j - 1] = 1;
+                horsePositions[road][j] = 0;
                 break;
             }
         }
         printBackward();
-        printPositions(board, row, column);
+        placeHorseOnBoard(horsePositions);
+        printViewBoard();
+        //printHorsesPosition();
         pauseLineBreak(1);
     }
 
 
     private String championSuit(int road) {
         return switch (road) {
-            case 1 -> "GOLD";
-            case 3 -> "CLUBS";
-            case 5 -> "CUPS";
-            case 7 -> "SWORDS";
+            case 0 -> "GOLD";
+            case 1-> "CLUBS";
+            case 2 -> "CUPS";
+            case 3 -> "SWORDS";
             default -> "ERROR: 3";
         };
     }
@@ -198,5 +171,18 @@ public class GameLogic {
     public static Card getCard() {
         return card;
     }
+
+    public static int getRow() {
+        return row;
+    }
+
+    public static int getColumn() {
+        return column;
+    }
+
+    public static int[][] getHorsePositions() {
+        return horsePositions;
+    }
 }
+
 

@@ -11,31 +11,45 @@ import java.util.Arrays;
 import static helper.Colour.*;
 import static helper.Pause.*;
 import static logic.Croupier.*;
+import static logic.GameBoard.*;
 import static logic.GameLogic.*;
 
 public abstract class Prints {
 
-    public static void printPositions(String[][] board, int row, int column) {
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
-                System.out.print(board[i][j]);
+    public static void printBoard(){
+
+    }
+
+    /**
+     * Method to prin array of ints horsesPositions
+     */
+    /**
+    public static void printHorsesPosition(){
+        for (int i = 0; i < getRow(); i++) {
+            for (int j = 0; j < getColumn(); j++) {
+                System.out.print(getHorsePositions()[i][j]);
+            }
+            System.out.println();
+        }
+
+    }
+    */
+
+
+        // PARA BORRAR
+    public static void printViewBoard() {
+        for (int i = 0; i < getRowGameBoard(); i++) {
+            for (int j = 0; j < getColumnGameBoard(); j++) {
+                System.out.print(getBoard()[i][j]);
             }
             System.out.println();
         }
     }
 
-    // basic methods prints
     public static void printCard(Card card) {
         System.out.println(card.getDescription());
         dotsLineBreak();
     }
-
-
-    public static void printTextLineBreak(String text) {
-        System.out.println(text);
-    }
-
-
 
     // question prints
 
@@ -109,13 +123,12 @@ public abstract class Prints {
 
     public static void printJackpotMessage() {
         int jackpotSum = getJackpot();
-        System.out.print(croupierVoice() + "ACUMULATED "+goldYellow()+"JACKPOT"+croupierVoice() + "IS" + restore());
+        System.out.print(croupierVoice() + "ACUMULATED " + goldYellow() + "JACKPOT" + croupierVoice() + " IS " + restore());
         dotsPause();
-        System.out.println(jackpotSum+" €");
-        System.out.println(croupierVoice() + "THE WINNER WILL WIN "+goldYellow()+"THE CUP ♞"+restore() );
-        pauseSelection(1);
-        System.out.print(croupierVoice()+"AND "+goldYellow()+"THE JACKPOT " + restore());
+        System.out.println(jackpotSum + " €");
         pauseLineBreak(1);
+        System.out.println(croupierVoice() + "THE WINNER WILL WIN " + goldYellow() + "THE JACKPOT " + restore());
+        dotsLineBreak();
         System.out.print(croupierVoice() + "GAME  IS ABOUT TO START" + restore());
         dotsLineBreak();
     }
@@ -123,36 +136,38 @@ public abstract class Prints {
     public static void printWinner() {
         System.out.println(croupierVoice() + "\nFINISH ");
         dotsLineBreak();
-        System.out.println("THE WINNER OF THE "+goldYellow()+"THE CUP ♞ " + croupierVoice() + " IS");
-        dotsLineBreak();
-        System.out.println(croupierVoice() + "THE HORSE OF " + restore() + getChampionSuit());
-        pauseSelection(1);
-        System.out.print(croupierVoice() + "THAT MEANS THAT THE WINNER OF "+goldYellow()+"THE JACKPOT "+croupierVoice()+"IS" + restore());
+        System.out.print("THE WINNER IS  ");
+        dotsPause();
+        System.out.println(goldYellow() + "♞ " + croupierVoice() + "THE HORSE OF " + restore() + getChampionSuit() + goldYellow() + " ♞");
+        pauseLineBreak(1);
+        System.out.println(croupierVoice() + "THAT MEANS THAT "+restore());
         dotsPause();
         System.out.print(getPlayerWin());
-        System.out.println(croupierVoice()+" AND THE GAIN IS : "+ restore()+getJackpot()+" €");
+        System.out.print(croupierVoice() + " WILL TAKE "+goldYellow() + "THE JACKPOT" + croupierVoice() + " AND GET " + restore()+ getJackpot() + " €");
+
     }
 
     public static void printRoundNumber() {
-        System.out.print(croupierVoice() + "ROUND " + numbers() + getRound()+restore());
+        System.out.println(croupierVoice() + "ROUND " + numbers() + getRound() + restore());
         dotsLineBreak();
 
 
     }
 
     public static void printBackward() {
-        System.out.println(croupierVoice()+"JUMP BACKWARD" + restore());
+        System.out.println(croupierVoice() + "JUMP BACKWARD" + restore());
         pauseLineBreak(1);
 
     }
+
     public static void printFordward() {
-        System.out.println(croupierVoice()+"JUMP FORDWARD" + restore());
+        System.out.println(croupierVoice() + "JUMP FORDWARD" + restore());
         pauseLineBreak(1);
 
     }
 
-    public static void printNoMovement(){
-        System.out.println(croupierVoice()+"NO MOVEMENT"+restore());
+    public static void printNoMovement() {
+        System.out.println(croupierVoice() + "NO MOVEMENT" + restore());
     }
 
     public static void printPullCard() {
@@ -160,6 +175,11 @@ public abstract class Prints {
         dotsPause();
         printCard(getCard());
 
+    }
+
+    public static void printShuffling() {
+        System.out.println(croupierVoice() + "SHUFFLING AGAIN" + restore());
+        dotsLineBreak();
     }
 
     // Error prints
@@ -171,9 +191,6 @@ public abstract class Prints {
         System.out.println("Please introduce a valid Number");
     }
 
-    public static void printOutOfRange() {
-        System.out.println("Please, enter a valid Range");
-    }
 
     public static void printSuitChoosen() {
         System.out.println("This suit is already chosen, please choose another.");

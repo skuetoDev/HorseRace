@@ -8,34 +8,39 @@ import static helper.Prints.printValidText;
 public class Reads {
     static Scanner input = new Scanner(System.in);
 
-    public static String getText (){
+    public static String getText() {
         String text = "";
         boolean exit = false;
         do {
-            if(input.hasNextLine()) {
+            if (input.hasNextLine()) {
                 text = input.nextLine();
                 exit = true;
-            }else{
+            } else {
                 printValidText();
                 input.nextLine();
             }
-        }while(!exit);
+        } while (!exit);
         return text;
     }
 
-    public static int getInt (){
+    public static int getInt(int min, int max) {
         int number = 0;
         boolean exit = false;
         do {
-            if(input.hasNextInt()) {
+            if (input.hasNextInt()) {
                 number = input.nextInt();
-                input.nextLine();
-                exit = true;
-            }else{
+                if (number >= min && number <= max) {
+                    input.nextLine();
+                    exit = true;
+                } else {
+                    printValidNumber();
+                }
+
+            } else {
                 printValidNumber();
                 input.nextLine();
             }
-        }while(!exit);
+        } while (!exit);
         return number;
     }
 }

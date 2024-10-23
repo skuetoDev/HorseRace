@@ -7,6 +7,7 @@ import players.Player;
 import static helper.Colour.*;
 import static helper.Pause.*;
 import static helper.Prints.*;
+import static logic.Croupier.*;
 
 
 public class GameLogic {
@@ -15,11 +16,11 @@ public class GameLogic {
     private int row = 9;
     private int column = 81;
     protected String[][] board;
-    private int round = 0;
+    private static int round = 0;
     private CardsDeck cardsDeck;
-    private Card card;
-    boolean winner = false;
-    String championSuit = "";
+    private static Card card;
+    private static boolean winner = false;
+    private static String championSuit = "";
 
 
 
@@ -74,20 +75,42 @@ public class GameLogic {
         do {
             card = cardsDeck.getCardFromDeck();
             round++;
-            if (round % 5 == 0) {
-                printTextNumber(croupierVoice() + "ROUND " + restore(), round);
-                printTextLineBreak(croupierVoice() + "JUMP BACKWARD" + restore());
-                pauseSelection(1);
-                bakckward(card);
-                halfPause(1);
+            printRoundNumber();
+            printPullCard();
+            String suit = String.valueOf(card.getSuit());
 
-            } else {
-                printTextNumber("ROUND : ", round);
-                printTextLineBreak(croupierVoice() + "JUMP FORDWARD" + restore());
-                pauseSelection(1);
-                fordward(card);
-                halfPause(1);
-
+            switch (suit) {
+                case "GOLD":
+                    if ((round % 5 == 0)) {
+                        bakckward(1, goldYellow());
+                    } else {
+                        fordward(1, goldYellow());
+                    }
+                    break;
+                case "CLUBS":
+                    if ((round % 5 == 0)) {
+                        bakckward(3, clubGreen());
+                    } else {
+                        fordward(3, clubGreen());
+                    }
+                    break;
+                case "CUPS":
+                    if ((round % 5 == 0)) {
+                        bakckward(5, cupRed());
+                    } else {
+                        fordward(5, cupRed());
+                    }
+                    break;
+                case "SWORDS":
+                    if ((round % 5 == 0)) {
+                        bakckward(7, swordBlue());
+                    } else {
+                        fordward(7, swordBlue());
+                    }
+                    break;
+                default:
+                    printError();
+                    break;
             }
         } while (!winner);
     }
@@ -96,73 +119,15 @@ public class GameLogic {
     /**
      * Method to add one position in horsesPosition array, no matter what suit it was
      *
-     * @param card from the deck to get the suit
+     * @param road from the deck to get the suit
      */
-    private void fordward(Card card) {
-        String suit;
-        printText("PULLING A CARD");
-        dotsLineBreak();
-        printCard(card);
-        pauseLineBreak(1);
-        suit = String.valueOf(card.getSuit());
-        switch (suit) {
-            case "GOLD":
-                //
-                addPosition(1, goldYellow());
-                break;
-            case "CLUBS":
-                addPosition(3, clubGreen());
-                break;
-            case "CUPS":
-                addPosition(5, cupRed());
-                break;
-            case "SWORDS":
-                addPosition(7, swordBlue());
-                break;
-            default:
-                printTextNumber("ERROR: ", 1);
-                break;
-        }
-        printPositions(board, row, column);
-        pauseLineBreak(1);
-    }
-
-    private void bakckward(Card card) {
-        String suit;
-        printText("PULLING A CARD");
-        dotsLineBreak();
-        printCard(card);
-        pauseLineBreak(1);
-        suit = String.valueOf(card.getSuit());
-        switch (suit) {
-            case "GOLD":
-                subPosition(1, goldYellow());
-                break;
-            case "CLUBS":
-                subPosition(3, clubGreen());
-                break;
-            case "CUPS":
-                subPosition(5, cupRed());
-                break;
-            case "SWORDS":
-                subPosition(7, swordBlue());
-                break;
-            default:
-                printTextNumber("ERROR: ", 2);
-                break;
-        }
-        printPositions(board, row, column);
-        pauseLineBreak(1);
-    }
-
-
-    private void addPosition(int road, String color) {
+    private void fordward(int road, String color) {
         String simbol = "█";
 
         if (board[road][76].contains(simbol)) {
             winner = true;
             championSuit = championSuit(road);
-
+            setPlayerWin(playerSuit(championSuit));
             return;
         }
         for (int j = 0; j < board[road].length; j++) {
@@ -172,12 +137,17 @@ public class GameLogic {
                 break;
             }
         }
+        printFordward();
+        printPositions(board, row, column);
+        pauseLineBreak(1);
     }
 
-    private void subPosition(int road, String color) {
+    private void bakckward(int road, String color) {
         String simbol = "█";
 
         if (board[road][12].contains(simbol)) {
+            printNoMovement();
+            printPositions(board, row, column);
             return;
         }
         for (int j = 0; j < board[road].length; j++) {
@@ -187,7 +157,11 @@ public class GameLogic {
                 break;
             }
         }
+        printBackward();
+        printPositions(board, row, column);
+        pauseLineBreak(1);
     }
+
 
     private String championSuit(int road) {
         return switch (road) {
@@ -197,6 +171,32 @@ public class GameLogic {
             case 7 -> "SWORDS";
             default -> "ERROR: 3";
         };
+    }
+
+    private String playerSuit(String suit) {
+         String winnerName= "";
+        for (Player p : getPlayers()) {
+            if (p.getHorseSuit().equalsIgnoreCase(suit)) {
+                winnerName = p.getName();
+            }
+        }
+        return winnerName;
+    }
+
+    public static String getChampionSuit() {
+        return championSuit;
+    }
+
+    public static boolean isWinner() {
+        return winner;
+    }
+
+    public static int getRound() {
+        return round;
+    }
+
+    public static Card getCard() {
+        return card;
     }
 }
 

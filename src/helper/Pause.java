@@ -36,7 +36,7 @@ public class Pause {
         halfPause(1);
         System.out.print(".");
         halfPause(1);
-        System.out.print(".");
+        System.out.print(". ");
     }
 
     public static void dotsLineBreak(){

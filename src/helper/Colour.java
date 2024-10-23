@@ -22,4 +22,8 @@ public class Colour {
         return "\u001B[34m";
     }
 
+    public static String numbers(){
+        return "\u001B[95m";
+    }
+
 }

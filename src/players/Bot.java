@@ -18,7 +18,7 @@ public class Bot extends Player {
     public Bot (){
         random = new Random();
         super.name = botRandomName();
-        super.bet =  1 +(random.nextInt(50));
+        super.bet =  1 +(random.nextInt(100));
         super.horseSuit = botRandomeHorseSuit();
     }
     //Methods

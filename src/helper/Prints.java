@@ -16,27 +16,23 @@ import static logic.GameLogic.*;
 
 public abstract class Prints {
 
-    public static void printBoard(){
-
-    }
 
     /**
-     * Method to prin array of ints horsesPositions
+     * // method to print only the array horses position to check
+     * public static void printHorsesPosition(){
+     * for (int i = 0; i < getRow(); i++) {
+     * for (int j = 0; j < getColumn(); j++) {
+     * System.out.print(getHorsePositions()[i][j]);
+     * }
+     * System.out.println();
+     * }
+     * <p>
+     * }
      */
+
     /**
-    public static void printHorsesPosition(){
-        for (int i = 0; i < getRow(); i++) {
-            for (int j = 0; j < getColumn(); j++) {
-                System.out.print(getHorsePositions()[i][j]);
-            }
-            System.out.println();
-        }
-
-    }
-    */
-
-
-        // PARA BORRAR
+     * Static method to print only the array that represent the race
+     */
     public static void printViewBoard() {
         for (int i = 0; i < getRowGameBoard(); i++) {
             for (int j = 0; j < getColumnGameBoard(); j++) {
@@ -46,12 +42,17 @@ public abstract class Prints {
         }
     }
 
+    /**
+     * Static method to prin a object Card
+     * @param card to print
+     */
     public static void printCard(Card card) {
         System.out.println(card.getDescription());
         dotsLineBreak();
     }
 
     // question prints
+
 
     public static void printQuestionPlayerHuman() {
         System.out.println(croupierVoice() + "HOW MANY PLAYERS ARE HUMAN? (1-4)" + restore());
@@ -96,7 +97,9 @@ public abstract class Prints {
                          """);
     }
 
-
+    /**
+     * Method to print a table with all the players who play game ( humans and bots)
+     */
     public static void printPlayers() {
         ArrayList<Player> players = getPlayers();
         System.out.println("\n ╔═══\u001B[33m♞\u001B[0m═════════\u001B[34mTHE PLAYERS\u001B[0m═════════\u001B[33m♞\u001B[0m═══╗");
@@ -140,10 +143,10 @@ public abstract class Prints {
         dotsPause();
         System.out.println(goldYellow() + "♞ " + croupierVoice() + "THE HORSE OF " + restore() + getChampionSuit() + goldYellow() + " ♞");
         pauseLineBreak(1);
-        System.out.println(croupierVoice() + "THAT MEANS THAT "+restore());
+        System.out.println(croupierVoice() + "THAT MEANS THAT " + restore());
         dotsPause();
         System.out.print(getPlayerWin());
-        System.out.print(croupierVoice() + " WILL TAKE "+goldYellow() + "THE JACKPOT" + croupierVoice() + " AND GET " + restore()+ getJackpot() + " €");
+        System.out.print(croupierVoice() + " WILL TAKE " + goldYellow() + "THE JACKPOT" + croupierVoice() + " AND GET " + restore() + getJackpot() + " €");
 
     }
 

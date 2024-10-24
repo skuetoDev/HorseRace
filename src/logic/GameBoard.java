@@ -2,9 +2,7 @@ package logic;
 
 import static helper.Colour.*;
 import static helper.Colour.restore;
-import static helper.Pause.pauseLineBreak;
-import static helper.Prints.*;
-import static logic.Croupier.setPlayerWin;
+
 import static logic.GameLogic.*;
 
 public class GameBoard {
@@ -39,13 +37,13 @@ public class GameBoard {
                     }
                 } else {
                     // suits in start game
-                    if (i == 1 && j == 3) {
+                    if (i == 1 && j == 2) {
                         board[i][j] = goldYellow() + "GOLD " + restore();
-                    } else if (i == 3 && j == 3) {
+                    } else if (i == 3 && j == 2) {
                         board[i][j] = clubGreen() + "CLUBS" + restore();
-                    } else if (i == 5 && j == 3) {
+                    } else if (i == 5 && j == 2) {
                         board[i][j] = cupRed() + "CUPS " + restore();
-                    } else if (i == 7 && j == 3) {
+                    } else if (i == 7 && j == 2) {
                         board[i][j] = swordBlue() + "SWORD" + restore();
                         //vertical separator
                     } else if (j % 8 == 0 && j > 0) {
@@ -62,7 +60,7 @@ public class GameBoard {
     protected static void placeHorseOnBoard(int[][] horsePositions) {
         //to clean old positions
         for (int i = 1; i < row; i += 2) {
-            for (int j = 12; j < column; j += 8) {
+            for (int j = 4; j < column; j += 8) {
                 board[i][j] = " ";
             }
         }
@@ -71,10 +69,7 @@ public class GameBoard {
             for (int j = 0; j < horsePositions[i].length; j++) {
                 if (horsePositions[i][j] == 1) {
                     int boardRow = getSuitRow(i);
-                    int boardColumn = 12 + j * 8;
-                    if (boardColumn >= getColumnGameBoard()) {
-                        break;
-                    }
+                    int boardColumn = 4 + j * 8;
                     if (i == 0) {
                         board[boardRow][boardColumn] = goldYellow() + "█" + restore();
                     } else if (i == 1) {

@@ -4,7 +4,6 @@ import model.Card;
 import model.CardsDeck;
 import players.Player;
 
-import static helper.Colour.*;
 import static helper.Pause.*;
 import static helper.Prints.*;
 import static logic.Croupier.*;
@@ -16,7 +15,7 @@ public class GameLogic {
     //fields
     private static int row = 4;
     private static int column = 10;
-    protected static int [][] horsePositions;
+    protected static int[][] horsePositions;
     private static int round = 0;
     private CardsDeck cardsDeck;
     private static Card card;
@@ -29,57 +28,60 @@ public class GameLogic {
         horsePositions = new int[row][column];
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
-                if (j == 0){
+                if (j == 0) {
                     horsePositions[i][j] = 1;
-                }else{
+                } else {
                     horsePositions[i][j] = 0;
                 }
             }
         }
         cardsDeck = new CardsDeck();
         gameBoard = new GameBoard();
+        placeHorseOnBoard(horsePositions);
+        printViewBoard();
         gameMovement();
+
     }
 
-    private void gameMovement(){
+    private void gameMovement() {
         do {
             card = cardsDeck.getCardFromDeck();
             round++;
             printRoundNumber();
             printPullCard();
             String suit = String.valueOf(card.getSuit());
-            switch (suit){
+            switch (suit) {
                 case "GOLD":
                     if ((round % 5 == 0)) {
-                        bakckward(0);
+                        backward(0);
                     } else {
                         fordward(0);
                     }
                     break;
                 case "CLUBS":
                     if ((round % 5 == 0)) {
-                        bakckward(1);
+                        backward(1);
                     } else {
                         fordward(1);
                     }
                     break;
                 case "CUPS":
                     if ((round % 5 == 0)) {
-                        bakckward(2);
+                        backward(2);
                     } else {
                         fordward(2);
                     }
                     break;
                 case "SWORDS":
                     if ((round % 5 == 0)) {
-                        bakckward(3);
+                        backward(3);
                     } else {
                         fordward(3);
                     }
                     break;
 
             }
-        }while(!winner);
+        } while (!winner);
     }
 
 
@@ -95,6 +97,8 @@ public class GameLogic {
             winner = true;
             championSuit = championSuit(road);
             setPlayerWin(playerSuit(championSuit));
+            placeHorseOnBoard(horsePositions);
+            printViewBoard();
             return;
         }
         for (int j = 0; j < horsePositions[road].length; j++) {
@@ -107,47 +111,58 @@ public class GameLogic {
         printFordward();
         placeHorseOnBoard(horsePositions);
         printViewBoard();
-        //printHorsesPosition();
         pauseLineBreak(1);
     }
 
-    private void bakckward(int road) {
-
-
+    private void backward(int road) {
         if (horsePositions[road][0] == 1) {
             printNoMovement();
             placeHorseOnBoard(horsePositions);
             printViewBoard();
-            //printHorsesPosition();
-            return;
-        }
-        for (int j = 0; j < getHorsePositions().length; j++) {
-            if (horsePositions[road][j] == 1) {
-                horsePositions[road][j - 1] = 1;
-                horsePositions[road][j] = 0;
-                break;
+        }else {
+            for (int j = 0; j < column; j++) {
+                if (horsePositions[road][j] == 1) {
+                    if(j > 0) {
+                        horsePositions[road][j - 1] = 1;
+                        horsePositions[road][j] = 0;
+                        break;
+                    }
+                }
             }
+            printBackward();
+            placeHorseOnBoard(horsePositions);
+            printViewBoard();
+            pauseLineBreak(1);
         }
-        printBackward();
-        placeHorseOnBoard(horsePositions);
-        printViewBoard();
-        //printHorsesPosition();
-        pauseLineBreak(1);
     }
 
 
     private String championSuit(int road) {
-        return switch (road) {
-            case 0 -> "GOLD";
-            case 1-> "CLUBS";
-            case 2 -> "CUPS";
-            case 3 -> "SWORDS";
-            default -> "ERROR: 3";
-        };
+        String suit = "";
+        switch (road) {
+            case 0:
+                suit = "GOLD";
+                break;
+            case 1 :
+                suit = "CLUBS";
+                break;
+            case 2 :
+                suit = "CUPS";
+                break;
+            case 3 :
+                suit = "SWORDS";
+                break;
+            default :
+                suit = "ERROR: 3";
+                break;
+        }
+
+        return suit;
+
     }
 
     private String playerSuit(String suit) {
-         String winnerName= "";
+        String winnerName = "";
         for (Player p : getPlayers()) {
             if (p.getHorseSuit().equalsIgnoreCase(suit)) {
                 winnerName = p.getName();

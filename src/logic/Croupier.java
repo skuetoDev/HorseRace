@@ -1,38 +1,37 @@
 package logic;
 
-import players.*;
+import model.players.*;
 
 import java.util.ArrayList;
 
-import static helper.Colour.*;
 import static helper.Pause.*;
 import static helper.Prints.*;
 import static helper.Reads.*;
 import static logic.GameLogic.isWinner;
 
-
 public class Croupier {
-
 
     //fields
 
     private static ArrayList<Player> players;
     private static int jackpot = 0;
-    private static int users = 0;
     private static String playerWin = "";
 
 
     //constructor
+
     public Croupier() {
         players = new ArrayList<>();
         configureUsers();
-
 
     }
 
     //methods
 
-    public void configureUsers() {
+    /**
+     * method to configure users ( humans and bots)
+     */
+    private void configureUsers() {
         boolean exit = false;
         printWelcome();
         pauseSelection(2);
@@ -40,18 +39,16 @@ public class Croupier {
         pauseLineBreak(1);
         do {
             printQuestionPlayerHuman();
-
-            users = getInt(1, 4);
-
+            int users = getInt(1, 4);
             createHumanPlayers(users);
+
             createBotPlayers(users);
             printPlayers();
             jackpotSum(players);
             printJackpotMessage();
 
+            // create a game horseRace of GameLogic class
             GameLogic horseRace = new GameLogic();
-
-
             if (isWinner()) {
                 printWinner();
                 exit = true;
@@ -60,6 +57,11 @@ public class Croupier {
     }
 
 
+    /**
+     * Method to create human player and add to array players
+     *
+     * @param humanPlayer a player human who is added to array players
+     */
     private void createHumanPlayers(int humanPlayer) {
 
         for (int i = 0; i < humanPlayer; i++) {
@@ -85,8 +87,13 @@ public class Croupier {
 
     }
 
-    private void createBotPlayers(int humanPlayer) {
-        for (int i = humanPlayer; i < 4; i++) {
+    /**
+     * Method to create bot player who not repeated the names of bot and horseSuits chosen and add to array players
+     *
+     * @param botPlayer who is created and added to array players
+     */
+    private void createBotPlayers(int botPlayer) {
+        for (int i = botPlayer; i < 4; i++) {
             boolean exit = false;
             while (!exit) {
                 Bot playerBot = new Bot();
@@ -98,6 +105,13 @@ public class Croupier {
         }
     }
 
+    /**
+     * Method to check if horseSuit was chosen or not
+     *
+     * @param horseSuit to check whether it has been chosen
+     * @return True if is selected
+     * False is not selected
+     */
     private boolean horseSuiteAssigned(String horseSuit) {
         for (Player p : players) {
             if (p.getHorseSuit().equalsIgnoreCase(horseSuit)) {
@@ -107,6 +121,13 @@ public class Croupier {
         return false;
     }
 
+    /**
+     * Method to check if name exist in array players
+     *
+     * @param name to check whether it has been chosen
+     * @return True if is selected
+     * False is not selected
+     */
     private boolean nameAlreadyExists(String name) {
         for (Player p : players) {
             if (p.getName().equalsIgnoreCase(name)) {
@@ -117,6 +138,11 @@ public class Croupier {
 
     }
 
+    /**
+     * Method to add all bets and put in jackpot
+     *
+     * @param players arrayList to get player´s bet
+     */
     private void jackpotSum(ArrayList<Player> players) {
         int jackpotSum = 0;
 
@@ -126,6 +152,8 @@ public class Croupier {
         jackpot = jackpotSum;
 
     }
+
+    //Getters and Setters
 
     public static ArrayList<Player> getPlayers() {
         return players;

@@ -1,6 +1,4 @@
-package players;
-
-import java.util.ArrayList;
+package model.players;
 
 public enum BotName {
     ARIA,

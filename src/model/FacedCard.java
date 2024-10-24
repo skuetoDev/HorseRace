@@ -2,7 +2,7 @@ package model;
 
 public class FacedCard extends Card{
 
-    private CardFace face;
+    private final CardFace face;
 
     public FacedCard(CardFace cardFace, CardSuit pal) {
         super.value = 0.5f;

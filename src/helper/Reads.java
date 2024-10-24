@@ -8,6 +8,11 @@ import static helper.Prints.printValidText;
 public class Reads {
     static Scanner input = new Scanner(System.in);
 
+    /**
+     * Static method to get one String until is not empty
+     *
+     * @return String text
+     */
     public static String getText() {
         String text = "";
         boolean exit = false;
@@ -23,6 +28,13 @@ public class Reads {
         return text;
     }
 
+    /**
+     * Static method to get one number between one range
+     *
+     * @param min int number range accepted
+     * @param max int number range accepted
+     * @return int between min and max numbers
+     */
     public static int getInt(int min, int max) {
         int number = 0;
         boolean exit = false;

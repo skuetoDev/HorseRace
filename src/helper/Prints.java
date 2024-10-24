@@ -1,12 +1,10 @@
 package helper;
 
-
 import model.Card;
 import model.CardSuit;
-import players.Player;
+import model.players.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static helper.Colour.*;
 import static helper.Pause.*;
@@ -17,7 +15,7 @@ import static logic.GameLogic.*;
 public abstract class Prints {
 
 
-    /**
+    /*
      * // method to print only the array horses position to check
      * public static void printHorsesPosition(){
      * for (int i = 0; i < getRow(); i++) {
@@ -43,7 +41,8 @@ public abstract class Prints {
     }
 
     /**
-     * Static method to prin a object Card
+     * Static method to print object Card
+     *
      * @param card to print
      */
     public static void printCard(Card card) {
@@ -51,30 +50,19 @@ public abstract class Prints {
         dotsLineBreak();
     }
 
-    // question prints
-
-
-    public static void printQuestionPlayerHuman() {
-        System.out.println(croupierVoice() + "HOW MANY PLAYERS ARE HUMAN? (1-4)" + restore());
-
-    }
-
-    public static void printQuestionPlayerName() {
-        System.out.println(croupierVoice() + "PLAYER´s NAME " + restore());
-
-    }
-
-    public static void printQuestionPlayerBet() {
-        System.out.println(croupierVoice() + "HOW MUCH DO YOU WANT TO  (1-100)" + restore());
-
-    }
     //especifics methods prints
 
+    /**
+     * Static method to print the entry
+     */
     public static void printWelcome() {
         System.out.print(croupierVoice() + "WELCOME TO " + restore());
         dotsLineBreak();
     }
 
+    /**
+     * Static method to print the entry
+     */
     public static void printHorseRace() {
         System.out.print("""                                                                      
                   _    _                                          
@@ -97,8 +85,35 @@ public abstract class Prints {
                          """);
     }
 
+    // question prints
+
+    public static void printQuestionPlayerHuman() {
+        System.out.println(croupierVoice() + "HOW MANY PLAYERS ARE HUMAN? (1-4)" + restore());
+    }
+
+    public static void printQuestionPlayerName() {
+        System.out.println(croupierVoice() + "PLAYER´s NAME " + restore());
+    }
+
+    public static void printQuestionPlayerBet() {
+        System.out.println(croupierVoice() + "HOW MUCH DO YOU WANT TO  (1-100)" + restore());
+
+    }
+
     /**
-     * Method to print a table with all the players who play game ( humans and bots)
+     * Static method to print a table to choose one horse suit
+     */
+    public static void printHorseSuit() {
+        System.out.println("CHOOSE ONE HORSE SUIT " +
+                goldYellow() + " \n[1] " + CardSuit.GOLD + restore() +
+                clubGreen() + "\n[2] " + CardSuit.CLUBS + restore() +
+                cupRed() + "\n[3] " + CardSuit.CUPS + restore() +
+                swordBlue() + "\n[4] " + CardSuit.SWORDS + restore()
+        );
+    }
+
+    /**
+     * Static method to print a table with all the players who play game ( humans and bots)
      */
     public static void printPlayers() {
         ArrayList<Player> players = getPlayers();
@@ -115,15 +130,9 @@ public abstract class Prints {
 
     }
 
-    public static void printHorseSuit() {
-        System.out.println("CHOOSE ONE HORSE SUIT " +
-                goldYellow() + " \n[1] " + CardSuit.GOLD + restore() +
-                clubGreen() + "\n[2] " + CardSuit.CLUBS + restore() +
-                cupRed() + "\n[3] " + CardSuit.CUPS + restore() +
-                swordBlue() + "\n[4] " + CardSuit.SWORDS + restore()
-        );
-    }
-
+    /**
+     * Static method to print a croupier voice, saying that the game starts and how much is in the jackpot
+     */
     public static void printJackpotMessage() {
         int jackpotSum = getJackpot();
         System.out.print(croupierVoice() + "ACUMULATED " + goldYellow() + "JACKPOT" + croupierVoice() + " IS " + restore());
@@ -136,9 +145,18 @@ public abstract class Prints {
         dotsLineBreak();
     }
 
-    public static void printWinner() {
+    /**
+     * Static method to  print when game is finished
+     */
+    public static void printFinish(){
         System.out.println(croupierVoice() + "\nFINISH ");
         dotsLineBreak();
+    }
+
+    /**
+     * Static method to print a croupier voice, saying that the game is finish, and the player who wins
+     */
+    public static void printWinner() {
         System.out.print("THE WINNER IS  ");
         dotsPause();
         System.out.println(goldYellow() + "♞ " + croupierVoice() + "THE HORSE OF " + restore() + getChampionSuit() + goldYellow() + " ♞");
@@ -150,12 +168,17 @@ public abstract class Prints {
 
     }
 
+    /**
+     * Static method to print rounds
+     */
     public static void printRoundNumber() {
         System.out.println(croupierVoice() + "ROUND " + numbers() + getRound() + restore());
         dotsLineBreak();
 
 
     }
+
+    //Methods to print backwards, fordwards and no movemnts
 
     public static void printBackward() {
         System.out.println(croupierVoice() + "JUMP BACKWARD" + restore());
@@ -173,6 +196,9 @@ public abstract class Prints {
         System.out.println(croupierVoice() + "NO MOVEMENT" + restore());
     }
 
+    /**
+     * Static method to print when the croupier when pull a card from deck
+     */
     public static void printPullCard() {
         System.out.print(croupierVoice() + "PULLING A CARD" + restore());
         dotsPause();
@@ -180,6 +206,9 @@ public abstract class Prints {
 
     }
 
+    /**
+     * Static method to print when de deck is empty and needs to be shuffling.
+     */
     public static void printShuffling() {
         System.out.println(croupierVoice() + "SHUFFLING AGAIN" + restore());
         dotsLineBreak();

@@ -7,25 +7,27 @@ import static logic.GameLogic.*;
 
 public class GameBoard {
 
-    private static int row = 9;
-    private static int column = 81;
+    //fields
+
+    private static final int row = 9;
+    private static final int column = 81;
     private static String[][] board;
 
+    //constructor
 
     public GameBoard() {
         board = new String[row][column];
-
         initializeBoard();
         placeHorseOnBoard(horsePositions);
-
     }
 
-
+    /**
+     * Method to create an array double of Strings (board) with the view of the game
+     */
     private void initializeBoard() {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
-                if (i % 2 == 0) {
-                    //Borders
+                if (i % 2 == 0) { //Borders
                     if (j == 2) {
                         board[i][j] = "     ";
                     } else if (j % 8 == 0 & j > 0) {
@@ -35,8 +37,7 @@ public class GameBoard {
                     } else {
                         board[i][j] = " ";
                     }
-                } else {
-                    // suits in start game
+                } else { // suits in start game
                     if (i == 1 && j == 2) {
                         board[i][j] = goldYellow() + "GOLD " + restore();
                     } else if (i == 3 && j == 2) {
@@ -57,6 +58,11 @@ public class GameBoard {
         }
     }
 
+    /**
+     * Static method to clean old positions on array board and put new positions
+     *
+     * @param horsePositions array to update the positions of Board
+     */
     protected static void placeHorseOnBoard(int[][] horsePositions) {
         //to clean old positions
         for (int i = 1; i < row; i += 2) {
@@ -85,6 +91,12 @@ public class GameBoard {
         }
     }
 
+    /**
+     * Static method to  get the suit of horse in array of view board, from the array of int horsePositions
+     *
+     * @param horseRow the row of each horse from horsePositions
+     * @return de row that belongs in the board
+     */
     private static int getSuitRow(int horseRow) {
         return switch (horseRow) {
             case 0 -> 1;
@@ -94,6 +106,8 @@ public class GameBoard {
             default -> -1;
         };
     }
+
+    //Getter and Setter
 
     public static int getRowGameBoard() {
         return row;

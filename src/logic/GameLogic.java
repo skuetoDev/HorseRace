@@ -2,8 +2,7 @@ package logic;
 
 import model.Card;
 import model.CardsDeck;
-import players.Player;
-
+import model.players.Player;
 import static helper.Pause.*;
 import static helper.Prints.*;
 import static logic.Croupier.*;
@@ -13,17 +12,19 @@ import static logic.GameBoard.placeHorseOnBoard;
 public class GameLogic {
 
     //fields
-    private static int row = 4;
-    private static int column = 10;
+
+    private static final int row = 4;
+    private static final int column = 10;
     protected static int[][] horsePositions;
     private static int round = 0;
-    private CardsDeck cardsDeck;
+    private final CardsDeck cardsDeck;
     private static Card card;
     private static boolean winner = false;
     private static String championSuit = "";
     private GameBoard gameBoard;
 
     //constructor
+
     public GameLogic() {
         horsePositions = new int[row][column];
         for (int i = 0; i < row; i++) {
@@ -43,6 +44,9 @@ public class GameLogic {
 
     }
 
+    /**
+     * method to get a card from deck and depends on suit make horse move in the array of numbers horsePositions
+     */
     private void gameMovement() {
         do {
             card = cardsDeck.getCardFromDeck();
@@ -97,6 +101,7 @@ public class GameLogic {
             winner = true;
             championSuit = championSuit(road);
             setPlayerWin(playerSuit(championSuit));
+            printFinish();
             placeHorseOnBoard(horsePositions);
             printViewBoard();
             return;
@@ -114,15 +119,21 @@ public class GameLogic {
         pauseLineBreak(1);
     }
 
+
+    /**
+     * Method to move back a horse in array of numbers horsePositions
+     *
+     * @param road the number who represent a horseSuit
+     */
     private void backward(int road) {
         if (horsePositions[road][0] == 1) {
             printNoMovement();
             placeHorseOnBoard(horsePositions);
             printViewBoard();
-        }else {
+        } else {
             for (int j = 0; j < column; j++) {
                 if (horsePositions[road][j] == 1) {
-                    if(j > 0) {
+                    if (j > 0) {
                         horsePositions[road][j - 1] = 1;
                         horsePositions[road][j] = 0;
                         break;
@@ -136,23 +147,28 @@ public class GameLogic {
         }
     }
 
-
+    /**
+     * Method to get the horseSuit in a String, depends on road number
+     *
+     * @param road that represents the suit of horse
+     * @return String with the suit of horse
+     */
     private String championSuit(int road) {
         String suit = "";
         switch (road) {
             case 0:
                 suit = "GOLD";
                 break;
-            case 1 :
+            case 1:
                 suit = "CLUBS";
                 break;
-            case 2 :
+            case 2:
                 suit = "CUPS";
                 break;
-            case 3 :
+            case 3:
                 suit = "SWORDS";
                 break;
-            default :
+            default:
                 suit = "ERROR: 3";
                 break;
         }
@@ -161,6 +177,12 @@ public class GameLogic {
 
     }
 
+    /**
+     * Method to get de player name who is in array players and choose the winner horse
+     *
+     * @param suit of horse that wins
+     * @return a name of player whose horse has won
+     */
     private String playerSuit(String suit) {
         String winnerName = "";
         for (Player p : getPlayers()) {
@@ -171,6 +193,8 @@ public class GameLogic {
         return winnerName;
     }
 
+
+    //Setter and Getter
     public static String getChampionSuit() {
         return championSuit;
     }
@@ -185,18 +209,6 @@ public class GameLogic {
 
     public static Card getCard() {
         return card;
-    }
-
-    public static int getRow() {
-        return row;
-    }
-
-    public static int getColumn() {
-        return column;
-    }
-
-    public static int[][] getHorsePositions() {
-        return horsePositions;
     }
 }
 

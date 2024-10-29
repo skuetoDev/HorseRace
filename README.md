@@ -10,7 +10,7 @@ by mariogarcianavas
  Para saber de va aqui tenmos un [video](https://www.tiktok.com/@crown_ex/video/7224712441635163438) donde se refleja a grandes rasgos el funcionamiento.
 
 ### Dinamica
-🔷  Una vez abierto el juego debereis elegir cuantos jugadores humanos 👨 sois ( el resto serán bots🤖).
+🔷  Una vez abierto el juego debereis elegir cuantos jugadores humanos 👨 sois ( el resto serán bots🤖).  
 🔷  Hecho esto, ya solo queda:
 + 🔹 Poner de cada uno de vosotros el nombre del jugador. 
 + 🔹 La apuesta que  estais dispuestos a realizar 🤑

@@ -1,0 +1,25 @@
+.display1 {
+    -fx-background-image: url('images/1pantalla1_fin.png');
+    -fx-background-size: cover;
+ }
+
+.display1Button:hover {
+    -fx-text-fill: white;
+    -fx-opacity: 0.5;
+}
+
+.display2 {
+     -fx-background-image: url('images/2pantalla2_fin.png');
+     -fx-background-size: cover;
+  }
+
+.display2Button:hover {
+    -fx-text-fill: #000000;
+
+
+}
+
+.display3 {
+    -fx-background-image: url('images/3pantalla_apuestas_fin.png');
+    -fx-background-size: cover;
+ }

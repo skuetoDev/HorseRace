@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="display3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="1082.0" styleClass="display3" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller3">
+   <children>
+      <Spinner layoutX="670.0" layoutY="87.0" prefHeight="25.0" prefWidth="59.0" />
+      <Label layoutX="371.0" layoutY="90.0" text="¿Cuantos jugadores Humanos sois?" textFill="#ce9d0a">
+         <font>
+            <Font name="Britannic Bold" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

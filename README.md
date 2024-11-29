@@ -16,13 +16,13 @@ by mariogarcianavas
 + 🔹 La apuesta que  estais dispuestos a realizar 🤑
 + 🔹 Elegir un palo de la baraja española, a saber entre Bastos🌿(*CLUBS*) Copas🍷 (*CUPS*) Oros 💰(*GOLD*) Espadas⚔️️(*SWORDS*)  
 
-![suits](src/suits.png)
+![suits](web_elements/suits.png)
 
 y ya lo teneis... 
 
 A countinuación se mostrará la tabla de jugadores y el juego comienza.
 
-![players](src/players.png)
+![players](web_elements/players.png)
 
 En todo el proceso nos acompañará el croupier 🤵 que es quien nos habla desde el principio y quien ira sacando carta a carta 🃏.  
 Cada ronda avanzará el caballo cuyo palo coincida con el de la carta sacada.  

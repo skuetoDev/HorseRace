@@ -1,6 +1,6 @@
-package com.example.horse_race.model.players;
-import com.example.horse_race.model.CardSuit;
-import static com.example.horse_race.helper.Prints.printError;
+package com.example.demo.model.players;
+import com.example.demo.model.CardSuit;
+import static com.example.demo.helper.Prints.printError;
 import static java.lang.String.valueOf;
 
 

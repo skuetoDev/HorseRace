@@ -1,12 +1,12 @@
-package com.example.horse_race.logic;
+package com.example.demo.logic;
 
-import com.example.horse_race.model.Card;
-import com.example.horse_race.model.CardsDeck;
-import com.example.horse_race.model.players.Player;
-import static com.example.horse_race.helper.Pause.*;
-import static com.example.horse_race.helper.Prints.*;
-import static com.example.horse_race.logic.Croupier.*;
-import static com.example.horse_race.logic.GameBoard.placeHorseOnBoard;
+import com.example.demo.model.Card;
+import com.example.demo.model.CardsDeck;
+import com.example.demo.model.players.Player;
+import static com.example.demo.helper.Pause.*;
+import static com.example.demo.helper.Prints.*;
+import static com.example.demo.logic.Croupier.*;
+import static com.example.demo.logic.GameBoard.placeHorseOnBoard;
 
 
 public class GameLogic {

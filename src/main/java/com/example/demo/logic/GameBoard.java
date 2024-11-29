@@ -1,9 +1,9 @@
-package com.example.horse_race.logic;
+package com.example.demo.logic;
 
-import static com.example.horse_race.helper.Colour.*;
-import static com.example.horse_race.helper.Colour.restore;
+import static com.example.demo.helper.Colour.*;
+import static com.example.demo.helper.Colour.restore;
 
-import static com.example.horse_race.logic.GameLogic.*;
+import static com.example.demo.logic.GameLogic.*;
 
 public class GameBoard {
 

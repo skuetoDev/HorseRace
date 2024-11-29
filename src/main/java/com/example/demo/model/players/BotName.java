@@ -1,4 +1,4 @@
-package com.example.horse_race.model.players;
+package com.example.demo.model.players;
 
 public enum BotName {
     ARIA,

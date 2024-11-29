@@ -1,6 +1,6 @@
-package com.example.horse_race.model;
+package com.example.demo.model;
 import java.util.ArrayList;
-import static com.example.horse_race.helper.Prints.printShuffling;
+import static com.example.demo.helper.Prints.printShuffling;
 
 public class CardsDeck {
 

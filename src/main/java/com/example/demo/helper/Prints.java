@@ -1,17 +1,16 @@
-package com.example.horse_race.helper;
+package com.example.demo.helper;
 
-import com.example.horse_race.model.Card;
-import com.example.horse_race.model.CardSuit;
-import com.example.horse_race.model.players.Player;
+import com.example.demo.model.Card;
+import com.example.demo.model.CardSuit;
+import com.example.demo.model.players.Player;
 
 import java.util.ArrayList;
 
-import static com.example.horse_race.logic.GameBoard.*;
-import static com.example.horse_race.helper.Colour.*;
-import static com.example.horse_race.helper.Pause.*;
-import static com.example.horse_race.logic.Croupier.*;
-import static com.example.horse_race.logic.GameBoard.*;
-import static com.example.horse_race.logic.GameLogic.*;
+import static com.example.demo.logic.GameBoard.*;
+import static com.example.demo.helper.Colour.*;
+import static com.example.demo.helper.Pause.*;
+import static com.example.demo.logic.Croupier.*;
+import static com.example.demo.logic.GameLogic.*;
 
 public abstract class Prints {
 

@@ -1,5 +1,5 @@
-package com.example.horse_race.model.players;
-import com.example.horse_race.model.CardSuit;
+package com.example.demo.model.players;
+import com.example.demo.model.CardSuit;
 import java.util.Random;
 
 public class Bot extends Player {

@@ -1,9 +1,9 @@
-package com.example.horse_race.helper;
+package com.example.demo.helper;
 
 import java.util.Scanner;
 
-import static com.example.horse_race.helper.Prints.printValidNumber;
-import static com.example.horse_race.helper.Prints.printValidText;
+import static com.example.demo.helper.Prints.printValidNumber;
+import static com.example.demo.helper.Prints.printValidText;
 
 public class Reads {
     static Scanner input = new Scanner(System.in);

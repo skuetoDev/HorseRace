@@ -1,4 +1,4 @@
-package com.example.horse_race.model;
+package com.example.demo.model;
 
 public abstract class Card {
     protected CardSuit suit;

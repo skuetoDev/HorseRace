@@ -1,4 +1,4 @@
-package com.example.horse_race.helper;
+package com.example.demo.helper;
 
 public class Pause {
 

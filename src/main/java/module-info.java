@@ -1,8 +1,8 @@
-module com.example.horse_race {
+module com.example.demo {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens com.example.horse_race to javafx.fxml;
-    exports com.example.horse_race;
+    opens com.example.demo to javafx.fxml;
+    exports com.example.demo;
 }

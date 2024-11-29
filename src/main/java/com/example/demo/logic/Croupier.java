@@ -1,13 +1,13 @@
-package com.example.horse_race.logic;
+package com.example.demo.logic;
 
-import com.example.horse_race.model.players.*;
+import com.example.demo.model.players.*;
 
 import java.util.ArrayList;
 
-import static com.example.horse_race.helper.Pause.*;
-import static com.example.horse_race.helper.Prints.*;
-import static com.example.horse_race.helper.Reads.*;
-import static com.example.horse_race.logic.GameLogic.isWinner;
+import static com.example.demo.helper.Pause.*;
+import static com.example.demo.helper.Prints.*;
+import static com.example.demo.helper.Reads.*;
+import static com.example.demo.logic.GameLogic.isWinner;
 
 public class Croupier {
 

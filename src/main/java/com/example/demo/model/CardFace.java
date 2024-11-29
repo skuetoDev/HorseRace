@@ -1,4 +1,4 @@
-package com.example.horse_race.model;
+package com.example.demo.model;
 
 //jack(sota), knight(caballo) y king(rey)
 public enum CardFace {

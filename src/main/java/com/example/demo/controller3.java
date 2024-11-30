@@ -1,19 +1,13 @@
 package com.example.demo;
-
-import com.example.demo.model.CardSuit;
+import com.example.demo.helper.AlertUtil;
 import com.example.demo.model.players.Human;
 import com.example.demo.model.players.Player;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.demo.helper.Colour.*;
-import static javafx.application.Application.launch;
 
 public class controller3 {
 
@@ -39,25 +33,23 @@ public class controller3 {
                 int numPlayers = Integer.parseInt(playersInput.getText());
                 createFormularyPlayers(numPlayers);
             } catch (NumberFormatException e) {
-                showAlert("Input Error", "Please enter a valid number of players");
+                AlertUtil.showError("INPUT ERROR", "Please enter a valid number of players 1-4");
 
             }
         });
     }
 
     /**
-     * method to create dinamic players with numPlayers
-     *
-     * @param numPlayers
+     * method to create dinamic players with numPlayers and one button to add in arraylist players.
+     * and check that each horseSuit is already chosen
+     * @param numPlayers human players who want play
      */
     protected void createFormularyPlayers(int numPlayers) {
-
-
 
         //clean display3
         display3.getChildren().removeIf(node -> node instanceof TextField || node instanceof Button || node instanceof Label);
 
-        double startY = 90;
+         final double startY = 140;
 
         List<TextField> names = new ArrayList<>();
         List<TextField> bets = new ArrayList<>();
@@ -66,35 +58,40 @@ public class controller3 {
         for (int i = 0; i < numPlayers; i++) {
 
             //create label + textField of Name
-            Label labelName = new Label(" Player " + (i + 1) + " Name : ");
+            Label labelName = new Label(" Player " + (i + 1) + " Name :");
             labelName.setLayoutX(190);
-            labelName.setLayoutY(startY + (i+1) * 50);
+            labelName.setLayoutY(startY + i * 90);
             labelName.getStyleClass().add("dynamic-label");
 
             TextField nameField = new TextField();
-            nameField.setLayoutX(195);
-            nameField.setLayoutY(startY + (i+1) * 90);
+            nameField.setLayoutX(185);
+            nameField.setLayoutY((startY + i  * 90) + 40);
+            nameField.getStyleClass().add("dynamic-textField");
 
 
-            //create label + textfield of bit
-            Label labelBet = new Label("Bet of player " + (i + 1));
-            labelBet.setLayoutX(450);
-            labelBet.setLayoutY(startY + (i + 1) * 50);
+            //create label + textField of bet
+            Label labelBet = new Label("Player " + (i + 1) + " Bet :");
+            labelBet.setLayoutX(495);
+            labelBet.setLayoutY(startY + i  * 90);
             labelBet.getStyleClass().add("dynamic-label");
 
             TextField betField = new TextField();
-            betField.setLayoutX(450);
-            betField.setLayoutY(startY + (i + 1) * 90);
+            betField.setLayoutX(475);
+            betField.setLayoutY((startY + i  * 90) + 40);
+            betField.getStyleClass().add("dynamic-textField");
 
-            //create label + textfield of suit
-            Label labelSuit = new Label("Suit ");
-            labelSuit.setLayoutX(750);
-            labelSuit.setLayoutY(startY + i + 50);
+
+            //create label + textField of suit
+            Label labelSuit = new Label("Player " + (i + 1) + " Suit:" );
+            labelSuit.setLayoutX(770);
+            labelSuit.setLayoutY(startY + i  * 90);
             labelSuit.getStyleClass().add("dynamic-label");
 
             TextField suitField = new TextField();
             suitField.setLayoutX(750);
-            suitField.setLayoutY(startY + (i + 1) * 90);
+            suitField.setPromptText("");
+            suitField.setLayoutY((startY + i  * 90) + 40);
+            suitField.getStyleClass().add("dynamic-textField");
 
             names.add(nameField);
             bets.add(betField);
@@ -106,9 +103,11 @@ public class controller3 {
         }
 
         Button savePlayersButton = new Button("Save Players");
-        savePlayersButton.setLayoutX(180);
-        savePlayersButton.setLayoutY(startY + numPlayers + 50 + 20);
+        savePlayersButton.setLayoutX(450);
+        savePlayersButton.setLayoutY((startY + numPlayers  * 90) + 60);
         savePlayersButton.getStyleClass().add("dynamic-button");
+        display3.getChildren().add(savePlayersButton);
+
 
         savePlayersButton.setOnAction(event -> {
             players.clear();
@@ -116,8 +115,7 @@ public class controller3 {
 
                 String name = names.get(i).getText();
 
-                int suit, bet;
-
+                int bet;
 
                 try {
 
@@ -125,25 +123,22 @@ public class controller3 {
 
                 } catch (NumberFormatException e) {
                     bet = 1;
-                    suit = 1;
                 }
-                boolean validSuit = false;
-                do {
-                    try {
-                        suit = Integer.parseInt(suits.get(i).getText());
-                        if (horseSuiteAssigned(CardSuit.values()[suit - 1].toString())) {
-                            showAlert("Suit asigned", "Please choose another one");
-                        } else {
-                            validSuit = true;
-                        }
 
-                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                        showAlert(" Error suit", "Number suit must be number between 1-4");
-                        suit = 1;
-                    }
-                } while (!validSuit);
-                Human player = new Human(name, suit, bet);
-                players.add(player);
+                String suit = suits.get(i).getText();
+                Human humanPlayer = new Human(name, bet, suit);
+                if (players.isEmpty()){
+                    players.add(humanPlayer);
+                } else {
+                    if(!horseSuiteAssigned(suit))
+                        players.add(humanPlayer);
+                    else
+                        AlertUtil.showWarning("SUIT ALREADY CHOSEN","The suits of player "+ (i+1) +
+                                " already choose, please choose another suit");
+
+                }
+
+
 
             }
         });
@@ -160,18 +155,6 @@ public class controller3 {
         return false;
     }
 
-    /**
-     * Muestra un cuadro de diálogo de alerta
-     * @param title Título de la alerta
-     * @param message Mensaje del cuerpo
-     */
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 
 
 }

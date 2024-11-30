@@ -20,14 +20,14 @@
 }
 
 .display3 {
-    -fx-background-image: url('images/3pantalla_apuestas_fin.png');
+    -fx-background-image: url('images/3pantalla_jugadores_fin.png');
     -fx-background-size: cover;
  }
 
  .dynamic-label {
-    -fx-font-size: 25;
+    -fx-font-size: 25px;
     -fx-font-family: "Britannic Bold";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
  }
 
  .dynamic-button {
@@ -35,11 +35,16 @@
     -fx-background-radius:50px;
     -fx-text-fill: white;
     -fx-font-family: "Britannic Bold";
-    -fx-font-size: 14px;
+    -fx-font-size: 30px;
  }
 
- .dynamic-textfield {
-     -fx-border-color: #ccc;
-     -fx-border-radius: 5px;
+ .dynamic-textField {
      -fx-padding: 5px;
+     -fx-font-family: "Britannic Bold";
+     -fx-font-size: 20px;
+     -fx-width: 40px;
+     -fx-background-radius: 15px;
+
+
+
  }

@@ -1,4 +1,5 @@
 package com.example.demo.model.players;
+import com.example.demo.helper.AlertUtil;
 import com.example.demo.model.CardSuit;
 import static com.example.demo.helper.Prints.printError;
 import static java.lang.String.valueOf;
@@ -8,41 +9,43 @@ public class Human extends Player {
 
     //Constructor
 
-    public Human(String name, int bet, int horseSuit) {
+    public Human(String name, int bet, String horseSuit) {
         super.name = name;
         super.bet = bet;
-        super.horseSuit = chooseSuit(horseSuit);
+        super.horseSuit = chooseSuit(horseSuit,name);
     }
 
     //Methods
 
     /**
-     * Method to choose one suit from enum CardSuit.
+     * Method to choose one suit from enum CardSuit,
      *
-     * @param number who represent a suit in a printed list
+     * @param suit who represent a suit in a printed list
      * @return String suit with the suit are choose
      */
-    private String chooseSuit(int number) {
-        String suit = "";
+    private String chooseSuit(String suit, String name) {
+        String choosenSuit = "";
+        suit = suit.toUpperCase();
 
-        switch (number) {
-            case 1:
-                suit = valueOf(CardSuit.GOLD);
+        switch (suit) {
+            case "GOLD":
+                choosenSuit = String.valueOf(CardSuit.GOLD);
                 break;
-            case 2:
-                suit = valueOf(CardSuit.CLUBS);
+            case "CLUBS":
+                choosenSuit = String.valueOf(CardSuit.CLUBS);
                 break;
-            case 3:
-                suit = valueOf(CardSuit.CUPS);
+            case "CUPS":
+                choosenSuit = String.valueOf(CardSuit.CUPS);
                 break;
-            case 4:
-                suit = valueOf(CardSuit.SWORDS);
+            case "SWORD":
+                choosenSuit = String.valueOf(CardSuit.SWORDS);
                 break;
             default:
-                printError();
+                AlertUtil.showError("ERROR SUIT",suit +
+                        "written by "+name+ " is not a suit of Cards, Please change it");
                 break;
         }
-        return suit;
+        return choosenSuit;
     }
 
 

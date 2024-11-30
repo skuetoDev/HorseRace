@@ -73,7 +73,7 @@ public class Croupier {
             boolean exit = false;
             while (!exit) {
                 printHorseSuit();
-                int suit = getInt(1, 4);
+                String suit = getText();
                 Human human = new Human(namePlayer, bet, suit);
                 if (!horseSuiteAssigned(human.getHorseSuit())) {
                     players.add(human);

@@ -7,12 +7,12 @@
 
 <Pane fx:id="display3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="1082.0" styleClass="display3" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller3">
    <children>
-      <Label layoutX="294.0" layoutY="115.0" text="How many Human players are you?" textFill="#ce9d0a">
+      <Label layoutX="272.0" layoutY="98.0" text="How many Human players are you?">
          <font>
             <Font name="Britannic Bold" size="36.0" />
          </font>
       </Label>
-      <TextField id="playersInput" fx:id="playersInput" layoutX="510.0" layoutY="219.0" prefHeight="77.0" prefWidth="113.0" promptText="1 - 4">
+      <TextField id="playersInput" fx:id="playersInput" layoutX="510.0" layoutY="219.0" prefHeight="77.0" prefWidth="113.0" style="-fx-border-color: #CE9D0A; -fx-border-width: 4px;">
          <font>
             <Font size="36.0" />
          </font>

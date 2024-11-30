@@ -11,12 +11,11 @@
 .display2 {
      -fx-background-image: url('images/2pantalla2_fin.png');
      -fx-background-size: cover;
-  }
+ }
 
 .display2Button:hover {
     -fx-text-fill: #000000;
-
-
+    -fx-opacity: 0.5;
 }
 
 .display3 {
@@ -24,27 +23,64 @@
     -fx-background-size: cover;
  }
 
- .dynamic-label {
+.dynamic-label {
     -fx-font-size: 25px;
     -fx-font-family: "Britannic Bold";
     -fx-text-fill: black;
  }
 
- .dynamic-button {
+.dynamic-button {
     -fx-background-color: #ce9d0a;
     -fx-background-radius:50px;
     -fx-text-fill: white;
     -fx-font-family: "Britannic Bold";
     -fx-font-size: 30px;
+    -fx-cursor: hand;
+
  }
 
- .dynamic-textField {
+.dynamic-button:hover{
+    -fx-text-fill: white;
+    -fx-opacity: 0.5;
+
+ }
+
+.dynamic-textField {
      -fx-padding: 5px;
      -fx-font-family: "Britannic Bold";
      -fx-font-size: 20px;
      -fx-width: 40px;
      -fx-background-radius: 15px;
+     -fx-alignment: center;
+
+}
+
+.dynamic-button-players{
+    -fx-font-size: 25px;
+    -fx-font-family: "Britannic Bold";
+    -fx-text-fill: #ce9d0a;
+    -fx-cursor: hand;
 
 
+}
 
+.dynamic-labelTitle-players {
+     -fx-font-size: 36px;
+     -fx-font-family: "Britannic Bold";
+     -fx-text-fill: #ce9d0a;
+}
+
+
+.dynamic-label-players {
+       -fx-font-size: 25px;
+       -fx-font-family: "Cambria";
+       -fx-text-fill: #ebebeb;
+       -font-weight: bold;
+}
+
+.display4 {
+     -fx-background-image: url('images/4pantalla_carrera_fin.png');
+     -fx-background-size: cover;
  }
+
+

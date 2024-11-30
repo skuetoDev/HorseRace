@@ -2,6 +2,7 @@
 
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -12,18 +13,31 @@
             <Font name="Britannic Bold" size="36.0" />
          </font>
       </Label>
-      <TextField id="playersInput" fx:id="playersInput" layoutX="510.0" layoutY="219.0" prefHeight="77.0" prefWidth="113.0" style="-fx-border-color: #CE9D0A; -fx-border-width: 4px;">
+      <TextField id="playersInput" fx:id="playersInput" alignment="CENTER" layoutX="510.0" layoutY="219.0" prefHeight="77.0" prefWidth="113.0" style="-fx-border-color: #CE9D0A; -fx-border-width: 4px;">
          <font>
-            <Font size="36.0" />
+            <Font name="Britannic Bold" size="36.0" />
          </font>
       </TextField>
-      <Button id="submitButton" fx:id="submitButton" layoutX="457.0" layoutY="386.0" mnemonicParsing="false" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display2Button" stylesheets="@styles.css" text="Submit" textFill="WHITE">
+      <Button id="submitButton" fx:id="submitButton" layoutX="478.0" layoutY="386.0" mnemonicParsing="false" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display2Button" stylesheets="@styles.css" text="NEXT" textFill="WHITE">
          <font>
             <Font name="Britannic Bold" size="50.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Lighting diffuseConstant="1.37" surfaceScale="3.22">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
       </Button>
    </children>
    <cursor>
-      <Cursor fx:constant="HAND" />
+      <Cursor fx:constant="DEFAULT" />
    </cursor>
 </Pane>

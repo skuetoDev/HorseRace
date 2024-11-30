@@ -27,6 +27,7 @@ public class Human extends Player {
         String choosenSuit = "";
         suit = suit.toUpperCase();
 
+
         switch (suit) {
             case "GOLD":
                 choosenSuit = String.valueOf(CardSuit.GOLD);
@@ -37,12 +38,12 @@ public class Human extends Player {
             case "CUPS":
                 choosenSuit = String.valueOf(CardSuit.CUPS);
                 break;
-            case "SWORD":
+            case "SWORDS":
                 choosenSuit = String.valueOf(CardSuit.SWORDS);
                 break;
             default:
                 AlertUtil.showError("ERROR SUIT",suit +
-                        "written by "+name+ " is not a suit of Cards, Please change it");
+                        " written by " + name + " is not a suit of Cards, Please change it");
                 break;
         }
         return choosenSuit;

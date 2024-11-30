@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="1082.0" styleClass="display1" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.Controller1">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="1082.0" styleClass="display1" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.demo.Controller1">
    <children>
       <Button fx:id="enterButton" alignment="CENTER" layoutX="862.0" layoutY="490.0" mnemonicParsing="false" onAction="#goNextScene" prefHeight="86.0" prefWidth="184.0" style="-fx-background-radius: 40px; -fx-background-color: #CE9D0A;" styleClass="display1Button" stylesheets="@styles.css" text="Enter">
          <font>

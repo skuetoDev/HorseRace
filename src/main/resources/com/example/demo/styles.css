@@ -23,3 +23,23 @@
     -fx-background-image: url('images/3pantalla_apuestas_fin.png');
     -fx-background-size: cover;
  }
+
+ .dynamic-label {
+    -fx-font-size: 25;
+    -fx-font-family: "Britannic Bold";
+    -fx-text-fill: white;
+ }
+
+ .dynamic-button {
+    -fx-background-color: #ce9d0a;
+    -fx-background-radius:50px;
+    -fx-text-fill: white;
+    -fx-font-family: "Britannic Bold";
+    -fx-font-size: 14px;
+ }
+
+ .dynamic-textfield {
+     -fx-border-color: #ccc;
+     -fx-border-radius: 5px;
+     -fx-padding: 5px;
+ }

@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,12 +16,9 @@ public class controller2 {
     @FXML
     private Button display2BackButton;
 
-    @FXML
-    public void initialize() {
-        display2BackButton.setOnAction(event -> goToDisplay1());
-    }
 
-    private  void goToDisplay1(){
+    @FXML
+    protected  void goToDisplay1(){
         try{
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("display1.fxml")));
             Scene scene = new Scene(root);
@@ -32,6 +28,20 @@ public class controller2 {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+    }
+
+    @FXML
+    protected void goToDisplay3(){
+        try{
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("display3.fxml")));
+            Scene scene = new Scene(root);
+            Stage stage =(Stage) playGameButton.getScene().getWindow();
+            stage.setScene(scene);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
     }
 }

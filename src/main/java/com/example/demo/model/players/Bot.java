@@ -7,7 +7,7 @@ public class Bot extends Player {
     //fields
 
     private Random random ;
-    private BotName[] names = {BotName.DAENERYS, BotName.ARIA, BotName.JOHN};
+    private BotName[] names = {BotName.Daenerys, BotName.Aria, BotName.John};
     private CardSuit[] horseSuit = {CardSuit.CLUBS, CardSuit.CUPS,CardSuit.GOLD,CardSuit.SWORDS};
 
     //constructor

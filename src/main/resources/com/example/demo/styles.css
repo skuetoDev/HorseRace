@@ -1,5 +1,6 @@
 .display1 {
     -fx-background-image: url('images/1pantalla1_fin.png');
+    -fx-background-radius: 15px;
     -fx-background-size: cover;
  }
 
@@ -34,13 +35,14 @@
     -fx-background-radius:50px;
     -fx-text-fill: white;
     -fx-font-family: "Britannic Bold";
-    -fx-font-size: 30px;
+    -fx-font-size: 36px;
     -fx-cursor: hand;
+
 
  }
 
 .dynamic-button:hover{
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-opacity: 0.5;
 
  }
@@ -62,6 +64,7 @@
     -fx-cursor: hand;
 
 
+
 }
 
 .dynamic-labelTitle-players {
@@ -72,10 +75,11 @@
 
 
 .dynamic-label-players {
+        -background-radius: 15px;
+       -background-color: white;
        -fx-font-size: 25px;
-       -fx-font-family: "Cambria";
-       -fx-text-fill: #ebebeb;
-       -font-weight: bold;
+       -fx-font-family: "Britannic Bold";
+
 }
 
 .display4 {

@@ -6,19 +6,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane fx:id="display3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="1082.0" styleClass="display3" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller3">
+<Pane fx:id="display3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="display3" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller3">
    <children>
-      <Label layoutX="272.0" layoutY="98.0" text="How many Human players are you?">
-         <font>
-            <Font name="Britannic Bold" size="36.0" />
-         </font>
-      </Label>
-      <TextField id="playersInput" fx:id="playersInput" alignment="CENTER" layoutX="510.0" layoutY="219.0" prefHeight="77.0" prefWidth="113.0" style="-fx-border-color: #CE9D0A; -fx-border-width: 4px;">
+      <TextField id="playersInput" fx:id="playersInput" alignment="CENTER" layoutX="544.0" layoutY="258.0" prefHeight="77.0" prefWidth="113.0" style="-fx-background-radius: 25px;">
          <font>
             <Font name="Britannic Bold" size="36.0" />
          </font>
       </TextField>
-      <Button id="submitButton" fx:id="submitButton" layoutX="478.0" layoutY="386.0" mnemonicParsing="false" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display2Button" stylesheets="@styles.css" text="NEXT" textFill="WHITE">
+      <Button id="submitButton" fx:id="submitButton" layoutX="520.0" layoutY="384.0" mnemonicParsing="false" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display2Button" stylesheets="@styles.css" text="NEXT" textFill="WHITE">
          <font>
             <Font name="Britannic Bold" size="50.0" />
          </font>
@@ -36,6 +31,11 @@
             </Lighting>
          </effect>
       </Button>
+      <Label layoutX="325.0" layoutY="158.0" text="How many players are Human?" textOverrun="CLIP">
+         <font>
+            <Font name="Britannic Bold" size="40.0" />
+         </font>
+      </Label>
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

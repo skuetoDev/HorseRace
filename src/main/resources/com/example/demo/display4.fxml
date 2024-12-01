@@ -3,29 +3,39 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="1082.0" styleClass="display4" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller4">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="display4" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller4">
    <children>
-      <ImageView id="goldHorse" fitHeight="67.0" fitWidth="50.0" layoutX="60.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="goldHorse" fitHeight="107.0" fitWidth="96.0" layoutX="30.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/BARAJA/KNIGHT_GOLD.png" />
          </image>
       </ImageView>
-      <ImageView id="clubsHorse" fitHeight="67.0" fitWidth="50.0" layoutX="60.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="clubsHorse" fitHeight="107.0" fitWidth="96.0" layoutX="21.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/BARAJA/KNIGHT_CLUBS.png" />
          </image>
       </ImageView>
-      <ImageView id="cupsHorse" fitHeight="67.0" fitWidth="50.0" layoutX="65.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="cupsHorse" fitHeight="107.0" fitWidth="96.0" layoutX="21.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/BARAJA/KNIGHT_CUPS.png" />
          </image>
       </ImageView>
-      <ImageView id="swordsHorse" fitHeight="67.0" fitWidth="50.0" layoutX="60.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="swordsHorse" fitHeight="107.0" fitWidth="96.0" layoutX="21.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/BARAJA/KNIGHT_SWORDS.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="120.0" fitWidth="80.0" layoutX="12.0" layoutY="571.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="card_deck" fitHeight="120.0" fitWidth="80.0" layoutX="21.0" layoutY="644.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/emptyCARD.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="129.0" fitWidth="904.0" layoutX="138.0" layoutY="571.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/titulo.png" />
+         </image>
+      </ImageView>
+      <ImageView id="card_deck" fx:id="showCard" fitHeight="120.0" fitWidth="80.0" layoutX="119.0" layoutY="644.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/emptyCARD.png" />
          </image>

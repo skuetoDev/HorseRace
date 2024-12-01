@@ -1,5 +1,8 @@
 package com.example.demo;
+
 import com.example.demo.helper.AlertUtil;
+
+
 import com.example.demo.model.players.Bot;
 import com.example.demo.model.players.Human;
 import com.example.demo.model.players.Player;
@@ -11,11 +14,15 @@ import javafx.scene.control.*;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
+import javafx.scene.image.Image;
+
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -33,14 +40,14 @@ public class controller3 {
     @FXML
     private Button submitButton;
 
-    private List<Player> players = new ArrayList<>();
+     final private List<Player> players = new ArrayList<>();
 
     @FXML
     private Button backButtonDisplay3;
 
     private Button savePlayersButton;
 
-    private Button display3NextButton;
+
 
     private Button playButtonDisplay3;
 
@@ -51,13 +58,9 @@ public class controller3 {
     List<TextField> suits = new ArrayList<>();
 
 
-
-
-
-
     @FXML
     public void initialize() {
-        submitButton.setOnAction(event ->{
+        submitButton.setOnAction(event -> {
 
             try {
                 numPlayers = Integer.parseInt(playersInput.getText());
@@ -72,6 +75,7 @@ public class controller3 {
     /**
      * method to create dinamic players with numPlayers and one button to add in arraylist players.
      * and check that each horseSuit is already chosen
+     *
      * @param numPlayers human players who want play
      */
     private void createDynamicDisplay3_1(int numPlayers) {
@@ -91,32 +95,32 @@ public class controller3 {
 
             TextField nameField = new TextField();
             nameField.setLayoutX(185);
-            nameField.setLayoutY((startY + i  * 90) + 40);
+            nameField.setLayoutY((startY + i * 90) + 40);
             nameField.getStyleClass().add("dynamic-textField");
 
 
             //create label + textField of bet
             Label labelBet = new Label("Player " + (i + 1) + " Bet :");
-            labelBet.setLayoutX(495);
-            labelBet.setLayoutY(startY + i  * 90);
+            labelBet.setLayoutX(535);
+            labelBet.setLayoutY(startY + i * 90);
             labelBet.getStyleClass().add("dynamic-label");
 
             TextField betField = new TextField();
-            betField.setLayoutX(475);
-            betField.setLayoutY((startY + i  * 90) + 40);
+            betField.setLayoutX(520);
+            betField.setLayoutY((startY + i * 90) + 40);
             betField.getStyleClass().add("dynamic-textField");
 
 
             //create label + textField of suit
-            Label labelSuit = new Label("Player " + (i + 1) + " Suit:" );
-            labelSuit.setLayoutX(770);
-            labelSuit.setLayoutY(startY + i  * 90);
+            Label labelSuit = new Label("Player " + (i + 1) + " Suit:");
+            labelSuit.setLayoutX(850);
+            labelSuit.setLayoutY(startY + i * 90);
             labelSuit.getStyleClass().add("dynamic-label");
 
             TextField suitField = new TextField();
-            suitField.setLayoutX(750);
+            suitField.setLayoutX(835);
             suitField.setPromptText("");
-            suitField.setLayoutY((startY + i  * 90) + 40);
+            suitField.setLayoutY((startY + i * 90) + 40);
             suitField.getStyleClass().add("dynamic-textField");
 
             names.add(nameField);
@@ -130,16 +134,16 @@ public class controller3 {
 
 
         backButtonDisplay3 = new Button("BACK");
-        backButtonDisplay3.setLayoutX(350);
-        backButtonDisplay3.setLayoutY(((startY + numPlayers  * 90) + 60));
+        backButtonDisplay3.setLayoutX(360);
+        backButtonDisplay3.setLayoutY(((startY + numPlayers * 90) + 100));
         backButtonDisplay3.getStyleClass().add("dynamic-button");
         backButtonDisplay3.setEffect(setLight());
         backButtonDisplay3.setOnAction(event -> goToDisplay2());
         display3.getChildren().add(backButtonDisplay3);
 
-        savePlayersButton = new Button("Save Players");
+        savePlayersButton = new Button("SAVE PLAYERS");
         savePlayersButton.setLayoutX(550);
-        savePlayersButton.setLayoutY((startY + numPlayers  * 90) + 60);
+        savePlayersButton.setLayoutY((startY + numPlayers * 90) + 100);
         savePlayersButton.getStyleClass().add("dynamic-button");
         savePlayersButton.setEffect(setLight());
         savePlayersButton.setOnAction(event -> createPlayers());
@@ -149,37 +153,58 @@ public class controller3 {
     }
 
 
+    private void createPlayers() {
+        players.clear();
+        for (int i = 0; i < numPlayers; i++) {
 
-    private  void createPlayers(){
-            players.clear();
-            for (int i = 0; i < numPlayers; i++) {
+            String name = names.get(i).getText();
 
-                String name = names.get(i).getText();
+            int bet;
+            try {
+                bet = Integer.parseInt(bets.get(i).getText());
 
-                int bet;
+                if (bet <= 0 || bet > 100) {
+                    AlertUtil.showWarning("ERROR RANGE", "Please enter a valid range 1-100 €");
+                    return;
 
-                try {
-
-                    bet = Integer.parseInt(bets.get(i).getText());
-
-                } catch (NumberFormatException e) {
-                    bet = 1;
                 }
 
-                String suit = suits.get(i).getText();
+            } catch (NumberFormatException e) {
+                AlertUtil.showError("BET ERROR", "Please enter a valid number in Bet");
+                return;
+            }
+
+
+            String suit = suits.get(i).getText();
+            try{
+
                 Human humanPlayer = new Human(name, bet, suit);
-                if (players.isEmpty()){
+                if (players.isEmpty()) {
                     players.add(humanPlayer);
                 } else {
-                    if(!horseSuiteAssigned(suit))
+                    if (!horseSuiteAssigned(suit)) {
                         players.add(humanPlayer);
-                    else
-                        AlertUtil.showWarning("SUIT ALREADY CHOSEN","The suits of player "+ (i+1) +
+
+                    } else {
+                        AlertUtil.showWarning("SUIT ALREADY CHOSEN", "The suits of player " + (i + 1) +
                                 " already choose, please choose another suit");
+                        return;
+                    }
                 }
+
+            }catch (IllegalArgumentException e){
+                AlertUtil.showWarning("INVALID SUIT", "Introduced suit was not valid" +
+                                        "\n It will be one of these: GOLD, CUPS, SWORDS, CLUBS");
+                return;
             }
-            createBotPlayers(numPlayers);
-            dynamicDisplay3_2();
+
+
+
+
+        }
+        createBotPlayers(numPlayers);
+        dynamicDisplay3_2();
+
 
     }
 
@@ -198,38 +223,68 @@ public class controller3 {
 
     }
 
-    private void dynamicDisplay3_2(){
+    private void dynamicDisplay3_2() {
         display3.getChildren().removeIf(node -> node instanceof TextField || node instanceof Button || node instanceof Label);
 
-        for(int i = 0 ; i < players.size() ; i++ ){
+        for (int i = 0; i < players.size(); i++) {
             String information;
 
 
             Label playersTitleLabel = new Label(" \uD83C\uDFC7      Players     \uD83C\uDFC7");
-            playersTitleLabel.setLayoutX(400);
+            playersTitleLabel.setLayoutX(180);
             playersTitleLabel.setLayoutY(70);
             playersTitleLabel.getStyleClass().add("dynamic-labelTitle-players");
             display3.getChildren().add(playersTitleLabel);
 
 
-
-            information = "➤ Player " + (i+1) + " Name :  " + players.get(i).getName() +
-                        "\n        Bet :  " + players.get(i).getBet() + " €" +
-                        "\n        Horse suit :  " + players.get(i).getHorseSuit();
+            information = "Player " + (i + 1) + " Name :  " + players.get(i).getName() +
+                    "\nBet :  " + players.get(i).getBet() + " €" +
+                    "\nHorse suit :  " + players.get(i).getHorseSuit();
 
             Label playersNameLabel = new Label(information);
-            playersNameLabel.setLayoutX(400);
-            playersNameLabel.setLayoutY(120 + i * 100) ;
+            playersNameLabel.setLayoutX(200);
+            playersNameLabel.setLayoutY(120 + i * 100);
             playersNameLabel.getStyleClass().add("dynamic-label-players");
             display3.getChildren().add(playersNameLabel);
 
 
         }
 
+        Label jackpotLabel = new Label(" $    The Jackpot       $");
+        jackpotLabel.setLayoutX(650);
+        jackpotLabel.setLayoutY(380);
+        jackpotLabel.getStyleClass().add("dynamic-labelTitle-players");
+        display3.getChildren().add(jackpotLabel);
+
+
+        int jackpot = 0;
+        for (Player p : players) {
+            jackpot += p.getBet();
+
+        }
+
+        Label jackpotAmount = new Label("The total jackpot is " + jackpot + " €" + "\n" +
+                "\nand the winner of the race  " + "\n" +
+                "\n will WIN it !");
+        jackpotAmount.setLayoutX(700);
+        jackpotAmount.setLayoutY(440);
+        jackpotAmount.getStyleClass().add("dynamic-label-players");
+        display3.getChildren().add(jackpotAmount);
+
+        Image moneyBag = new Image(Objects.requireNonNull(getClass().getResource("images/bolsa.png")).toExternalForm());
+
+        ImageView imageView = new ImageView(moneyBag);
+        imageView.setLayoutX(700);
+        imageView.setLayoutY(70);
+        imageView.setFitWidth(300);
+        imageView.setPreserveRatio(true);
+
+        display3.getChildren().add(imageView);
+
 
         playButtonDisplay3 = new Button("PLAY");
         playButtonDisplay3.setLayoutX(500);
-        playButtonDisplay3.setLayoutY((startY + players.size()  * 90) + 60);
+        playButtonDisplay3.setLayoutY((startY + players.size() * 90) + 100);
         playButtonDisplay3.getStyleClass().add("dynamic-button");
         playButtonDisplay3.setEffect(setLight());
         playButtonDisplay3.setOnAction(event -> goToDisplay4());
@@ -249,13 +304,13 @@ public class controller3 {
     }
 
 
-    private void goToDisplay2(){
-        try{
+    private void goToDisplay2() {
+        try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("display2.fxml")));
             Scene scene = new Scene(root);
-            Stage stage =(Stage) backButtonDisplay3.getScene().getWindow();
+            Stage stage = (Stage) backButtonDisplay3.getScene().getWindow();
             stage.setScene(scene);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -272,7 +327,7 @@ public class controller3 {
 
     }
 
-    private Effect setLight(){
+    private Effect setLight() {
         Lighting lightingEffect = new Lighting();
         Light.Distant light = new Light.Distant();
 
@@ -288,19 +343,17 @@ public class controller3 {
 
     }
 
-    private void goToDisplay4(){
-        try{
+    private void goToDisplay4() {
+        try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("display4.fxml")));
             Scene scene = new Scene(root);
-            Stage stage =(Stage) playButtonDisplay3.getScene().getWindow();
+            Stage stage = (Stage) playButtonDisplay3.getScene().getWindow();
             stage.setScene(scene);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
-
 
 
 }

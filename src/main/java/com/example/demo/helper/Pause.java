@@ -9,7 +9,7 @@ public class Pause {
      */
     public static void pauseSelection(int seg) {
         int mili = seg * 1000;
-        System.out.print("");
+        //System.out.print("");
         try {
             Thread.sleep(mili);
         } catch (InterruptedException e) {
@@ -39,7 +39,7 @@ public class Pause {
      */
     public static void halfPause(int halfSeg) {
         int mili = halfSeg * 500;
-        System.out.print("");
+        //System.out.print("");
         try {
             Thread.sleep(mili);
         } catch (InterruptedException e) {

@@ -1,5 +1,14 @@
 package com.example.demo.helper;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
+
 public class Pause {
 
     /**
@@ -39,7 +48,7 @@ public class Pause {
      */
     public static void halfPause(int halfSeg) {
         int mili = halfSeg * 500;
-        //System.out.print("");
+        System.out.print("");
         try {
             Thread.sleep(mili);
         } catch (InterruptedException e) {
@@ -68,4 +77,45 @@ public class Pause {
         halfPause(1);
         System.out.println(".");
     }
+
+
+
+    public static PauseTransition slowShow(int seconds, Pane display, Label label) {
+        //to make pause
+        PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
+        pause.setOnFinished(e -> {
+            display.getChildren().add(label);
+        });
+        return pause;
+    }
+
+    public static void updateLabelWithPause (Pane display, Label label, String newText, int seconds,Runnable onFinish){
+
+    PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
+
+    pause.setOnFinished( event -> {
+        label.setText(newText);
+        if (onFinish != null) {
+            onFinish.run();
+        }
+    });
+    pause.play();
+
+    }
+
+    public static void updateImageWithPause(Pane display, ImageView imageView, Image image, int seconds, Runnable onFinish) {
+        PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
+        pause.setOnFinished(event -> {
+            imageView.setImage(image);
+            if (onFinish != null) {
+                onFinish.run();
+            }
+        });
+        pause.play();
+    }
+
+
+
 }
+
+

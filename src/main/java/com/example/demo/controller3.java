@@ -3,9 +3,12 @@ package com.example.demo;
 import com.example.demo.helper.AlertUtil;
 
 
+import com.example.demo.helper.Pause;
 import com.example.demo.model.players.Bot;
 import com.example.demo.model.players.Human;
 import com.example.demo.model.players.Player;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -40,7 +44,7 @@ public class controller3 {
     @FXML
     private Button submitButton;
 
-     final private List<Player> players = new ArrayList<>();
+    private List<Player> players = new ArrayList<>();
 
     @FXML
     private Button backButtonDisplay3;
@@ -128,6 +132,8 @@ public class controller3 {
             suits.add(suitField);
 
             display3.getChildren().addAll(labelName, nameField, labelBet, betField, labelSuit, suitField);
+
+
 
 
         }
@@ -245,7 +251,12 @@ public class controller3 {
             playersNameLabel.setLayoutX(200);
             playersNameLabel.setLayoutY(120 + i * 100);
             playersNameLabel.getStyleClass().add("dynamic-label-players");
-            display3.getChildren().add(playersNameLabel);
+
+
+            //to make pause
+
+            Pause.slowShow(i,display3,playersNameLabel).play();
+
 
 
         }

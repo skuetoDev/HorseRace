@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="display4" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller4">
+<Pane fx:id="display4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="display4" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller4">
    <children>
-      <ImageView id="goldHorse" fitHeight="107.0" fitWidth="96.0" layoutX="30.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="KNIGHT_of_GOLD" fx:id="KNIGHT_of_GOLD" fitHeight="107.0" fitWidth="96.0" layoutX="21.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/BARAJA/KNIGHT_GOLD.png" />
+            <Image url="@images/BARAJA/KNIGHT_of_GOLD.png" />
          </image>
       </ImageView>
-      <ImageView id="clubsHorse" fitHeight="107.0" fitWidth="96.0" layoutX="21.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="KNIGHT_of_CLUBS" fx:id="KNIGHT_of_CLUBS" fitHeight="107.0" fitWidth="96.0" layoutX="21.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/BARAJA/KNIGHT_CLUBS.png" />
+            <Image url="@images/BARAJA/KNIGHT_of_CLUBS.png" />
          </image>
       </ImageView>
-      <ImageView id="cupsHorse" fitHeight="107.0" fitWidth="96.0" layoutX="21.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="KNIGHT_of_CUPS" fx:id="KNIGHT_of_CUPS" fitHeight="107.0" fitWidth="96.0" layoutX="21.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/BARAJA/KNIGHT_CUPS.png" />
+            <Image url="@images/BARAJA/KNIGHT_of_CUPS.png" />
          </image>
       </ImageView>
-      <ImageView id="swordsHorse" fitHeight="107.0" fitWidth="96.0" layoutX="21.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="KNIGHT_of_SWORDS" fx:id="KNIGHT_of_SWORDS" fitHeight="107.0" fitWidth="96.0" layoutX="21.0" layoutY="441.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/BARAJA/KNIGHT_SWORDS.png" />
+            <Image url="@images/BARAJA/KNIGHT_of_SWORDS.png" />
          </image>
       </ImageView>
       <ImageView id="card_deck" fitHeight="120.0" fitWidth="80.0" layoutX="21.0" layoutY="644.0" pickOnBounds="true" preserveRatio="true">
@@ -35,10 +37,25 @@
             <Image url="@images/titulo.png" />
          </image>
       </ImageView>
-      <ImageView id="card_deck" fx:id="showCard" fitHeight="120.0" fitWidth="80.0" layoutX="119.0" layoutY="644.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView id="showCard" fx:id="showCard" fitHeight="120.0" fitWidth="80.0" layoutX="119.0" layoutY="644.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/emptyCARD.png" />
          </image>
       </ImageView>
+      <Label layoutX="284.0" layoutY="644.0" prefHeight="36.0" prefWidth="113.0" text="Round">
+         <font>
+            <Font name="Britannic Bold" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="roundNumber" layoutX="407.0" layoutY="644.0" prefHeight="22.0" prefWidth="70.0">
+         <font>
+            <Font name="Britannic Bold" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="actionLabel" layoutX="314.0" layoutY="715.0" prefHeight="36.0" prefWidth="847.0" text="The game is about to start !">
+         <font>
+            <Font name="Britannic Bold" size="36.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

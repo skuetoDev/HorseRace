@@ -53,7 +53,7 @@ public class CardsDeck {
     /**
      * Helper method that returns a random number whose not exist in numCartes and was added
      *
-     * @return a number thats was added in numCartes
+     * @return a number that was added in numCartes
      */
     private int comprovarNumCartes() {
         boolean trobada;

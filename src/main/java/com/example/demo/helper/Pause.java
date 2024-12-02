@@ -80,7 +80,7 @@ public class Pause {
 
 
 
-    public static PauseTransition slowShow(int seconds, Pane display, Label label) {
+    public static PauseTransition slowShow(double seconds, Pane display, Label label) {
         //to make pause
         PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
         pause.setOnFinished(e -> {
@@ -88,8 +88,8 @@ public class Pause {
         });
         return pause;
     }
-
-    public static void updateLabelWithPause (Pane display, Label label, String newText, int seconds,Runnable onFinish){
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+    public static void updateLabelWithPause (Label label, String newText, double seconds,Runnable onFinish){
 
     PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
 
@@ -103,10 +103,21 @@ public class Pause {
 
     }
 
-    public static void updateImageWithPause(Pane display, ImageView imageView, Image image, int seconds, Runnable onFinish) {
+    public static void updateImageWithPause( ImageView imageView, Image image, double seconds, Runnable onFinish) {
         PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
         pause.setOnFinished(event -> {
             imageView.setImage(image);
+            if (onFinish != null) {
+                onFinish.run();
+            }
+        });
+        pause.play();
+    }
+
+    public static void updateHorsePlaceWithPause( ImageView imageView, double seconds, double newLayaout, Runnable onFinish) {
+        PauseTransition pause = new PauseTransition(Duration.seconds(seconds));
+        pause.setOnFinished(event -> {
+            imageView.setLayoutX(newLayaout);
             if (onFinish != null) {
                 onFinish.run();
             }

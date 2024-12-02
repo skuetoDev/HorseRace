@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -28,16 +27,18 @@
             </Lighting>
          </effect>
       </Button>
-      <Button fx:id="enterButton" alignment="CENTER" layoutX="986.0" layoutY="643.0" mnemonicParsing="false" onAction="#goNextScene" prefHeight="86.0" prefWidth="184.0" style="-fx-background-radius: 40px; -fx-background-color: #CE9D0A;" styleClass="display1Button" stylesheets="@styles.css" text="Enter">
+      <ImageView fitHeight="147.0" fitWidth="989.0" layoutX="106.0" layoutY="537.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/titulo.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="enterButton" layoutX="982.0" layoutY="653.0" mnemonicParsing="false" onAction="#goNextScene" prefHeight="77.0" prefWidth="184.0" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display1Button" stylesheets="@styles.css" text="Enter">
          <font>
             <Font name="Britannic Bold" size="50.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-         <opaqueInsets>
-            <Insets top="3.0" />
-         </opaqueInsets>
          <effect>
             <Lighting diffuseConstant="1.37" surfaceScale="3.22">
                <bumpInput>
@@ -49,10 +50,5 @@
             </Lighting>
          </effect>
       </Button>
-      <ImageView fitHeight="147.0" fitWidth="989.0" layoutX="106.0" layoutY="537.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/titulo.png" />
-         </image>
-      </ImageView>
    </children>
 </Pane>

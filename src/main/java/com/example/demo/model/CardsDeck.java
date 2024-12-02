@@ -40,7 +40,7 @@ public class CardsDeck {
     /**
      * Method to make relation between numCarta(int) until cardsDeck(Card)
      *
-     * @return Card that isnt repeated
+     * @return Card that isn`t repeated
      */
     public Card getCardFromDeck() {
         Card cartadonada;
@@ -63,7 +63,7 @@ public class CardsDeck {
             numCarta = (int) (Math.random() * 40);
             if (numCartes.size() > 39) {
                 numCartes.clear();
-                printShuffling();
+                //printShuffling();
 
             } else {
                 if (!numCartes.isEmpty())

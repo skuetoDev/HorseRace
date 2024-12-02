@@ -44,14 +44,14 @@ public class controller3 {
     @FXML
     private Button submitButton;
 
-    private List<Player> players = new ArrayList<>();
+    private static List<Player> players = new ArrayList<>();
 
     @FXML
     private Button backButtonDisplay3;
 
     private Button savePlayersButton;
 
-
+    private static int jackpot = 0;
 
     private Button playButtonDisplay3;
 
@@ -268,7 +268,7 @@ public class controller3 {
         display3.getChildren().add(jackpotLabel);
 
 
-        int jackpot = 0;
+
         for (Player p : players) {
             jackpot += p.getBet();
 
@@ -366,5 +366,12 @@ public class controller3 {
 
     }
 
+    public static List getPlayers(){
+        return players;
+    }
 
+    public static int getJackpot(){
+
+        return jackpot;
+    }
 }

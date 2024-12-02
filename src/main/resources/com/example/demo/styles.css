@@ -87,4 +87,10 @@
      -fx-background-size: cover;
  }
 
+ .display5 {
+    -fx-background-image: url('images/5pantalla_ganador_fin.png');
+    -fx-background-size: cover;
+
+ }
+
 

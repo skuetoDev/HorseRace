@@ -1,10 +1,12 @@
 package com.example.demo.model;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 import static com.example.demo.helper.Prints.printShuffling;
 
 public class CardsDeck {
 
-    private final ArrayList<Card> cardsDeck = new ArrayList<>();
+    private final LinkedList<Card> cardsDeck = new LinkedList<>();
     private final int[] num = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     private final CardSuit[] cardSuits = {CardSuit.GOLD, CardSuit.CLUBS, CardSuit.CUPS, CardSuit.SWORDS};
     private final CardFace[] cardFaces = {CardFace.JACK, CardFace.KNIGHT, CardFace.KING};

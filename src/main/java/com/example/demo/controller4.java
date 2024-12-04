@@ -89,7 +89,7 @@ public class controller4 {
 
     private void gameStart() {
         cardsDeck = new CardsDeck();
-        System.out.println("suffling");
+
         gameRound();
 
 
@@ -100,8 +100,7 @@ public class controller4 {
     private void gameRound() {
 
         try {
-            //System.out.println("round:"+round);
-            //System.out.println(counterExcepcion);
+
             if (round % 41 == 0 && counterExcepcion == 0) {
                 counterExcepcion++;
                 //System.out.println(counterExcepcion +"dentro de la excepcion");

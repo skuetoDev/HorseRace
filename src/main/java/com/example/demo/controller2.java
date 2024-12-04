@@ -17,6 +17,8 @@ public class controller2 {
     private Button display2BackButton;
 
 
+
+
     @FXML
     protected  void goToDisplay1(){
         try{
@@ -44,4 +46,20 @@ public class controller2 {
 
 
     }
+
+    @FXML
+    protected void goToDisplayWinners(){
+        try{
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("displayWinners.fxml")));
+            Scene scene = new Scene(root);
+            Stage stage =(Stage) display2Winners.getScene().getWindow();
+            stage.setScene(scene);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+
 }

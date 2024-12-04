@@ -49,7 +49,7 @@
             <Font name="Britannic Bold" size="36.0" />
          </font>
       </Label>
-      <Label fx:id="roundNumber" layoutX="407.0" layoutY="644.0" prefHeight="22.0" prefWidth="70.0">
+      <Label fx:id="roundNumberLabel" layoutX="407.0" layoutY="644.0" prefHeight="22.0" prefWidth="70.0">
          <font>
             <Font name="Britannic Bold" size="36.0" />
          </font>

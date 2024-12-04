@@ -27,7 +27,7 @@
             </Lighting>
          </effect>
       </Button>
-      <Button id="display2Winners" fx:id="display2Winners" layoutX="844.0" layoutY="350.0" mnemonicParsing="false" prefHeight="139.0" prefWidth="330.0" style="-fx-background-color: #ce9d0a; -fx-background-radius: 50PX;" styleClass="display2Button" stylesheets="@styles.css" text=" SHOW WiNNERS" textAlignment="CENTER" textFill="#5f7e7d" wrapText="true">
+      <Button id="display2Winners" fx:id="display2Winners" layoutX="844.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#goToDisplayWinners" prefHeight="139.0" prefWidth="330.0" style="-fx-background-color: #ce9d0a; -fx-background-radius: 50PX;" styleClass="display2Button" stylesheets="@styles.css" text=" SHOW WiNNERS" textAlignment="CENTER" textFill="#5f7e7d" wrapText="true">
          <font>
             <Font name="Britannic Bold" size="50.0" />
          </font>

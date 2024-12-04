@@ -93,4 +93,8 @@
 
  }
 
+.displayWinners {
+    -fx-background-image: url('images/pantalla_ganadores.png');
+    -fx-background-size: cover;
+}
 

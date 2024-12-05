@@ -72,6 +72,7 @@ public class Controller4 {
      * Method to start the game, with import createCardsDeck from Logic, then star rounds with gameRound
      */
     private void gameStart() {
+        logs = new LinkedHashMap<>();
         GameLogic.createCardsDeck();
         gameRound();
 
@@ -181,7 +182,7 @@ public class Controller4 {
      * @param card to extract the suit to move horse
      */
     private void updateHorsePosition(Card card) {
-        logs = new LinkedHashMap<>();
+
         String horseSuit = String.valueOf(card.getSuit());
         ImageView horse = (ImageView) display4.lookup(("#KNIGHT_of_" + horseSuit));
         logs.put("Ronda " + round + " : ", card.getDescription());

@@ -3,8 +3,8 @@ package com.example.demo;
 import com.example.demo.helper.CardImageLoader;
 import com.example.demo.helper.Pause;
 import com.example.demo.helper.RoundMaxException;
-import com.example.demo.model.Card;
-import com.example.demo.model.CardsDeck;
+import com.example.demo.model.Cards.Card;
+import com.example.demo.model.GameLogic;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,13 +18,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.io.*;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Objects;
 
-public class controller4 {
+
+public class Controller4 {
 
     @FXML
     private Label roundNumberLabel;
@@ -47,94 +45,59 @@ public class controller4 {
     @FXML
     private Button nextButtonDisplay5;
 
-    private static final int row = 4;
-    private static final int column = 10;
 
-    protected static int[][] horsePositions;
-
-    int firsPosition = 132;
-
-    boolean winner = false;
+    private boolean winner = false;
 
     protected static String winHorseSuit;
-    CardsDeck cardsDeck;
 
+    protected int round = 1;
 
-    private int round = 1;
-    String imagePath = "/com/example/demo/images/BARAJA";
-
+    protected int counterExcepcion = 0;
 
     private LinkedHashMap<String, String> logs;
-    private int counterExcepcion = 0;
+
+
+
 
 
     @FXML
     public void initialize() {
-        horsePositions = new int[row][column];
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
-                if (j == 0) {
-                    horsePositions[i][j] = 1;
-                } else {
-                    horsePositions[i][j] = 0;
-                }
-            }
-        }
-        logs = new LinkedHashMap<>();
 
         gameStart();
 
 
     }
 
+    /**
+     * Method to start the game, with import createCardsDeck from Logic, then star rounds with gameRound
+     */
     private void gameStart() {
-        cardsDeck = new CardsDeck();
-
+        GameLogic.createCardsDeck();
         gameRound();
 
 
     }
 
 
-    //metodo por cada ronda
-    private void gameRound() {
-
+    /**
+     * Method for each round in game, first check if winner its true create a .txt with
+     * all movements in the game. if its false, get a card from deck with method getCard().
+     */
+    protected void gameRound() {
         try {
-
-            if (round % 41 == 0 && counterExcepcion == 0) {
-                counterExcepcion++;
-                //System.out.println(counterExcepcion +"dentro de la excepcion");
-                throw new RoundMaxException(" Suffling is necesary to continue the game");
-            }
-
+           GameLogic.checkRound(round,counterExcepcion);
             if (winner) {
                 nextButtonDisplay5.setOpacity(1);
-
-                String fileName = "logs.txt";
-
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-                    for (Map.Entry<String, String> entry : logs.entrySet()) {
-                        writer.write(entry.getKey() + entry.getValue());
-                        writer.newLine();
-                    }
-                    System.out.println("Archivo " + fileName + " creado correctamente");
-                } catch (IOException e) {
-                    System.out.println("Error al escribir el archivo " + fileName);
-
-                }
-
+                GameLogic.createFileLogs(logs);
                 return;
             }
-
 
             try {
                 getCard();
             } catch (IllegalArgumentException e) {
                 System.out.println("ERROR: imagen no encontrada");
 
-
             }
-
 
         } catch (RoundMaxException e) {
             showAlertAndPause(e.getMessage());
@@ -143,37 +106,39 @@ public class controller4 {
 
     }
 
+    /**
+     * Method to get a card from deck show corresponding image from BARAJA, and with methods from helper.Pause
+     * to make pause with all interactions in this display.
+     */
     private void getCard(){
-        Card card = cardsDeck.getCardFromDeck();
+        Card card = GameLogic.getCardsDeck().getCardFromDeck();
+        String imagePath = "/com/example/demo/images/BARAJA";
         Image cardImage = CardImageLoader.loadCardImage(card, imagePath);
-
         Pause.updateLabelWithPause(roundNumberLabel, String.valueOf(round), 1, () -> {
             //encender un label u otro
             if (round % 5 == 0) {
-
                 forwardLabel.setOpacity(0);
                 backwardLabel.setOpacity(1);
             } else {
                 backwardLabel.setOpacity(0);
                 forwardLabel.setOpacity(1);
-
             }
-
-
             Pause.updateImageWithPause(showCard, cardImage, 1, () -> {
                 Pause.updateLabelWithPause(actionLabel, "Card Taken : " + card.getDescription(), 1, () -> {
                     updateHorsePosition(card);
                     round++;
                     gameRound();
-
-
                 });
             });
 
         });
     }
 
-
+    /**
+     * Method to create a window to explain the deck is empty. if you want to play more to shuffling again or
+     * you want to exit, to display1 ( menu)
+     * @param message custom to communicate user something
+     */
     public void showAlertAndPause(String message) {
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -193,6 +158,10 @@ public class controller4 {
         });
     }
 
+    /**
+     * Method to go display1
+     *
+     */
     private void goToDisplay1() {
 
         try {
@@ -207,11 +176,14 @@ public class controller4 {
 
     }
 
+    /**
+     * Method to move image of horse move one position forward or backward
+     * @param card to extract the suit to move horse
+     */
     private void updateHorsePosition(Card card) {
-
+        logs = new LinkedHashMap<>();
         String horseSuit = String.valueOf(card.getSuit());
         ImageView horse = (ImageView) display4.lookup(("#KNIGHT_of_" + horseSuit));
-
         logs.put("Ronda " + round + " : ", card.getDescription());
 
         /*
@@ -219,15 +191,15 @@ public class controller4 {
         System.out.println(card.getDescription());
         */
 
-
-        //movimiento hacia atras
+        //back
         if (round % 5 == 0) {
             // elige entre 2 valores siempre el mayor
 
+            int firsPosition = 132;
             double newX = Math.max(horse.getLayoutX() - 100, firsPosition);
             Pause.updateHorsePlaceWithPause(horse, 1, newX, null);
 
-            //movimiento hacia delante
+            //next
         } else {
 
             if (isWinner(horse, horseSuit)) winner = true;
@@ -237,8 +209,14 @@ public class controller4 {
         }
     }
 
+    /**
+     * Method to check if one horse cross finish line
+     * @param horse image to check if is cross finish line
+     * @param horseSuit to check
+     * @return true or false if this horse pass finish line
+     */
     private boolean isWinner(ImageView horse, String horseSuit) {
-        //comprueba si el caballo ha llegado a la linea de meta
+
         if (horse.getLayoutX() >= 931) {
             Pause.updateLabelWithPause(actionLabel, "FINISH " + horseSuit + " WIN THE RACE", 1, null);
             winHorseSuit = horseSuit;
@@ -250,6 +228,9 @@ public class controller4 {
         }
     }
 
+    /**
+     * Method to go display5
+     */
     @FXML
     private void goToDisplay5() {
 
@@ -265,10 +246,13 @@ public class controller4 {
 
     }
 
+
     public static String getWinHorseSuit() {
         return winHorseSuit;
 
     }
+
+
 
 
 }

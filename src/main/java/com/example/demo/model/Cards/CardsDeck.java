@@ -1,8 +1,7 @@
-package com.example.demo.model;
+package com.example.demo.model.Cards;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import static com.example.demo.helper.Prints.printShuffling;
 
 public class CardsDeck {
 
@@ -65,7 +64,7 @@ public class CardsDeck {
             numCarta = (int) (Math.random() * 40);
             if (numCartes.size() > 39) {
                 numCartes.clear();
-                //printShuffling();
+
 
             } else {
                 if (!numCartes.isEmpty())

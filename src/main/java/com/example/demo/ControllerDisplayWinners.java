@@ -1,8 +1,7 @@
 package com.example.demo;
 
-import com.example.demo.helper.AlertUtil;
 import com.example.demo.helper.Pause;
-import javafx.application.Application;
+import com.example.demo.model.GameLogic;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,31 +9,32 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class controllerDisplayWinners {
+public class ControllerDisplayWinners {
 
     @FXML
     public Label winnersLabel;
-
 
     @FXML
     public Button backButtonWinnersDisplay;
 
     private LinkedList<String> winners;
 
+    /**
+     * Method to show all winners in saved in file txt.
+     */
     @FXML
     public void initialize() {
         winners = new LinkedList<>();
+
         File winnersFile = new File("winners.txt");
-        if(winnersFile.exists()) readWinners(winners);
+        if(winnersFile.exists()) GameLogic.readWinners(winners);
 
 
         StringBuilder champions = new StringBuilder();
@@ -61,21 +61,7 @@ public class controllerDisplayWinners {
         }
 
     }
-    private void readWinners(LinkedList<String> winners){
 
-        String fileName = "winners.txt";
-
-        try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
-            String line;
-            while((line = reader.readLine()) != null) {
-                winners.add(line);
-            }
-        }catch (IOException e ){
-            System.out.println("error to read file : " + e.getMessage());
-        }
-
-
-    }
 
 
 

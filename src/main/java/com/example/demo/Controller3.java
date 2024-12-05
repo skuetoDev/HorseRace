@@ -1,14 +1,18 @@
 package com.example.demo;
+
 import com.example.demo.helper.AlertUtil;
 import com.example.demo.helper.Pause;
-import com.example.demo.model.players.Bot;
+import com.example.demo.model.Cards.CardSuit;
+import com.example.demo.model.GameLogic;
 import com.example.demo.model.players.Human;
 import com.example.demo.model.players.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
@@ -18,42 +22,28 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-
-import java.util.ArrayList;
-
-import java.util.List;
 import java.util.Objects;
 
-
-public class controller3 {
+public class Controller3 {
 
     @FXML
     private Pane display3;
 
-
     @FXML
     private TextField playersInput;
-
 
     @FXML
     private Button submitButton;
 
-    private static List<Player> players = new ArrayList<>();
-
     @FXML
     private Button backButtonDisplay3;
-
-    private Button savePlayersButton;
 
     private static int jackpot = 0;
 
     private Button playButtonDisplay3;
 
-    int numPlayers;
-    double startY;
-    List<TextField> names = new ArrayList<>();
-    List<TextField> bets = new ArrayList<>();
-    List<TextField> suits = new ArrayList<>();
+    private int numPlayers;
+    private double startY;
 
 
     @FXML
@@ -71,10 +61,10 @@ public class controller3 {
     }
 
     /**
-     * method to create dinamic players with numPlayers and one button to add in arraylist players.
-     * and check that each horseSuit is already chosen
-     *
-     * @param numPlayers human players who want play
+     * method to create a dynamic display 3.2 where there are 3 labels and 3 Textfields to
+     * create a human player, there are 3 buttons also back to go to display2 save players
+     * ( which saves them in a LinkedHasMap ) and advance to the dynamic display 3.2
+     * @param numPlayers human players who wants to play
      */
     private void createDynamicDisplay3_1(int numPlayers) {
 
@@ -94,6 +84,7 @@ public class controller3 {
             TextField nameField = new TextField();
             nameField.setLayoutX(185);
             nameField.setLayoutY((startY + i * 90) + 40);
+            nameField.setId("nameTextField-" + i);
             nameField.getStyleClass().add("dynamic-textField");
 
 
@@ -106,6 +97,7 @@ public class controller3 {
             TextField betField = new TextField();
             betField.setLayoutX(520);
             betField.setLayoutY((startY + i * 90) + 40);
+            betField.setId("betTextField-" + i);
             betField.getStyleClass().add("dynamic-textField");
 
 
@@ -117,32 +109,24 @@ public class controller3 {
 
             TextField suitField = new TextField();
             suitField.setLayoutX(835);
-            suitField.setPromptText("");
+            suitField.setId("suitTextField-" + i);
             suitField.setLayoutY((startY + i * 90) + 40);
             suitField.getStyleClass().add("dynamic-textField");
 
-            names.add(nameField);
-            bets.add(betField);
-            suits.add(suitField);
 
             display3.getChildren().addAll(labelName, nameField, labelBet, betField, labelSuit, suitField);
-
-
-
-
         }
 
-
-        backButtonDisplay3 = new Button("BACK");
-        backButtonDisplay3.setLayoutX(360);
+        backButtonDisplay3 = new Button("Back");
+        backButtonDisplay3.setLayoutX(325);
         backButtonDisplay3.setLayoutY(((startY + numPlayers * 90) + 100));
         backButtonDisplay3.getStyleClass().add("dynamic-button");
         backButtonDisplay3.setEffect(setLight());
         backButtonDisplay3.setOnAction(event -> goToDisplay2());
         display3.getChildren().add(backButtonDisplay3);
 
-        savePlayersButton = new Button("SAVE PLAYERS");
-        savePlayersButton.setLayoutX(550);
+        Button savePlayersButton = new Button("SAVE PLAYERS");
+        savePlayersButton.setLayoutX(470);
         savePlayersButton.setLayoutY((startY + numPlayers * 90) + 100);
         savePlayersButton.getStyleClass().add("dynamic-button");
         savePlayersButton.setEffect(setLight());
@@ -150,83 +134,86 @@ public class controller3 {
         display3.getChildren().add(savePlayersButton);
 
 
+        Button nextButtondisplay3 = new Button("Next");
+        nextButtondisplay3.setLayoutX(765);
+        nextButtondisplay3.setLayoutY((startY + numPlayers * 90) + 100);
+        nextButtondisplay3.getStyleClass().add("dynamic-button");
+        nextButtondisplay3.setEffect(setLight());
+        nextButtondisplay3.setOnMouseClicked(event -> {
+            if (GameLogic.getPlayers().isEmpty()) {
+                AlertUtil.showError("ERROR SAVED PLAYER", "You must save players before go next display");
+            } else {
+                dynamicDisplay3_2();
+            }
+
+        });
+        display3.getChildren().add(nextButtondisplay3);
+
+
     }
 
-
+    /**
+     * method to create human/bot players
+     */
     private void createPlayers() {
-        players.clear();
-        for (int i = 0; i < numPlayers; i++) {
 
-            String name = names.get(i).getText();
+        try {
+            GameLogic.clearPlayers();
+            for (int i = 0; i < numPlayers; i++) {
+                TextField nameField = (TextField) display3.lookup("#nameTextField-" + i);
+                TextField betField = (TextField) display3.lookup("#betTextField-" + i);
+                TextField suitField = (TextField) display3.lookup("#suitTextField-" + i);
 
-            int bet;
-            try {
-                bet = Integer.parseInt(bets.get(i).getText());
+                if (nameField.getText().isEmpty() || suitField.getText().isEmpty() || betField.getText().isEmpty()) {
+                    throw new IllegalArgumentException("Name, Bet and Suit cannot be empty");
+                }
+                int bet = Integer.parseInt(betField.getText());
 
                 if (bet <= 0 || bet > 100) {
-                    AlertUtil.showWarning("ERROR RANGE", "Please enter a valid range 1-100 €");
-                    return;
+                    throw new IllegalArgumentException("Bet must to be between 1 and 100");
 
                 }
 
-            } catch (NumberFormatException e) {
-                AlertUtil.showError("BET ERROR", "Please enter a valid number in Bet");
-                return;
-            }
+                String suitImput = suitField.getText().toUpperCase();
+                try{
+                    CardSuit.valueOf(suitImput);
+                }catch (IllegalArgumentException e){
+                    throw new IllegalArgumentException("Invalid suit: " + suitImput + " Valid suits are: GOLD, SWORDS, CUPS, CLUBS.");
+                }
 
-
-            String suit = suits.get(i).getText();
-            try{
-
-                Human humanPlayer = new Human(name, bet, suit);
-                if (players.isEmpty()) {
-                    players.add(humanPlayer);
+                Human humanPlayer = new Human(nameField.getText(), Integer.parseInt(betField.getText()), suitField.getText());
+                if (GameLogic.getPlayers().isEmpty()) {
+                    GameLogic.getPlayers().add(humanPlayer);
                 } else {
-                    if (!horseSuiteAssigned(suit)) {
-                        players.add(humanPlayer);
+                    if (!GameLogic.horseSuiteAssigned(suitField.getText())) {
+                        GameLogic.getPlayers().add(humanPlayer);
 
                     } else {
-                        AlertUtil.showWarning("SUIT ALREADY CHOSEN", "The suits of player " + (i + 1) +
+                        AlertUtil.showInformation("SUIT ALREADY CHOSEN", "The suits of player " + (i + 1) +
                                 " already choose, please choose another suit");
                         return;
                     }
                 }
-
-            }catch (IllegalArgumentException e){
-                AlertUtil.showWarning("INVALID SUIT", "Introduced suit was not valid" +
-                                        "\n It will be one of these: GOLD, CUPS, SWORDS, CLUBS");
-                return;
             }
-
-
-
-
+            GameLogic.createBotPlayers(numPlayers);
+            AlertUtil.showInformation("SUCCESS", "Players saved successfully");
+        } catch (NumberFormatException e) {
+            AlertUtil.showError("INPUT ERROR", "Bet must be a valid number!");
+        } catch (IllegalArgumentException e) {
+            AlertUtil.showError("INPUT ERROR", e.getMessage());
         }
-        createBotPlayers(numPlayers);
-        dynamicDisplay3_2();
 
 
     }
 
-    private void createBotPlayers(int botPlayer) {
-
-        for (int i = botPlayer; i < 4; i++) {
-            boolean exit = false;
-            while (!exit) {
-                Bot playerBot = new Bot();
-                if (!horseSuiteAssigned(playerBot.getHorseSuit()) && !nameAlreadyExists(playerBot.getName())) {
-                    players.add(playerBot);
-                    exit = true;
-                }
-            }
-        }
-
-    }
-
+    /**
+     * to create a dinamic display3.2 where there is one label with all players and his information
+     * (name,bet,horsesuit chosen), and one buton (play) to start the game.
+     */
     private void dynamicDisplay3_2() {
         display3.getChildren().removeIf(node -> node instanceof TextField || node instanceof Button || node instanceof Label);
 
-        for (int i = 0; i < players.size(); i++) {
+        for (int i = 0; i < GameLogic.getPlayers().size(); i++) {
             String information;
 
 
@@ -237,9 +224,9 @@ public class controller3 {
             display3.getChildren().add(playersTitleLabel);
 
 
-            information = "Player " + (i + 1) + " Name :  " + players.get(i).getName() +
-                    "\nBet :  " + players.get(i).getBet() + " €" +
-                    "\nHorse suit :  " + players.get(i).getHorseSuit();
+            information = "Player " + (i + 1) + " Name :  " + GameLogic.getPlayers().get(i).getName() +
+                    "\nBet :  " + GameLogic.getPlayers().get(i).getBet() + " €" +
+                    "\nHorse suit :  " + GameLogic.getPlayers().get(i).getHorseSuit();
 
             Label playersNameLabel = new Label(information);
             playersNameLabel.setLayoutX(200);
@@ -249,8 +236,7 @@ public class controller3 {
 
             //to make pause
 
-            Pause.slowShow(i,display3,playersNameLabel).play();
-
+            Pause.slowShow(i, display3, playersNameLabel).play();
 
 
         }
@@ -262,9 +248,8 @@ public class controller3 {
         display3.getChildren().add(jackpotLabel);
 
 
-
-        for (Player p : players) {
-            jackpot += p.getBet();
+        for (Player p : GameLogic.getPlayers()) {
+            jackpot +=  p.getBet();
 
         }
 
@@ -289,7 +274,7 @@ public class controller3 {
 
         playButtonDisplay3 = new Button("PLAY");
         playButtonDisplay3.setLayoutX(500);
-        playButtonDisplay3.setLayoutY((startY + players.size() * 90) + 100);
+        playButtonDisplay3.setLayoutY((startY + GameLogic.getPlayers().size() * 90) + 100);
         playButtonDisplay3.getStyleClass().add("dynamic-button");
         playButtonDisplay3.setEffect(setLight());
         playButtonDisplay3.setOnAction(event -> goToDisplay4());
@@ -298,17 +283,9 @@ public class controller3 {
 
     }
 
-
-    private boolean horseSuiteAssigned(String horseSuit) {
-        for (Player p : players) {
-            if (p.getHorseSuit().equalsIgnoreCase(horseSuit)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
+    /**
+     * Method to back display3
+     */
     private void goToDisplay2() {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("display2.fxml")));
@@ -322,16 +299,10 @@ public class controller3 {
 
     }
 
-    private boolean nameAlreadyExists(String name) {
-        for (Player p : players) {
-            if (p.getName().equalsIgnoreCase(name)) {
-                return true;
-            }
-        }
-        return false;
-
-    }
-
+    /**
+     * Method to get lighting Effect in a dynamics buttons
+     * @return object of type effect
+     */
     private Effect setLight() {
         Lighting lightingEffect = new Lighting();
         Light.Distant light = new Light.Distant();
@@ -348,6 +319,9 @@ public class controller3 {
 
     }
 
+    /**
+     * Method to go next display display4
+     */
     private void goToDisplay4() {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("display4.fxml")));
@@ -360,12 +334,9 @@ public class controller3 {
 
     }
 
-    public static List getPlayers(){
-        return players;
-    }
-
-    public static int getJackpot(){
-
+    public static int getJackpot() {
         return jackpot;
     }
+
+
 }

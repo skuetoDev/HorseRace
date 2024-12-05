@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="display2" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller2">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="display2" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.Controller2">
    <children>
       <Button id="playGameButton" fx:id="playGameButton" layoutX="845.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#goToDisplay3" prefHeight="42.0" prefWidth="330.0" style="-fx-background-color: #ce9d0a; -fx-background-radius: 50PX;" styleClass="display2Button" stylesheets="@styles.css" text="PLAY GAME" textAlignment="CENTER" textFill="#5f7e7d">
          <font>

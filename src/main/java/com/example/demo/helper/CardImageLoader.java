@@ -1,9 +1,8 @@
 package com.example.demo.helper;
 
-import com.example.demo.model.Card;
+import com.example.demo.model.Cards.Card;
 import javafx.scene.image.Image;
 
-import java.io.File;
 import java.net.URL;
 
 public class CardImageLoader {

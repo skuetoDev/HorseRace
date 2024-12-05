@@ -1,14 +1,10 @@
 package com.example.demo;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class Controller1 {
@@ -20,7 +16,7 @@ public class Controller1 {
 
 
     @FXML
-    protected void goNextScene () throws IOException {
+    protected void goNextScene() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("display2.fxml"));
         Scene scene2 = new Scene(loader.load());
         Stage stage = (Stage) enterButton.getScene().getWindow();
@@ -32,7 +28,6 @@ public class Controller1 {
         Platform.exit();
         System.exit(0);
     }
-
 
 
 }

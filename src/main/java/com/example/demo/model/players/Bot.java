@@ -1,5 +1,5 @@
 package com.example.demo.model.players;
-import com.example.demo.model.CardSuit;
+import com.example.demo.model.Cards.CardSuit;
 import java.util.Random;
 
 public class Bot extends Player {

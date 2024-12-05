@@ -1,6 +1,6 @@
 package com.example.demo.model.players;
 import com.example.demo.helper.AlertUtil;
-import com.example.demo.model.CardSuit;
+import com.example.demo.model.Cards.CardSuit;
 
 import static java.lang.String.valueOf;
 

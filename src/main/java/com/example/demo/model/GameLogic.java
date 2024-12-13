@@ -1,12 +1,16 @@
 package com.example.demo.model;
+
 import com.example.demo.helper.RoundMaxException;
 import com.example.demo.model.Cards.CardsDeck;
 import com.example.demo.model.players.Bot;
 
 import com.example.demo.model.players.Player;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.*;
 
 public class GameLogic {
@@ -18,14 +22,14 @@ public class GameLogic {
     private static List<Integer> bets = new ArrayList<>();
     private static List<String> suits = new ArrayList<>();
 
-    private static  String winersFileString = "winners.txt";
+    private static final String winersFileString = "winners.json";
 
-    private static int jackpot ;
+    private static int jackpot;
 
     /**
      * Comprueba si debe lanzarse la excepción RoundMaxException.
      *
-     * @param round El número de ronda actual.
+     * @param round            El número de ronda actual.
      * @param counterExcepcion Contador de excepciones.
      * @throws RoundMaxException si la ronda es múltiplo de 41 y counterExcepcion es 0.
      */
@@ -35,36 +39,48 @@ public class GameLogic {
         }
     }
 
-    public static void createCardsDeck(){
+    public static void createCardsDeck() {
         cardsDeck = new CardsDeck();
 
     }
 
 
+    /**
+     * Method to create file logs.json, throw linkedHasMap logs.
+     *
+     * @param logs linkedHasMap that contain all information of the game.
+     */
+    public static void writeFileLogs(LinkedHashMap<String, String> logs) {
 
-    public static void createFileLogs(LinkedHashMap<String, String> logs) {
 
+        String fileName = "logs.json";
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        String fileName = "logs.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
 
-        try (
-                BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            for (Map.Entry<String, String> entry : logs.entrySet()) {
-                writer.write(entry.getKey() + entry.getValue());
-                writer.newLine();
-            }
-            System.out.println("Archivo " + fileName + " creado correctamente");
-        } catch (
-                IOException e) {
-            System.out.println("Error al escribir el archivo " + fileName);
+            String json = gson.toJson(logs);
+            writer.write(json);
+            System.out.println("File " + fileName + " created");
+        } catch (IOException e) {
+
+            System.out.println("Error in write file " + fileName);
+
 
         }
     }
 
+    /**
+     * Method to get a cardsDeck
+     *
+     * @return cardsDeck
+     */
     public static CardsDeck getCardsDeck() {
         return cardsDeck;
     }
 
+    /**
+     * Clear all players fields
+     */
     public static void clearPlayers() {
         players.clear();
         names.clear();
@@ -72,6 +88,12 @@ public class GameLogic {
         suits.clear();
     }
 
+    /**
+     * method to check if one horseSuit is assigned
+     *
+     * @param horseSuit to check
+     * @return true if assigned, false if not assigned
+     */
     public static boolean horseSuiteAssigned(String horseSuit) {
         for (Player p : players) {
             if (p.getHorseSuit().equalsIgnoreCase(horseSuit)) {
@@ -81,6 +103,11 @@ public class GameLogic {
         return false;
     }
 
+    /**
+     * Method to create bot random players with a dynamic numbers
+     *
+     * @param botPlayer int to create bots
+     */
     public static void createBotPlayers(int botPlayer) {
 
         for (int i = botPlayer; i < 4; i++) {
@@ -96,6 +123,12 @@ public class GameLogic {
 
     }
 
+    /**
+     * Method to check if one name of players(bots) are choosen.
+     *
+     * @param name name to check
+     * @return if exists true false if not
+     */
     private static boolean nameAlreadyExists(String name) {
         for (Player p : players) {
             if (p.getName().equalsIgnoreCase(name)) {
@@ -106,16 +139,21 @@ public class GameLogic {
 
     }
 
-    public static void readWinners(LinkedList<String> winners){
 
+    public static void readWinners(LinkedHashMap<String, String> winners) {
 
-        try(BufferedReader reader = new BufferedReader(new FileReader(winersFileString))){
-            String line;
-            while((line = reader.readLine()) != null){
-                winners.add(line);
+        Gson gson = new Gson();
+        Type listType = new TypeToken<LinkedHashMap<String, String>>() {
+        }.getType();
+        try (BufferedReader reader = new BufferedReader(new FileReader(winersFileString))) {
+            winners.clear();
+            LinkedHashMap<String, String> loadedWinners = gson.fromJson(reader, listType);
+            if (loadedWinners != null) {
+                winners.putAll(loadedWinners);
             }
-        }catch (IOException e ){
-            System.out.println("error to read file : " + e.getMessage());
+            System.out.println("File " + winersFileString + "read");
+        } catch (IOException e) {
+            System.out.println("Error to read file : " + e.getMessage());
         }
 
 
@@ -125,15 +163,12 @@ public class GameLogic {
         return winersFileString;
     }
 
-    public static void writeWinners(LinkedList<String> winners){
-
-
+    public static void writeWinners(LinkedHashMap<String, String> winners) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(winersFileString))) {
-            for (String winner : winners) {
-                writer.write(winner+"\n");
-
-            }
-            System.out.println("File " + winersFileString + " overwrite  ");
+            String json = gson.toJson(winners);
+            writer.write(json);
+            System.out.println("File " + winersFileString + " overwrite");
         } catch (IOException e) {
             System.out.println("Error writing file " + winersFileString);
 
@@ -141,6 +176,7 @@ public class GameLogic {
 
 
     }
+
 
     public static List<Player> getPlayers() {
         return players;

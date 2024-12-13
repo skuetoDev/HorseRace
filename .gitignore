@@ -11,8 +11,8 @@ target/
 *.iws
 *.iml
 *.ipr
-logs.txt
-winners.txt
+logs.json
+winners.json
 
 ### Eclipse ###
 .apt_generated

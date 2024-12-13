@@ -13,7 +13,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Objects;
 
 public class ControllerDisplayWinners {
@@ -24,22 +26,22 @@ public class ControllerDisplayWinners {
     @FXML
     public Button backButtonWinnersDisplay;
 
-    private LinkedList<String> winners;
+    private LinkedHashMap<String, String> winners;
 
     /**
      * Method to show all winners in saved in file txt.
      */
     @FXML
     public void initialize() {
-        winners = new LinkedList<>();
+        winners = new LinkedHashMap<>();
 
-        File winnersFile = new File("winners.txt");
+        File winnersFile = new File("winners.json");
         if(winnersFile.exists()) GameLogic.readWinners(winners);
 
 
         StringBuilder champions = new StringBuilder();
-        for (String winner : winners) {
-            champions.append(winner).append("\n");
+        for (Map.Entry<String, String> entry: winners.entrySet()) {
+            champions.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
 
         }
         String winners = champions.toString();

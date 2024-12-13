@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -57,9 +58,6 @@ public class Controller4 {
     private LinkedHashMap<String, String> logs;
 
 
-
-
-
     @FXML
     public void initialize() {
 
@@ -86,10 +84,10 @@ public class Controller4 {
      */
     protected void gameRound() {
         try {
-           GameLogic.checkRound(round,counterExcepcion);
+            GameLogic.checkRound(round, counterExcepcion);
             if (winner) {
                 nextButtonDisplay5.setOpacity(1);
-                GameLogic.createFileLogs(logs);
+                GameLogic.writeFileLogs(logs);
                 return;
             }
 
@@ -111,7 +109,7 @@ public class Controller4 {
      * Method to get a card from deck show corresponding image from BARAJA, and with methods from helper.Pause
      * to make pause with all interactions in this display.
      */
-    private void getCard(){
+    private void getCard() {
         Card card = GameLogic.getCardsDeck().getCardFromDeck();
         String imagePath = "/com/example/demo/images/BARAJA";
         Image cardImage = CardImageLoader.loadCardImage(card, imagePath);
@@ -138,6 +136,7 @@ public class Controller4 {
     /**
      * Method to create a window to explain the deck is empty. if you want to play more to shuffling again or
      * you want to exit, to display1 ( menu)
+     *
      * @param message custom to communicate user something
      */
     public void showAlertAndPause(String message) {
@@ -161,7 +160,6 @@ public class Controller4 {
 
     /**
      * Method to go display1
-     *
      */
     private void goToDisplay1() {
 
@@ -179,13 +177,14 @@ public class Controller4 {
 
     /**
      * Method to move image of horse move one position forward or backward
+     *
      * @param card to extract the suit to move horse
      */
     private void updateHorsePosition(Card card) {
 
         String horseSuit = String.valueOf(card.getSuit());
         ImageView horse = (ImageView) display4.lookup(("#KNIGHT_of_" + horseSuit));
-        logs.put("Ronda " + round + " : ", card.getDescription());
+        logs.put("Ronda " + round, card.getDescription());
 
         /*
         System.out.println("Ronda " + round + " : ");
@@ -212,7 +211,8 @@ public class Controller4 {
 
     /**
      * Method to check if one horse cross finish line
-     * @param horse image to check if is cross finish line
+     *
+     * @param horse     image to check if is cross finish line
      * @param horseSuit to check
      * @return true or false if this horse pass finish line
      */
@@ -252,8 +252,6 @@ public class Controller4 {
         return winHorseSuit;
 
     }
-
-
 
 
 }

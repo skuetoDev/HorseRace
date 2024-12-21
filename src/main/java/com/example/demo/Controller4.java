@@ -2,7 +2,7 @@ package com.example.demo;
 
 import com.example.demo.helper.CardImageLoader;
 import com.example.demo.helper.Database.DatabaseManager;
-import com.example.demo.helper.FileLogsAccess;
+import com.example.demo.helper.File.FileLogsAccess;
 import com.example.demo.helper.Pause;
 import com.example.demo.helper.RoundMaxException;
 import com.example.demo.model.Cards.Card;
@@ -188,9 +188,9 @@ public class Controller4 {
     private void updateHorsePosition(Card card) {
         String horseSuit = String.valueOf(card.getSuit());
         ImageView horse = (ImageView) display4.lookup(("#KNIGHT_of_" + horseSuit));
-        //todo acceso y guardado  bbdd
+
         try{
-            fileAccess.loadFromJSON();
+            fileAccess.loadLogsFromJSON();
             fileAccess.addRound(round, card.getDescription());
             fileAccess.saveToJSON();
 
@@ -204,22 +204,30 @@ public class Controller4 {
         System.out.println(card.getDescription());
         */
 
+        double newX = 0;
         //back
         if (round % 5 == 0) {
             // elige entre 2 valores siempre el mayor
-
             int firsPosition = 132;
-            double newX = Math.max(horse.getLayoutX() - 100, firsPosition);
-            Pause.updateHorsePlaceWithPause(horse, 1, newX, null);
+            newX = Math.max(horse.getLayoutX() - 100, firsPosition);
 
             //next
         } else {
-
             if (isWinner(horse, horseSuit)) winner = true;
-
-            Pause.updateHorsePlaceWithPause(horse, 1, horse.getLayoutX() + 100, null);
-
+            newX = horse.getLayoutX()+100;
         }
+
+        Pause.updateHorsePlaceWithPause(horse, 1, newX, null);
+        DatabaseManager.updateHorsePositionDatabase(horseSuit,newX);
+
+
+
+
+
+
+
+
+
     }
 
     /**
@@ -236,9 +244,11 @@ public class Controller4 {
 
 
             try{
-                fileAccess.loadFromJSON();
+                fileAccess.loadLogsFromJSON();
                 fileAccess.addRound(round," END GAME " + winHorseSuit + " WINS");
                 fileAccess.saveToJSON();
+
+                DatabaseManager.updateWinnerDatabase(winHorseSuit);
 
             }catch (IOException ex){
                 System.out.println(ex.getMessage());

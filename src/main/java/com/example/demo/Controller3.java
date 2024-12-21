@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.helper.AlertUtil;
+import com.example.demo.helper.Database.DatabaseManager;
 import com.example.demo.helper.Pause;
 import com.example.demo.model.Cards.CardSuit;
 import com.example.demo.model.GameLogic;
@@ -196,6 +197,8 @@ public class Controller3 {
                 }
             }
             GameLogic.createBotPlayers(numPlayers);
+            DatabaseManager.insertTablePlayersInfo(GameLogic.getPlayers());
+
             AlertUtil.showInformation("SUCCESS", "Players saved successfully");
         } catch (NumberFormatException e) {
             AlertUtil.showError("INPUT ERROR", "Bet must be a valid number!");

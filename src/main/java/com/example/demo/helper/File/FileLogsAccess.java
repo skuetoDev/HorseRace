@@ -1,4 +1,4 @@
-package com.example.demo.helper;
+package com.example.demo.helper.File;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -14,11 +14,11 @@ public class FileLogsAccess {
 
 
     public FileLogsAccess(){
-        createEmptyJSON();
+        createEmptyLogsJson();
 
     }
-    private void createEmptyJSON() {
-        rootNode =objectMapper.createObjectNode();
+    private void createEmptyLogsJson() {
+        rootNode = objectMapper.createObjectNode();
         roundsNode = objectMapper.createArrayNode();
         rootNode.set("Game",roundsNode);
     }
@@ -32,13 +32,13 @@ public class FileLogsAccess {
     }
 
 
-    public  void loadFromJSON() throws IOException{
+    public  void loadLogsFromJSON() throws IOException{
         File file = new File(filePath);
         if(file.exists()){
             rootNode = (ObjectNode) objectMapper.readTree(file);
             roundsNode = (ArrayNode) rootNode.get("Game");
         }else{
-            createEmptyJSON();
+            createEmptyLogsJson();
         }
     }
 

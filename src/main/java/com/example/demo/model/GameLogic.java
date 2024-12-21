@@ -1,31 +1,24 @@
 package com.example.demo.model;
-
 import com.example.demo.helper.RoundMaxException;
 import com.example.demo.model.Cards.CardsDeck;
 import com.example.demo.model.players.Bot;
-
 import com.example.demo.model.players.Player;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.*;
-import java.lang.reflect.Type;
 import java.util.*;
 
 public class GameLogic {
 
     private static CardsDeck cardsDeck;
 
-    private static List<Player> players = new ArrayList<>();
-    private static List<String> names = new ArrayList<>();
-    private static List<Integer> bets = new ArrayList<>();
-    private static List<String> suits = new ArrayList<>();
+    private static final List<Player> players = new ArrayList<>();
 
-    private static final String winersFileString = "winner.json";
+    private static final List<String> names = new ArrayList<>();
+    private static final List<Integer> bets = new ArrayList<>();
+    private static final List<String> suits = new ArrayList<>();
 
-    private static int jackpot;
+
+    public static List<Player> getPlayers() {
+        return players;
+    }
 
     /**
      * Comprueba si debe lanzarse la excepción RoundMaxException.
@@ -116,54 +109,15 @@ public class GameLogic {
     }
 
 
-    public static StringBuilder readWinners() {
-        StringBuilder stringWinners = new StringBuilder();
-        Gson gson = new Gson();
 
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(winersFileString))) {
-           JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
-
-            if (jsonObject != null) {
-                String player = jsonObject.get("player").getAsString();
-                String jackpot = jsonObject.get("jackpot").getAsString();
-                stringWinners.append(player).append("....").append(jackpot).append(" €\n");
-
-            }
-
-        } catch (IOException e) {
-            System.out.println("Error to read file : " + e.getMessage());
-        }
-        return stringWinners;
 
 
-    }
-
-    public static String getWinersFileString() {
-        return winersFileString;
-    }
-
-    public static void writeWinners(String winnerName, int jackpot ) {
-        JsonObject winnerData = new JsonObject();
-        winnerData.addProperty("player",winnerName);
-        winnerData.addProperty("jackpot",jackpot);
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(winersFileString))) {
-            String json = gson.toJson(winnerData);
-            writer.write(json);
-            System.out.println("File " + winersFileString + " overwrite");
-        } catch (IOException e) {
-            System.out.println("Error writing file " + winersFileString);
-        }
-
-    }
 
 
-    public static List<Player> getPlayers() {
-        return players;
-    }
+
+
+
 
 
 }

@@ -1,9 +1,11 @@
 package com.example.demo.helper.Database;
 
 import com.example.demo.model.Cards.Card;
+import com.example.demo.model.players.Player;
 
-import java.io.IOException;
 import java.sql.*;
+import java.util.List;
+import java.util.Map;
 
 public class DatabaseManager {
 
@@ -14,8 +16,6 @@ public class DatabaseManager {
     private static final String useDatabase = "USE horse_race;";
     private static final String databaseName = "horse_race";
     private static Connection connection;
-
-    private static String logsTableId;
 
 
     /**
@@ -90,11 +90,11 @@ public class DatabaseManager {
             String logsTable = "logs_game" + idPartida;
             String createPlayersTable = """
                     CREATE TABLE IF NOT EXISTS %s(
-                        id_player INT PRIMARY KEY,
+                        id_player INT PRIMARY KEY AUTO_INCREMENT,
                         name VARCHAR(30),
                         bet INT,
                         suit VARCHAR(8),
-                        layaoutY_position INT,
+                        layaoutX_position DECIMAL DEFAULT 131,
                         isWinner BOOLEAN DEFAULT false
                     );
                     """.formatted(playersTable);
@@ -135,27 +135,78 @@ public class DatabaseManager {
     }
 
 
-    public static void insertTableRoundInfo(Card card ,int roundId){
-        String[] cardParts = card.getDescription().split("of",2);
+    public static void insertTableRoundInfo(Card card, int roundId) {
+        String[] cardParts = card.getDescription().split("of", 2);
         String cardNumber = cardParts[0].trim();
         String cardSuit = cardParts[1].trim();
-        System.out.println(cardNumber);
-        System.out.println(cardSuit);
-        System.out.println(roundId);
 
         String insertQuery = " INSERT INTO logs_game" + idPartida + " (id_round, value_card, card_suit) VALUES (?,?,?);";
-        try(PreparedStatement prstmt = getConnection().prepareStatement(insertQuery)){
-            prstmt.setInt(1,roundId);
+        try (PreparedStatement prstmt = getConnection().prepareStatement(insertQuery)) {
+            prstmt.setInt(1, roundId);
             prstmt.setString(2, cardNumber);
-            prstmt.setString(3,cardSuit);
+            prstmt.setString(3, cardSuit);
 
             prstmt.executeUpdate();
 
+        } catch (SQLException ex) {
+            System.out.println("ERROR " + ex.getMessage());
+        }
+    }
 
-        }catch (SQLException ex){
-            System.out.println("ERROR "+ ex.getMessage());
+    public static void insertTablePlayersInfo(List<Player> players) {
+
+        for (Player p : players) {
+            String name = p.getName();
+            int bet = p.getBet();
+            String suit = p.getHorseSuit();
+
+            String insertQuery = "INSERT INTO players_game" + idPartida + " (name, bet, suit) VALUES (?,?,?);";
+            try (PreparedStatement prstmt = getConnection().prepareStatement(insertQuery)) {
+                prstmt.setString(1, name);
+                prstmt.setInt(2, bet);
+                prstmt.setString(3, suit);
+
+                prstmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                System.out.println("ERROR " + ex.getMessage());
+            }
+
+        }
+
+    }
+
+    public static void updateHorsePositionDatabase(String horseSuit, double newLayaoutX_position) {
+
+        String updateQuery = "UPDATE players_game" + idPartida + " SET layaoutX_position = ? WHERE suit = ?";
+
+        try (PreparedStatement prstmt = getConnection().prepareStatement(updateQuery)) {
+            prstmt.setDouble(1, newLayaoutX_position);
+            prstmt.setString(2, horseSuit);
+            prstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("ERROR " + e.getMessage());
+        }
+
+
+    }
+
+    public static void updateWinnerDatabase(String horseSuit){
+
+        String stringQuery = "UPDATE players_game" + idPartida + " SET isWinner = 1 WHERE suit = ?";
+        try(PreparedStatement prstmt = getConnection().prepareStatement(stringQuery)){
+            prstmt.setString(1,horseSuit);
+            prstmt.executeUpdate();
+
+        }catch (SQLException e){
+            System.out.println("ERROR " + e.getMessage() );
         }
     }
 
 
+
+
 }
+
+

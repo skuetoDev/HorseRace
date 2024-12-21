@@ -1,7 +1,8 @@
 package com.example.demo;
 
+import com.example.demo.helper.File.FileLogsAccess;
+import com.example.demo.helper.File.FileWinnersAcess;
 import com.example.demo.helper.Pause;
-import com.example.demo.model.GameLogic;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,13 +10,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import java.io.BufferedReader;
+
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class ControllerDisplayWinners {
@@ -27,19 +26,23 @@ public class ControllerDisplayWinners {
     public Button backButtonWinnersDisplay;
 
 
-
     /**
      * Method to show all winners in saved in file txt.
      */
     @FXML
     public void initialize() {
+        FileWinnersAcess fileWinnersAccess = new FileWinnersAcess();
+        fileWinnersAccess.loadWinnersFromJson();
+        List<String[]> winners = fileWinnersAccess.getWinnersList();
+        StringBuilder winnerJackpot = new StringBuilder();
+        for(String [] winner : winners){
+             winnerJackpot.append(winner[0]).append("...").append(winner[1]+" €\n");
 
-        String winners = "";
-        File winnersFile = new File("winner.json");
 
-        if(winnersFile.exists()) { winners = GameLogic.readWinners().toString();}
-        System.out.println(winners);
-        Pause.updateLabelWithPause(winnersLabel,winners,1,null);
+
+
+        }
+        Pause.updateLabelWithPause(winnersLabel, String.valueOf(winnerJackpot),1,null);
     }
 
     @FXML

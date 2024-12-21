@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.helper.CardImageLoader;
+import com.example.demo.helper.File.FileWinnersAcess;
 import com.example.demo.helper.Pause;
 import com.example.demo.model.GameLogic;
 import com.example.demo.model.players.Player;
@@ -74,15 +75,17 @@ public class Controller5 {
             throw new IllegalArgumentException(" image " + winnerHorsePath + " not found");
 
         }
-
+            int jackpot = Controller3.getJackpot();
             Pause.updateLabelWithPause(winnerLabel,winnerPlayer + " win with the horse of "+getWinHorseSuit(),1, ()-> {
-            Pause.updateLabelWithPause(jackpotLabel," And the JACKPOT won is...." + (Controller3.getJackpot() + " €"),1, () ->{
+            Pause.updateLabelWithPause(jackpotLabel," And the JACKPOT won is...." + (jackpot + " €"),1, () ->{
                 Pause.updateImageWithPause(winnerHorseImageview,winnerHorse,1,null);
             });
         });
 
-        File winnersFile = new File(GameLogic.getWinersFileString());
-        if(winnersFile.exists()) GameLogic.writeWinners(winnerPlayer,Controller3.getJackpot());
+        FileWinnersAcess fileWinnersAcess = new FileWinnersAcess();
+        fileWinnersAcess.loadWinnersFromJson();
+        fileWinnersAcess.addWinner(winnerPlayer,jackpot);
+        fileWinnersAcess.saveWinnersToJson();
 
     }
 

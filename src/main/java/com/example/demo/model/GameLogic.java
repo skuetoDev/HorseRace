@@ -7,6 +7,7 @@ import com.example.demo.model.players.Bot;
 import com.example.demo.model.players.Player;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
@@ -22,7 +23,7 @@ public class GameLogic {
     private static List<Integer> bets = new ArrayList<>();
     private static List<String> suits = new ArrayList<>();
 
-    private static final String winersFileString = "winners.json";
+    private static final String winersFileString = "winner.json";
 
     private static int jackpot;
 
@@ -42,31 +43,6 @@ public class GameLogic {
     public static void createCardsDeck() {
         cardsDeck = new CardsDeck();
 
-    }
-
-
-    /**
-     * Method to create file logs.json, throw linkedHasMap logs.
-     *
-     * @param logs linkedHasMap that contain all information of the game.
-     */
-    public static void writeFileLogs(LinkedHashMap<String, String> logs) {
-
-
-        String fileName = "logs.json";
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-
-            String json = gson.toJson(logs);
-            writer.write(json);
-            System.out.println("File " + fileName + " created");
-        } catch (IOException e) {
-
-            System.out.println("Error in write file " + fileName);
-
-
-        }
     }
 
     /**
@@ -140,21 +116,25 @@ public class GameLogic {
     }
 
 
-    public static void readWinners(LinkedHashMap<String, String> winners) {
-
+    public static StringBuilder readWinners() {
+        StringBuilder stringWinners = new StringBuilder();
         Gson gson = new Gson();
-        Type listType = new TypeToken<LinkedHashMap<String, String>>() {
-        }.getType();
+
+
         try (BufferedReader reader = new BufferedReader(new FileReader(winersFileString))) {
-            winners.clear();
-            LinkedHashMap<String, String> loadedWinners = gson.fromJson(reader, listType);
-            if (loadedWinners != null) {
-                winners.putAll(loadedWinners);
+           JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
+
+            if (jsonObject != null) {
+                String player = jsonObject.get("player").getAsString();
+                String jackpot = jsonObject.get("jackpot").getAsString();
+                stringWinners.append(player).append("....").append(jackpot).append(" €\n");
+
             }
-            System.out.println("File " + winersFileString + "read");
+
         } catch (IOException e) {
             System.out.println("Error to read file : " + e.getMessage());
         }
+        return stringWinners;
 
 
     }
@@ -163,17 +143,20 @@ public class GameLogic {
         return winersFileString;
     }
 
-    public static void writeWinners(LinkedHashMap<String, String> winners) {
+    public static void writeWinners(String winnerName, int jackpot ) {
+        JsonObject winnerData = new JsonObject();
+        winnerData.addProperty("player",winnerName);
+        winnerData.addProperty("jackpot",jackpot);
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(winersFileString))) {
-            String json = gson.toJson(winners);
+            String json = gson.toJson(winnerData);
             writer.write(json);
             System.out.println("File " + winersFileString + " overwrite");
         } catch (IOException e) {
             System.out.println("Error writing file " + winersFileString);
-
         }
-
 
     }
 
@@ -182,11 +165,5 @@ public class GameLogic {
         return players;
     }
 
-    public static void setJackpot(int jackpot) {
-        GameLogic.jackpot = jackpot;
-    }
 
-    public static int getJackpot() {
-        return jackpot;
-    }
 }

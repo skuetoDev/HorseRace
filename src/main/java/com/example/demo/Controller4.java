@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.helper.CardImageLoader;
+import com.example.demo.helper.FileLogsAccess;
 import com.example.demo.helper.Pause;
 import com.example.demo.helper.RoundMaxException;
 import com.example.demo.model.Cards.Card;
@@ -18,7 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -56,6 +57,8 @@ public class Controller4 {
     protected int counterExcepcion = 0;
 
     private LinkedHashMap<String, String> logs;
+    private FileLogsAccess fileAccess;
+
 
 
     @FXML
@@ -70,7 +73,9 @@ public class Controller4 {
      * Method to start the game, with import createCardsDeck from Logic, then star rounds with gameRound
      */
     private void gameStart() {
-        logs = new LinkedHashMap<>();
+
+        fileAccess = new FileLogsAccess();
+        fileAccess.deleteJSON();
         GameLogic.createCardsDeck();
         gameRound();
 
@@ -87,7 +92,6 @@ public class Controller4 {
             GameLogic.checkRound(round, counterExcepcion);
             if (winner) {
                 nextButtonDisplay5.setOpacity(1);
-                GameLogic.writeFileLogs(logs);
                 return;
             }
 
@@ -181,10 +185,16 @@ public class Controller4 {
      * @param card to extract the suit to move horse
      */
     private void updateHorsePosition(Card card) {
-
         String horseSuit = String.valueOf(card.getSuit());
         ImageView horse = (ImageView) display4.lookup(("#KNIGHT_of_" + horseSuit));
-        logs.put("Ronda " + round, card.getDescription());
+        //todo acceso y guardado  bbdd
+        try{
+            fileAccess.loadFromJSON();
+            fileAccess.addRound(round, card.getDescription());
+            fileAccess.saveToJSON();
+        }catch (IOException ex){
+            System.out.println(ex.getMessage());
+        }
 
         /*
         System.out.println("Ronda " + round + " : ");
@@ -211,7 +221,6 @@ public class Controller4 {
 
     /**
      * Method to check if one horse cross finish line
-     *
      * @param horse     image to check if is cross finish line
      * @param horseSuit to check
      * @return true or false if this horse pass finish line
@@ -221,7 +230,16 @@ public class Controller4 {
         if (horse.getLayoutX() >= 931) {
             Pause.updateLabelWithPause(actionLabel, "FINISH " + horseSuit + " WIN THE RACE", 1, null);
             winHorseSuit = horseSuit;
-            logs.put("END GAME ", winHorseSuit + " wins ");
+
+
+            try{
+                fileAccess.loadFromJSON();
+                fileAccess.addRound(round," END GAME " + winHorseSuit + " WINS");
+                fileAccess.saveToJSON();
+
+            }catch (IOException ex){
+                System.out.println(ex.getMessage());
+            }
 
             return true;
         } else {

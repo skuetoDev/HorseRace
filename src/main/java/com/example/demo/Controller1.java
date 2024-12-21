@@ -1,4 +1,5 @@
 package com.example.demo;
+import com.example.demo.helper.Database.DatabaseManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,10 +22,13 @@ public class Controller1 {
         Scene scene2 = new Scene(loader.load());
         Stage stage = (Stage) enterButton.getScene().getWindow();
         stage.setScene(scene2);
+
+
     }
 
     @FXML
     protected void exit() {
+        DatabaseManager.closeConnection();
         Platform.exit();
         System.exit(0);
     }

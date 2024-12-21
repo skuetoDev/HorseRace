@@ -26,28 +26,20 @@ public class ControllerDisplayWinners {
     @FXML
     public Button backButtonWinnersDisplay;
 
-    private LinkedHashMap<String, String> winners;
+
 
     /**
      * Method to show all winners in saved in file txt.
      */
     @FXML
     public void initialize() {
-        winners = new LinkedHashMap<>();
 
-        File winnersFile = new File("winners.json");
-        if(winnersFile.exists()) GameLogic.readWinners(winners);
+        String winners = "";
+        File winnersFile = new File("winner.json");
 
-
-        StringBuilder champions = new StringBuilder();
-        for (Map.Entry<String, String> entry: winners.entrySet()) {
-            champions.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
-
-        }
-        String winners = champions.toString();
+        if(winnersFile.exists()) { winners = GameLogic.readWinners().toString();}
+        System.out.println(winners);
         Pause.updateLabelWithPause(winnersLabel,winners,1,null);
-
-
     }
 
     @FXML

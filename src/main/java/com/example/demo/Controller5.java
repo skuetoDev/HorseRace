@@ -35,7 +35,7 @@ public class Controller5 {
 
     private Image winnerHorse;
 
-    private LinkedHashMap<String, String> winners;
+
 
 
 
@@ -44,7 +44,7 @@ public class Controller5 {
 
     @FXML
     public void initialize() {
-        winners = new LinkedHashMap<>();
+
         showWinner();
 
 
@@ -82,9 +82,7 @@ public class Controller5 {
         });
 
         File winnersFile = new File(GameLogic.getWinersFileString());
-        if(winnersFile.exists()) GameLogic.readWinners(winners);
-        winners.put(winnerPlayer,Controller3.getJackpot() + " €");
-        GameLogic.writeWinners(winners);
+        if(winnersFile.exists()) GameLogic.writeWinners(winnerPlayer,Controller3.getJackpot());
 
     }
 

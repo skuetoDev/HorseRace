@@ -2,6 +2,8 @@ module com.example.demo {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.google.gson;
+    requires java.sql;
+    requires com.fasterxml.jackson.databind;
 
 
     opens com.example.demo to javafx.fxml;

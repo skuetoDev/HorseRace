@@ -36,7 +36,7 @@ public class FileLogsAccess {
         File file = new File(filePath);
         if(file.exists()){
             rootNode = (ObjectNode) objectMapper.readTree(file);
-            roundsNode = (ArrayNode) rootNode.get("rounds");
+            roundsNode = (ArrayNode) rootNode.get("Game");
         }else{
             createEmptyJSON();
         }

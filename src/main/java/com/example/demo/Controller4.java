@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.helper.CardImageLoader;
+import com.example.demo.helper.Database.DatabaseManager;
 import com.example.demo.helper.FileLogsAccess;
 import com.example.demo.helper.Pause;
 import com.example.demo.helper.RoundMaxException;
@@ -192,6 +193,8 @@ public class Controller4 {
             fileAccess.loadFromJSON();
             fileAccess.addRound(round, card.getDescription());
             fileAccess.saveToJSON();
+
+            DatabaseManager.insertTableRoundInfo(card,round);
         }catch (IOException ex){
             System.out.println(ex.getMessage());
         }

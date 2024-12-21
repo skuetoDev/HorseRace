@@ -1,5 +1,7 @@
 package com.example.demo.helper.Database;
 
+import com.example.demo.model.Cards.Card;
+
 import java.io.IOException;
 import java.sql.*;
 
@@ -12,6 +14,8 @@ public class DatabaseManager {
     private static final String useDatabase = "USE horse_race;";
     private static final String databaseName = "horse_race";
     private static Connection connection;
+
+    private static String logsTableId;
 
 
     /**
@@ -53,24 +57,6 @@ public class DatabaseManager {
         }
 
 
-    }
-
-    private static int selectLastGame() {
-        String queryLastConfig = "SELECT game FROM config ORDER BY id DESC LIMIT 1;";
-        try (Statement stmt = getConnection().createStatement()) {
-
-            try (ResultSet resultSet = stmt.executeQuery(queryLastConfig)) {
-                if (resultSet.next()) {
-                    //incrementa la nueva partida
-                    idPartida = resultSet.getInt("game") + 1;
-                }
-            } catch (SQLException e) {
-                System.out.println("ERROR " + e.getMessage());
-            }
-        } catch (SQLException ex) {
-            System.out.println("ERROR " + ex.getMessage());
-        }
-        return idPartida;
     }
 
 
@@ -130,10 +116,46 @@ public class DatabaseManager {
 
     }
 
-    /*
-    public static void insertRoundInfo(int roundId,String valueCard, String CardSuit){
-        String insertQuery = " INSERT INTO ga"
+    private static int selectLastGame() {
+        String queryLastConfig = "SELECT game FROM config ORDER BY id DESC LIMIT 1;";
+        try (Statement stmt = getConnection().createStatement()) {
+
+            try (ResultSet resultSet = stmt.executeQuery(queryLastConfig)) {
+                if (resultSet.next()) {
+                    //incrementa la nueva partida
+                    idPartida = resultSet.getInt("game") + 1;
+                }
+            } catch (SQLException e) {
+                System.out.println("ERROR " + e.getMessage());
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERROR " + ex.getMessage());
+        }
+        return idPartida;
     }
-    */
+
+
+    public static void insertTableRoundInfo(Card card ,int roundId){
+        String[] cardParts = card.getDescription().split("of",2);
+        String cardNumber = cardParts[0].trim();
+        String cardSuit = cardParts[1].trim();
+        System.out.println(cardNumber);
+        System.out.println(cardSuit);
+        System.out.println(roundId);
+
+        String insertQuery = " INSERT INTO logs_game" + idPartida + " (id_round, value_card, card_suit) VALUES (?,?,?);";
+        try(PreparedStatement prstmt = getConnection().prepareStatement(insertQuery)){
+            prstmt.setInt(1,roundId);
+            prstmt.setString(2, cardNumber);
+            prstmt.setString(3,cardSuit);
+
+            prstmt.executeUpdate();
+
+
+        }catch (SQLException ex){
+            System.out.println("ERROR "+ ex.getMessage());
+        }
+    }
+
 
 }

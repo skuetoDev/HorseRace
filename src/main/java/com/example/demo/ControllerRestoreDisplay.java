@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.helper.Database.DatabaseManager;
 import com.example.demo.helper.SetLight;
+import com.example.demo.model.GameLogic;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -49,29 +50,22 @@ public class ControllerRestoreDisplay {
         List<String> games = DatabaseManager.getUnfinishedGames();
 
         for(String game : games){
+            int newIdgame = Integer.parseInt(game.replace("players_game",""));
 
-            Button gameButton = new Button("Game "+ game.replace("players_game",""));
+            Button gameButton = new Button("Game "+newIdgame);
             gameButton.getStyleClass().add("dynamic-restoreButton");
             gameButton.setEffect(SetLight.setLight());
+
             List<Map<String, Object>> players = DatabaseManager.selectPlayersFromTable(game);
 
 
             gameButton.setOnAction(event -> {
-
-                for(Map<String, Object> player : players){
-                    System.out.println("name: " + player.get("name"));
-                    System.out.println("bet: " + player.get("bet"));
-                    System.out.println("Suit: " + player.get("suit"));
-                    System.out.println("Position: " + player.get("layoutX_position"));
-                    System.out.println("----------------------------------------------");
-
-
-                }
                 int nextRound = lastRound(Integer.parseInt(game.replace("players_game",""))) + 1;
                 goToDisplay4Restored(nextRound, players);
 
             });
             buttonsContainer.getChildren().add(gameButton);
+            DatabaseManager.setIdPartida(newIdgame);
         }
     }
 
@@ -81,6 +75,7 @@ public class ControllerRestoreDisplay {
             FXMLLoader  loader = new FXMLLoader(getClass().getResource("display4.fxml"));
             Parent root = loader.load();
             Controller4 controller = loader.getController();
+            Controller4.setRestoring(true);
             controller.setGameData(players);
             Scene scene = new Scene(root);
             Stage stage = (Stage) buttonsContainer.getScene().getWindow();

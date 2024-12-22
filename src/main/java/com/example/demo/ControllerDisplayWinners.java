@@ -37,10 +37,6 @@ public class ControllerDisplayWinners {
         StringBuilder winnerJackpot = new StringBuilder();
         for(String [] winner : winners){
              winnerJackpot.append(winner[0]).append("...").append(winner[1]+" €\n");
-
-
-
-
         }
         Pause.updateLabelWithPause(winnersLabel, String.valueOf(winnerJackpot),1,null);
     }
@@ -54,7 +50,7 @@ public class ControllerDisplayWinners {
 
             stage.setScene(scene);
         }catch (Exception e){
-            e.printStackTrace();
+            System.out.println("ERROR goToDisplay2 " + e.getMessage());
         }
 
     }

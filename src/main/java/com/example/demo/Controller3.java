@@ -327,5 +327,7 @@ public class Controller3 {
         return jackpot;
     }
 
-
+    public static void setJackpot(int jackpot) {
+        Controller3.jackpot = jackpot;
+    }
 }

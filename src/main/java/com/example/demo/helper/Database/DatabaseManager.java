@@ -1,7 +1,6 @@
 package com.example.demo.helper.Database;
 
 import com.example.demo.model.Cards.Card;
-import com.example.demo.model.GameLogic;
 import com.example.demo.model.players.Player;
 
 import java.sql.*;
@@ -13,11 +12,14 @@ public class DatabaseManager {
     private static final String url = "jdbc:mysql://localhost:3306/";
     private static final String user = "root";
     private static final String password = "";
-    private static int idPartida = 1;
+    private static int idGame = 1;
     private static final String useDatabase = "USE horse_race;";
     private static final String databaseName = "horse_race";
     private static Connection connection;
 
+    public static void setIdPartida(int idPartida) {
+        DatabaseManager.idGame = idPartida;
+    }
 
     /**
      * Constructor with pattern singleton
@@ -76,24 +78,24 @@ public class DatabaseManager {
                 if (rs.next() && rs.getInt("count") == 0) {
                     String firstINSERT = "INSERT INTO config VALUES (1,1,0);";
                     stmt.executeUpdate(firstINSERT);
-                    idPartida = 1;
+                    idGame = 1;
                     System.out.println("partida inicial en config");
                 } else {
-                    idPartida = selectLastGame();
-                    String newGame = "INSERT INTO config (id, game) VALUES (" + idPartida + "," + idPartida + ");";
+                    idGame = selectLastGame();
+                    String newGame = "INSERT INTO config (id, game) VALUES (" + idGame + "," + idGame + ");";
                     stmt.execute(newGame);
                 }
             }
 
-            String playersTable = "players_game" + idPartida;
-            String logsTable = "logs_game" + idPartida;
+            String playersTable = "players_game" + idGame;
+            String logsTable = "logs_game" + idGame;
             String createPlayersTable = """
                     CREATE TABLE IF NOT EXISTS %s(
                         id_player INT PRIMARY KEY AUTO_INCREMENT,
                         name VARCHAR(30),
                         bet INT,
                         suit VARCHAR(8),
-                        layoutX_position DECIMAL DEFAULT 131,
+                        layoutX_position DECIMAL DEFAULT 31,
                         isWinner BOOLEAN DEFAULT false
                     );
                     """.formatted(playersTable);
@@ -122,16 +124,16 @@ public class DatabaseManager {
             try (ResultSet resultSet = stmt.executeQuery(queryLastConfig)) {
                 if (resultSet.next()) {
                     //incrementa la nueva partida
-                    idPartida = resultSet.getInt("game") + 1;
+                    idGame = resultSet.getInt("game") + 1;
                 }
-            } catch (SQLException e) {
-                System.out.println("ERROR " + e.getMessage());
             }
         } catch (SQLException ex) {
             System.out.println("ERROR " + ex.getMessage());
         }
-        return idPartida;
+        return idGame;
+
     }
+
 
 
     public static void insertTableRoundInfo(Card card, int roundId) {
@@ -139,7 +141,7 @@ public class DatabaseManager {
         String cardNumber = cardParts[0].trim();
         String cardSuit = cardParts[1].trim();
 
-        String insertQuery = " INSERT INTO logs_game" + idPartida + " (id_round, value_card, card_suit) VALUES (?,?,?);";
+        String insertQuery = " INSERT INTO logs_game" + idGame + " (id_round, value_card, card_suit) VALUES (?,?,?);";
         try (PreparedStatement prstmt = getConnection().prepareStatement(insertQuery)) {
             prstmt.setInt(1, roundId);
             prstmt.setString(2, cardNumber);
@@ -148,7 +150,7 @@ public class DatabaseManager {
             prstmt.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("ERROR " + ex.getMessage());
+            System.out.println("ERROR  insertTableRoundInfo" + ex.getMessage());
         }
     }
 
@@ -159,7 +161,7 @@ public class DatabaseManager {
             int bet = p.getBet();
             String suit = p.getHorseSuit();
 
-            String insertQuery = "INSERT INTO players_game" + idPartida + " (name, bet, suit) VALUES (?,?,?);";
+            String insertQuery = "INSERT INTO players_game" + idGame + " (name, bet, suit) VALUES (?,?,?);";
             try (PreparedStatement prstmt = getConnection().prepareStatement(insertQuery)) {
                 prstmt.setString(1, name);
                 prstmt.setInt(2, bet);
@@ -168,7 +170,7 @@ public class DatabaseManager {
                 prstmt.executeUpdate();
 
             } catch (SQLException ex) {
-                System.out.println("ERROR " + ex.getMessage());
+                System.out.println("ERROR insertTablePlayersInfo" + ex.getMessage());
             }
 
         }
@@ -177,7 +179,7 @@ public class DatabaseManager {
 
     public static void updateHorsePositionDatabase(String horseSuit, double newLayoutX_position) {
 
-        String updateQuery = "UPDATE players_game" + idPartida + " SET layoutX_position = ? WHERE suit = ?";
+        String updateQuery = "UPDATE players_game" + idGame + " SET layoutX_position = ? WHERE suit = ?";
 
         try (PreparedStatement prstmt = getConnection().prepareStatement(updateQuery)) {
             prstmt.setDouble(1, newLayoutX_position);
@@ -185,7 +187,7 @@ public class DatabaseManager {
             prstmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("ERROR " + e.getMessage());
+            System.out.println("ERROR in updateHorsePositionDatabase" + e.getMessage());
         }
 
 
@@ -193,7 +195,7 @@ public class DatabaseManager {
 
     public static void updateWinnerDatabase(String horseSuit) {
 
-        String stringQueryPlayer = "UPDATE players_game" + idPartida + " SET isWinner = 1 WHERE suit = ?";
+        String stringQueryPlayer = "UPDATE players_game" + idGame + " SET isWinner = 1 WHERE suit = ?";
         String stringQueryGame = "UPDATE config SET winner = 1 WHERE id = ?";
         try (PreparedStatement prstmt = getConnection().prepareStatement(stringQueryPlayer)) {
             prstmt.setString(1, horseSuit);
@@ -203,11 +205,11 @@ public class DatabaseManager {
             System.out.println("ERROR " + e.getMessage());
         }
         try (PreparedStatement prstmt = getConnection().prepareStatement(stringQueryGame)) {
-            prstmt.setInt(1, idPartida);
+            prstmt.setInt(1, idGame);
             prstmt.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("ERROR" + ex.getMessage());
+            System.out.println("ERROR updateWinnerDatabase" + ex.getMessage());
         }
 
 

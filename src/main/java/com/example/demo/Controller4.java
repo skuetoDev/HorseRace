@@ -7,6 +7,8 @@ import com.example.demo.helper.Pause;
 import com.example.demo.helper.RoundMaxException;
 import com.example.demo.model.Cards.Card;
 import com.example.demo.model.GameLogic;
+import com.example.demo.model.players.Human;
+import com.example.demo.model.players.Player;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +50,7 @@ public class Controller4 {
 
     @FXML
     private Button nextButtonDisplay5;
+    private ImageView horse ;
 
 
     private boolean winner = false;
@@ -58,15 +61,22 @@ public class Controller4 {
 
     protected int counterException = 0;
 
-    private List<Map<String, Object>> players;
+
     private FileLogsAccess fileAccess;
-    private boolean isRestoring = false;
+
+
+
+    private static boolean isRestoring = false;
+    public static void setRestoring(boolean restoring) {
+        isRestoring = restoring;
+    }
 
 
 
     @FXML
     public void initialize() {
         if(isRestoring){
+
             round = 1;
             gameStart();
             System.out.println("juego no restaurado initialize");
@@ -76,6 +86,8 @@ public class Controller4 {
 
             round = ControllerRestoreDisplay.roundNumber;
             gameStart();
+
+
         }
 
 
@@ -188,7 +200,7 @@ public class Controller4 {
             Stage stage = (Stage) nextButtonDisplay5.getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("ERROR goToDisplay1 " + e.getMessage());
         }
 
 
@@ -201,7 +213,7 @@ public class Controller4 {
      */
     private void updateHorsePosition(Card card) {
         String horseSuit = String.valueOf(card.getSuit());
-        ImageView horse = (ImageView) display4.lookup(("#KNIGHT_of_" + horseSuit));
+        horse = (ImageView) display4.lookup(("#KNIGHT_of_" + horseSuit));
 
         try{
             fileAccess.loadLogsFromJSON();
@@ -222,13 +234,13 @@ public class Controller4 {
         //back
         if (round % 5 == 0) {
             // elige entre 2 valores siempre el mayor
-            int firsPosition = 132;
+            int firsPosition = 131;
             newX = Math.max(horse.getLayoutX() - 100, firsPosition);
 
             //next
         } else {
             if (isWinner(horse, horseSuit)) winner = true;
-            newX = horse.getLayoutX()+100;
+            newX = horse.getLayoutX() + 100;
         }
 
         Pause.updateHorsePlaceWithPause(horse, 1, newX, null);
@@ -277,7 +289,7 @@ public class Controller4 {
             Stage stage = (Stage) nextButtonDisplay5.getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("ERROR goToDisplay5 " + e.getMessage());
         }
 
 
@@ -290,22 +302,32 @@ public class Controller4 {
     }
 
     public void setGameData( List<Map<String, Object>> players){
-        this.isRestoring = true;
-        this.players = players;
-        updateRace(this.round);
+        int jackpot = 0 ;
+        roundNumberLabel.setText(String.valueOf(round));
+        for(Map<String, Object> player : players){
+
+
+            String horseSuit = String.valueOf(player.get("suit"));
+            int horsePosition = Integer.parseInt(String.valueOf(player.get("layoutX_position")));
+            horse = (ImageView) display4.lookup(("#KNIGHT_of_" + horseSuit));
+            Pause.updateHorsePlaceWithPause(horse,1,horsePosition,null);
+
+            String name = String.valueOf(player.get("name"));
+            int bet = Integer.parseInt(String.valueOf(player.get("bet")));
+            Player p = new Human(name,bet,horseSuit);
+
+            jackpot += bet;
+            GameLogic.getPlayers().add(p);
+
+
+        }
+        Controller3.setJackpot(jackpot);
 
 
     }
-    public void updateRace(int roundNumber){
-
-        roundNumberLabel.setText(String.valueOf(roundNumber));
 
 
 
-
-        //todo poner los caballos en orden
-
-    }
 
 }
 

@@ -20,6 +20,7 @@ public class GameLogic {
         return players;
     }
 
+
     /**
      * Comprueba si debe lanzarse la excepción RoundMaxException.
      *
@@ -107,6 +108,8 @@ public class GameLogic {
         return false;
 
     }
+
+
 
 
 

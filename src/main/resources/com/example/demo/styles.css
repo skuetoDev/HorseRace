@@ -5,7 +5,7 @@
  }
 
 .display1Button:hover {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-opacity: 0.5;
 }
 
@@ -40,6 +40,16 @@
 
 
  }
+ .dynamic-button-next {
+     -fx-background-color: #ce9d0a;
+     -fx-background-radius:50px;
+     -fx-text-fill: white;
+     -fx-font-family: "Britannic Bold";
+     -fx-font-size: 36px;
+     -fx-cursor: hand;
+
+
+  }
 
 .dynamic-button:hover{
     -fx-text-fill: black;
@@ -97,4 +107,21 @@
     -fx-background-image: url('images/pantalla_ganadores.png');
     -fx-background-size: cover;
 }
+
+.dynamic-restoreButton {
+    -fx-background-color: #ce9d0a;
+    -fx-background-radius:50px;
+    -fx-text-fill: black;
+    -fx-font-family: "Britannic Bold";
+    -fx-font-size: 36px;
+    -fx-cursor: hand;
+
+
+ }
+
+.dynamic-restoreButton:hover{
+    -fx-text-fill: white;
+    -fx-opacity: 0.5;
+
+ }
 

@@ -9,7 +9,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="display2" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.Controller2">
    <children>
-      <Button id="playGameButton" fx:id="playGameButton" layoutX="845.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#goToDisplay3" prefHeight="42.0" prefWidth="330.0" style="-fx-background-color: #ce9d0a; -fx-background-radius: 50PX;" styleClass="display2Button" stylesheets="@styles.css" text="PLAY GAME" textAlignment="CENTER" textFill="#5f7e7d">
+      <Button id="playGameButton" fx:id="playGameButton" layoutX="837.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#goToDisplay3" prefHeight="42.0" prefWidth="330.0" style="-fx-background-color: #ce9d0a; -fx-background-radius: 50PX;" styleClass="display2Button" stylesheets="@styles.css" text="PLAY GAME" textAlignment="CENTER" textFill="#5f7e7d">
          <font>
             <Font name="Britannic Bold" size="50.0" />
          </font>
@@ -27,7 +27,7 @@
             </Lighting>
          </effect>
       </Button>
-      <Button id="display2Winners" fx:id="display2Winners" layoutX="844.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#goToDisplayWinners" prefHeight="139.0" prefWidth="330.0" style="-fx-background-color: #ce9d0a; -fx-background-radius: 50PX;" styleClass="display2Button" stylesheets="@styles.css" text=" SHOW WiNNERS" textAlignment="CENTER" textFill="#5f7e7d" wrapText="true">
+      <Button id="display2Winners" fx:id="display2Winners" layoutX="837.0" layoutY="355.0" mnemonicParsing="false" onMouseClicked="#goToDisplayWinners" prefHeight="139.0" prefWidth="330.0" style="-fx-background-color: #ce9d0a; -fx-background-radius: 50PX;" styleClass="display2Button" stylesheets="@styles.css" text=" SHOW WiNNERS" textAlignment="CENTER" textFill="#5f7e7d" wrapText="true">
          <font>
             <Font name="Britannic Bold" size="50.0" />
          </font>
@@ -42,9 +42,9 @@
             </Lighting>
          </effect>
       </Button>
-      <Button id="display2BackButton" fx:id="display2BackButton" layoutX="844.0" layoutY="592.0" mnemonicParsing="false" onMouseClicked="#goToDisplay1" prefHeight="42.0" prefWidth="330.0" style="-fx-background-color: #ce9d0a; -fx-background-radius: 50PX;" styleClass="display2Button" stylesheets="@styles.css" text="BACK" textAlignment="CENTER" textFill="#5f7e7d">
+      <Button id="display2BackButton" fx:id="display2BackButton" layoutX="37.0" layoutY="648.0" mnemonicParsing="false" onMouseClicked="#goToDisplay1" prefHeight="77.0" prefWidth="184.0" style="-fx-background-color: #ce9d0a; -fx-background-radius: 50PX;" styleClass="display2Button" stylesheets="@styles.css" text="Back" textAlignment="CENTER" textFill="#5f7e7d">
          <font>
-            <Font name="Britannic Bold" size="50.0" />
+            <Font name="Britannic Bold" size="48.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -65,5 +65,23 @@
             <Image url="@images/titulo.png" />
          </image>
       </ImageView>
+      <Button id="display2BackButton" fx:id="restoreGame" layoutX="837.0" layoutY="595.0" mnemonicParsing="false" onAction="#goToRestoreDisplay" onMouseClicked="#goToDisplay1" prefHeight="139.0" prefWidth="330.0" style="-fx-background-color: #ce9d0a; -fx-background-radius: 50PX;" styleClass="display2Button" stylesheets="@styles.css" text="RESTORE GAME" textAlignment="CENTER" textFill="#5f7e7d" wrapText="true">
+         <font>
+            <Font name="Britannic Bold" size="50.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Lighting diffuseConstant="1.37" surfaceScale="3.22">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+      </Button>
    </children>
 </Pane>

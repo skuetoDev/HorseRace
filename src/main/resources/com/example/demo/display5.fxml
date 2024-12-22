@@ -14,7 +14,7 @@
             <Image url="@images/copa.png" />
          </image>
       </ImageView>
-      <Button fx:id="backButtonDisplay5" layoutX="762.0" layoutY="715.0" mnemonicParsing="false" onAction="#goToDisplay2" onMouseClicked="#goToDisplay2" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50PX;" styleClass="display1Button" text="BACK TO MENU">
+      <Button fx:id="backButtonDisplay5" layoutX="772.0" layoutY="702.0" mnemonicParsing="false" onAction="#goToDisplay2" onMouseClicked="#goToDisplay2" prefHeight="77.0" prefWidth="292.0" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50PX;" styleClass="display1Button" text="Back To MENU" textFill="WHITE">
          <font>
             <Font name="Britannic Bold" size="36.0" />
          </font>

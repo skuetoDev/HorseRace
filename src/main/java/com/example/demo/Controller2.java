@@ -8,11 +8,14 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 public class Controller2 {
-
+    @FXML
     public Button playGameButton;
+    @FXML
     public Button display2Winners;
     @FXML
     private Button display2BackButton;
+    @FXML
+    private Button restoreGame;
 
 
     @FXML
@@ -49,6 +52,20 @@ public class Controller2 {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("displayWinners.fxml")));
             Scene scene = new Scene(root);
             Stage stage = (Stage) display2Winners.getScene().getWindow();
+            stage.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    @FXML
+    protected void goToRestoreDisplay() {
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("restoreDisplay.fxml")));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) restoreGame.getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
             e.printStackTrace();

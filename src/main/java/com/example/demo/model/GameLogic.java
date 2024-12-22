@@ -28,7 +28,7 @@ public class GameLogic {
      * @throws RoundMaxException si la ronda es múltiplo de 41 y counterExcepcion es 0.
      */
     public static void checkRound(int round, int counterExcepcion) throws RoundMaxException {
-        if (round % 41 == 0 && counterExcepcion == 0) {
+        if ((round % 41 == 0 && round != 0 ) && counterExcepcion == 0) {
             throw new RoundMaxException("Suffling is necessary to continue the game");
         }
     }

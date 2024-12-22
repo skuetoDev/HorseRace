@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="displayWinners" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.ControllerRestoreDisplay">
+   <children>
+      <ImageView fitHeight="248.0" fitWidth="904.0" layoutX="150.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/titulo.png" />
+         </image></ImageView>
+      <Label layoutX="198.0" layoutY="178.0" text="🏇   CHOOSE A GAME TO RESTORE   🏇" textFill="#ce9d0a">
+         <font>
+            <Font name="Britannic Bold" size="48.0" />
+         </font></Label>
+      <Button fx:id="backToMenuButton" layoutX="84.0" layoutY="649.0" mnemonicParsing="false" onAction="#goToDisplay2" prefHeight="77.0" prefWidth="184.0" style="-fx-background-color: #ce9d0a; -fx-background-radius: 50px;" styleClass="display1Button" stylesheets="@styles.css" text="Back" textFill="WHITE">
+         <font>
+            <Font name="Britannic Bold" size="36.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Lighting diffuseConstant="1.37" surfaceScale="3.22">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+      </Button>
+      <FlowPane fx:id="buttonsContainer" hgap="10.0" layoutX="265.0" layoutY="246.0" prefHeight="487.0" prefWidth="868.0" vgap="10.0" />
+   </children>
+</Pane>

@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.helper.AlertUtil;
 import com.example.demo.helper.Database.DatabaseManager;
 import com.example.demo.helper.Pause;
+import com.example.demo.helper.SetLight;
 import com.example.demo.model.Cards.CardSuit;
 import com.example.demo.model.GameLogic;
 import com.example.demo.model.players.Human;
@@ -24,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class Controller3 {
 
@@ -51,6 +53,7 @@ public class Controller3 {
     public void initialize() {
         submitButton.setOnAction(event -> {
 
+
             try {
                 numPlayers = Integer.parseInt(playersInput.getText());
                 createDynamicDisplay3_1(numPlayers);
@@ -58,6 +61,8 @@ public class Controller3 {
                 AlertUtil.showError("INPUT ERROR", "Please enter a valid number of players 1-4");
 
             }
+            DatabaseManager.createDatabase();
+            DatabaseManager.createTables();
         });
     }
 
@@ -122,7 +127,7 @@ public class Controller3 {
         backButtonDisplay3.setLayoutX(325);
         backButtonDisplay3.setLayoutY(((startY + numPlayers * 90) + 100));
         backButtonDisplay3.getStyleClass().add("dynamic-button");
-        backButtonDisplay3.setEffect(setLight());
+        backButtonDisplay3.setEffect(SetLight.setLight());
         backButtonDisplay3.setOnAction(event -> goToDisplay2());
         display3.getChildren().add(backButtonDisplay3);
 
@@ -130,7 +135,7 @@ public class Controller3 {
         savePlayersButton.setLayoutX(470);
         savePlayersButton.setLayoutY((startY + numPlayers * 90) + 100);
         savePlayersButton.getStyleClass().add("dynamic-button");
-        savePlayersButton.setEffect(setLight());
+        savePlayersButton.setEffect(SetLight.setLight());
         savePlayersButton.setOnAction(event -> createPlayers());
         display3.getChildren().add(savePlayersButton);
 
@@ -139,11 +144,12 @@ public class Controller3 {
         nextButtondisplay3.setLayoutX(765);
         nextButtondisplay3.setLayoutY((startY + numPlayers * 90) + 100);
         nextButtondisplay3.getStyleClass().add("dynamic-button");
-        nextButtondisplay3.setEffect(setLight());
+        nextButtondisplay3.setEffect(SetLight.setLight());
         nextButtondisplay3.setOnMouseClicked(event -> {
             if (GameLogic.getPlayers().isEmpty()) {
                 AlertUtil.showError("ERROR SAVED PLAYER", "You must save players before go next display");
             } else {
+                DatabaseManager.insertTablePlayersInfo(GameLogic.getPlayers());
                 dynamicDisplay3_2();
             }
 
@@ -197,7 +203,7 @@ public class Controller3 {
                 }
             }
             GameLogic.createBotPlayers(numPlayers);
-            DatabaseManager.insertTablePlayersInfo(GameLogic.getPlayers());
+
 
             AlertUtil.showInformation("SUCCESS", "Players saved successfully");
         } catch (NumberFormatException e) {
@@ -279,7 +285,7 @@ public class Controller3 {
         playButtonDisplay3.setLayoutX(500);
         playButtonDisplay3.setLayoutY((startY + GameLogic.getPlayers().size() * 90) + 100);
         playButtonDisplay3.getStyleClass().add("dynamic-button");
-        playButtonDisplay3.setEffect(setLight());
+        playButtonDisplay3.setEffect(SetLight.setLight());
         playButtonDisplay3.setOnAction(event -> goToDisplay4());
         display3.getChildren().add(playButtonDisplay3);
 
@@ -296,36 +302,16 @@ public class Controller3 {
             Stage stage = (Stage) backButtonDisplay3.getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("ERROR in goToDisplay2() " + e.getMessage());
         }
 
 
     }
 
     /**
-     * Method to get lighting Effect in a dynamics buttons
-     * @return object of type effect
-     */
-    private Effect setLight() {
-        Lighting lightingEffect = new Lighting();
-        Light.Distant light = new Light.Distant();
-
-        light.setColor(Color.WHITE);
-        light.setAzimuth(45);
-        light.setElevation(45);
-        lightingEffect.setLight(light);
-
-        lightingEffect.setDiffuseConstant(1.37);
-        lightingEffect.setSurfaceScale(3.22);
-
-        return lightingEffect;
-
-    }
-
-    /**
      * Method to go next display display4
      */
-    private void goToDisplay4() {
+    public void goToDisplay4() {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("display4.fxml")));
             Scene scene = new Scene(root);

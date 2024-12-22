@@ -24,7 +24,7 @@
             <Font name="Britannic Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="backButtonWinnersDisplay" layoutX="86.0" layoutY="644.0" mnemonicParsing="false" onMouseClicked="#goToDisplay2" prefHeight="77.0" prefWidth="168.0" style="-fx-background-color: #ce9d0a; -fx-background-radius: 50px;" styleClass="display1Button" stylesheets="@styles.css" text="Back">
+      <Button fx:id="backButtonWinnersDisplay" layoutX="86.0" layoutY="649.0" mnemonicParsing="false" onMouseClicked="#goToDisplay2" prefHeight="77.0" prefWidth="177.0" style="-fx-background-color: #ce9d0a; -fx-background-radius: 50px;" styleClass="display1Button" stylesheets="@styles.css" text="Back" textFill="WHITE">
          <font>
             <Font name="Britannic Bold" size="36.0" />
          </font>

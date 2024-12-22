@@ -9,9 +9,9 @@
 
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="display1" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.Controller1">
    <children>
-      <Button fx:id="exitButton" layoutX="36.0" layoutY="643.0" mnemonicParsing="false" onAction="#exit" prefHeight="77.0" prefWidth="184.0" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display1Button" stylesheets="@styles.css" text="Exit">
+      <Button fx:id="exitButton" layoutX="36.0" layoutY="643.0" mnemonicParsing="false" onAction="#exit" prefHeight="77.0" prefWidth="184.0" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display1Button" stylesheets="@styles.css" text="Exit" textFill="#5f7e7d">
          <font>
-            <Font name="Britannic Bold" size="50.0" />
+            <Font name="Britannic Bold" size="48.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -32,9 +32,9 @@
             <Image url="@images/titulo.png" />
          </image>
       </ImageView>
-      <Button fx:id="enterButton" layoutX="982.0" layoutY="653.0" mnemonicParsing="false" onAction="#goNextScene" prefHeight="77.0" prefWidth="184.0" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display1Button" stylesheets="@styles.css" text="Enter">
+      <Button fx:id="enterButton" layoutX="982.0" layoutY="643.0" mnemonicParsing="false" onAction="#goNextScene" prefHeight="77.0" prefWidth="184.0" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display1Button" stylesheets="@styles.css" text="Enter" textFill="#5f7e7d">
          <font>
-            <Font name="Britannic Bold" size="50.0" />
+            <Font name="Britannic Bold" size="48.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />

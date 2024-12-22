@@ -21,7 +21,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -53,19 +54,31 @@ public class Controller4 {
 
     protected static String winHorseSuit;
 
-    protected int round = 1;
+    protected int round ;
 
-    protected int counterExcepcion = 0;
+    protected int counterException = 0;
 
-    private LinkedHashMap<String, String> logs;
+    private List<Map<String, Object>> players;
     private FileLogsAccess fileAccess;
+    private boolean isRestoring = false;
 
 
 
     @FXML
     public void initialize() {
+        if(isRestoring){
+            round = 1;
+            gameStart();
+            System.out.println("juego no restaurado initialize");
 
-        gameStart();
+        }else{
+            System.out.println("juego restaurado initialize");
+
+            round = ControllerRestoreDisplay.roundNumber;
+            gameStart();
+        }
+
+
 
 
     }
@@ -90,7 +103,7 @@ public class Controller4 {
      */
     protected void gameRound() {
         try {
-            GameLogic.checkRound(round, counterExcepcion);
+            GameLogic.checkRound(round, counterException);
             if (winner) {
                 nextButtonDisplay5.setOpacity(1);
                 return;
@@ -115,6 +128,7 @@ public class Controller4 {
      * to make pause with all interactions in this display.
      */
     private void getCard() {
+
         Card card = GameLogic.getCardsDeck().getCardFromDeck();
         String imagePath = "/com/example/demo/images/BARAJA";
         Image cardImage = CardImageLoader.loadCardImage(card, imagePath);
@@ -219,15 +233,6 @@ public class Controller4 {
 
         Pause.updateHorsePlaceWithPause(horse, 1, newX, null);
         DatabaseManager.updateHorsePositionDatabase(horseSuit,newX);
-
-
-
-
-
-
-
-
-
     }
 
     /**
@@ -284,6 +289,23 @@ public class Controller4 {
 
     }
 
+    public void setGameData( List<Map<String, Object>> players){
+        this.isRestoring = true;
+        this.players = players;
+        updateRace(this.round);
+
+
+    }
+    public void updateRace(int roundNumber){
+
+        roundNumberLabel.setText(String.valueOf(roundNumber));
+
+
+
+
+        //todo poner los caballos en orden
+
+    }
 
 }
 

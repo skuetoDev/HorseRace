@@ -1,11 +1,12 @@
 package com.example.demo.helper.Database;
 
 import com.example.demo.model.Cards.Card;
+import com.example.demo.model.GameLogic;
 import com.example.demo.model.players.Player;
 
 import java.sql.*;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 
 public class DatabaseManager {
 
@@ -52,11 +53,8 @@ public class DatabaseManager {
 
         } catch (SQLException e) {
 
-            System.out.println("Error in connection or creation of database");
-            e.printStackTrace();
+            System.out.println("Error in connection or creation of database" + e.getMessage());
         }
-
-
     }
 
 
@@ -65,7 +63,8 @@ public class DatabaseManager {
         String configTable = """
                 CREATE TABLE IF NOT EXISTS config(
                     id INT PRIMARY KEY,
-                    game INT
+                    game INT,
+                    winner BOOLEAN DEFAULT false
                 );
                 """;
         try (Statement stmt = getConnection().createStatement()) {
@@ -75,13 +74,13 @@ public class DatabaseManager {
             String checkEmpty = "SELECT COUNT(*) AS count FROM config";
             try (ResultSet rs = stmt.executeQuery(checkEmpty)) {
                 if (rs.next() && rs.getInt("count") == 0) {
-                    String firstINSERT = "INSERT INTO config VALUES (1,1);";
+                    String firstINSERT = "INSERT INTO config VALUES (1,1,0);";
                     stmt.executeUpdate(firstINSERT);
                     idPartida = 1;
                     System.out.println("partida inicial en config");
                 } else {
                     idPartida = selectLastGame();
-                    String newGame = "INSERT INTO config VALUES (" + idPartida + "," + idPartida + ");";
+                    String newGame = "INSERT INTO config (id, game) VALUES (" + idPartida + "," + idPartida + ");";
                     stmt.execute(newGame);
                 }
             }
@@ -94,7 +93,7 @@ public class DatabaseManager {
                         name VARCHAR(30),
                         bet INT,
                         suit VARCHAR(8),
-                        layaoutX_position DECIMAL DEFAULT 131,
+                        layoutX_position DECIMAL DEFAULT 131,
                         isWinner BOOLEAN DEFAULT false
                     );
                     """.formatted(playersTable);
@@ -176,12 +175,12 @@ public class DatabaseManager {
 
     }
 
-    public static void updateHorsePositionDatabase(String horseSuit, double newLayaoutX_position) {
+    public static void updateHorsePositionDatabase(String horseSuit, double newLayoutX_position) {
 
-        String updateQuery = "UPDATE players_game" + idPartida + " SET layaoutX_position = ? WHERE suit = ?";
+        String updateQuery = "UPDATE players_game" + idPartida + " SET layoutX_position = ? WHERE suit = ?";
 
         try (PreparedStatement prstmt = getConnection().prepareStatement(updateQuery)) {
-            prstmt.setDouble(1, newLayaoutX_position);
+            prstmt.setDouble(1, newLayoutX_position);
             prstmt.setString(2, horseSuit);
             prstmt.executeUpdate();
 
@@ -192,19 +191,86 @@ public class DatabaseManager {
 
     }
 
-    public static void updateWinnerDatabase(String horseSuit){
+    public static void updateWinnerDatabase(String horseSuit) {
 
-        String stringQuery = "UPDATE players_game" + idPartida + " SET isWinner = 1 WHERE suit = ?";
-        try(PreparedStatement prstmt = getConnection().prepareStatement(stringQuery)){
-            prstmt.setString(1,horseSuit);
+        String stringQueryPlayer = "UPDATE players_game" + idPartida + " SET isWinner = 1 WHERE suit = ?";
+        String stringQueryGame = "UPDATE config SET winner = 1 WHERE id = ?";
+        try (PreparedStatement prstmt = getConnection().prepareStatement(stringQueryPlayer)) {
+            prstmt.setString(1, horseSuit);
             prstmt.executeUpdate();
 
-        }catch (SQLException e){
-            System.out.println("ERROR " + e.getMessage() );
+        } catch (SQLException e) {
+            System.out.println("ERROR " + e.getMessage());
         }
+        try (PreparedStatement prstmt = getConnection().prepareStatement(stringQueryGame)) {
+            prstmt.setInt(1, idPartida);
+            prstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("ERROR" + ex.getMessage());
+        }
+
+
     }
 
+    public static List<String> getUnfinishedGames() {
+        List<String> games = new ArrayList<>();
+        try (Statement stmt = getConnection().createStatement()) {
+            stmt.execute(useDatabase);
+            String query = """
+                    SELECT table_name
+                    FROM information_schema.tables
+                    WHERE table_name LIKE 'players_game%'
+                    AND table_schema = 'horse_race'
+                    AND EXISTS(
+                        SELECT 1
+                        FROM config
+                        WHERE config.game = CAST(SUBSTRING(table_name, 13) AS INT)
+                        AND Config.winner = false
+                    );""";
+            try (PreparedStatement prstmt = getConnection().prepareStatement(query);
 
+                 ResultSet resultSet = prstmt.executeQuery()) {
+
+
+                while (resultSet.next()) {
+                    String tableName = resultSet.getString("table_name");
+                    games.add(tableName);
+                }
+            } catch (Exception e) {
+                System.out.println("ERROR in getUnfinishedGames()2 " + e.getMessage());
+            }
+
+        } catch (SQLException e) {
+            System.out.println("ERROR in getUnfinishedGames()1" + e.getMessage());
+
+        }
+        return games;
+
+    }
+
+    public static List<Map<String, Object>> selectPlayersFromTable(String tableName){
+        List<Map<String, Object>> players = new ArrayList<>();
+
+        String query = "SELECT name, bet, suit,layoutX_position FROM "+ tableName + ";" ;
+        try(PreparedStatement prstmt = getConnection().prepareStatement(query);
+            ResultSet rs = prstmt.executeQuery()){
+            while(rs.next()){
+                Map<String,Object> playerData = new HashMap<>();
+                playerData.put("name",rs.getString("name"));
+                playerData.put("bet",rs.getInt("bet"));
+                playerData.put("suit", rs.getString("suit"));
+                playerData.put("layoutX_position",rs.getString("layoutX_position"));
+
+                players.add(playerData);
+
+            }
+        }catch (SQLException e) {
+            System.out.println("ERROR in selectPlayersFromTable() " + e.getMessage());
+        }
+        return players;
+
+    }
 
 
 }

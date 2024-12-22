@@ -13,7 +13,7 @@
             <Font name="Britannic Bold" size="36.0" />
          </font>
       </TextField>
-      <Button id="submitButton" fx:id="submitButton" layoutX="520.0" layoutY="384.0" mnemonicParsing="false" onMouseClicked="#initialize" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display2Button" stylesheets="@styles.css" text="NEXT" textFill="WHITE">
+      <Button id="submitButton" fx:id="submitButton" layoutX="520.0" layoutY="384.0" mnemonicParsing="false" onMouseClicked="#initialize" prefHeight="77.0" prefWidth="184.0" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display2Button" stylesheets="@styles.css" text="Next" textFill="WHITE">
          <font>
             <Font name="Britannic Bold" size="50.0" />
          </font>

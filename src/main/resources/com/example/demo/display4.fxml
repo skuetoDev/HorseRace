@@ -64,7 +64,7 @@
             <Font name="Britannic Bold" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="nextButtonDisplay5" layoutX="1052.0" layoutY="703.0" mnemonicParsing="false" onAction="#goToDisplay5" opacity="0.0" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display1Button" stylesheets="@styles.css" text="Next">
+      <Button fx:id="nextButtonDisplay5" layoutX="1052.0" layoutY="703.0" mnemonicParsing="false" onAction="#goToDisplay5" opacity="0.0" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display1Button" stylesheets="@styles.css" text="Next" textFill="WHITE">
          <font>
             <Font name="Britannic Bold" size="36.0" />
          </font>

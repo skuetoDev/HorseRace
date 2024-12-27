@@ -32,7 +32,7 @@ public class ControllerDisplayWinners {
         List<String[]> winners = fileWinnersAccess.getWinnersList();
         StringBuilder winnerJackpot = new StringBuilder();
         for(String [] winner : winners){
-             winnerJackpot.append(winner[0]).append("...").append(winner[1]+" €\n");
+             winnerJackpot.append(winner[0]).append("...").append(winner[1]).append(" €\n");
         }
         Pause.updateLabelWithPause(winnersLabel, String.valueOf(winnerJackpot),1,null);
     }

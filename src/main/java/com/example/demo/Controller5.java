@@ -67,11 +67,9 @@ public class Controller5 {
 
         }
             int jackpot = Controller3.getJackpot();
-            Pause.updateLabelWithPause(winnerLabel,winnerPlayer + " win with the horse of "+getWinHorseSuit(),1, ()-> {
-            Pause.updateLabelWithPause(jackpotLabel," And the JACKPOT won is...." + (jackpot + " €"),1, () ->{
-                Pause.updateImageWithPause(winnerHorseImageview,winnerHorse,1,null);
-            });
-        });
+            Pause.updateLabelWithPause(winnerLabel,winnerPlayer + " win with the horse of "+getWinHorseSuit(),1, ()->
+                    Pause.updateLabelWithPause(jackpotLabel," And the JACKPOT won is...." + (jackpot + " €"),1, () ->
+                            Pause.updateImageWithPause(winnerHorseImageview,winnerHorse,1,null)));
 
         FileWinnersAccess fileWinnersAcess = new FileWinnersAccess();
         fileWinnersAcess.loadWinnersFromJson();
@@ -96,7 +94,7 @@ public class Controller5 {
             stage.setScene(scene);
 
         }catch (Exception e){
-            e.printStackTrace();
+            System.out.println("ERROR in goToDisplay2Controller5 " + e.getMessage());
         }
     }
 

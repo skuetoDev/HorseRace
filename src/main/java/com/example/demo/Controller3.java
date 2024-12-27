@@ -15,17 +15,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.Light;
-import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.util.Objects;
-import java.util.Set;
+
 
 public class Controller3 {
 
@@ -69,8 +64,8 @@ public class Controller3 {
     /**
      * method to create a dynamic display 3.2 where there are 3 labels and 3 Textfields to
      * create a human player, there are 3 buttons also back to go to display2 save players
-     * ( which saves them in a LinkedHasMap ) and advance to the dynamic display 3.2
-     * @param numPlayers human players who wants to play
+     * (which saves them in a LinkedHasMap ) and advance to the dynamic display 3.2
+     * @param numPlayers human players who want to play
      */
     private void createDynamicDisplay3_1(int numPlayers) {
 
@@ -318,7 +313,7 @@ public class Controller3 {
             Stage stage = (Stage) playButtonDisplay3.getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("ERROR in goToDisplay4 " + e.getMessage());
         }
 
     }

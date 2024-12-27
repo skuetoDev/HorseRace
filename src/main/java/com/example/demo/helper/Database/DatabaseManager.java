@@ -78,7 +78,7 @@ public class DatabaseManager {
     }
 
     /**
-     * Method to create tables one, for games, other for specific game logs and another for specific gameplayers
+     * Method to create tables, one for games, other for specific game logs and another for specific game players
      */
     public static void createTables() {
         //creacion de tablas
@@ -99,7 +99,7 @@ public class DatabaseManager {
                     String firstINSERT = "INSERT INTO config VALUES (1,1,0);";
                     stmt.executeUpdate(firstINSERT);
                     idGame = 1;
-                    System.out.println("partida inicial en config");
+                    System.out.println("insert first game in config table");
                 } else {
                     idGame = selectLastGame();
                     String newGame = "INSERT INTO config (id, game) VALUES (" + idGame + "," + idGame + ");";
@@ -248,14 +248,14 @@ public class DatabaseManager {
             prstmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("ERROR " + e.getMessage());
+            System.out.println("ERROR updateWinnerDatabase 1 " + e.getMessage());
         }
         try (PreparedStatement prstmt = getConnection().prepareStatement(stringQueryGame)) {
             prstmt.setInt(1, idGame);
             prstmt.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("ERROR updateWinnerDatabase" + ex.getMessage());
+            System.out.println("ERROR updateWinnerDatabase 2 " + ex.getMessage());
         }
 
 

@@ -91,26 +91,15 @@ public class Controller4 {
     @FXML
     public void initialize() {
         if(ControllerRestoreDisplay.getIsRestoring()){
-            System.out.println(ControllerRestoreDisplay.getIsRestoring());
-            System.out.println("juego restaurado");
+            System.out.println("Restored Game");
             round = ControllerRestoreDisplay.roundNumber;
             gameStart();
 
         }else{
-            System.out.println(ControllerRestoreDisplay.getIsRestoring());
-
             round = 1;
             gameStart();
-            System.out.println("juego no restaurado");
-
-
-
-
+            System.out.println("Non Restored Game");
         }
-
-
-
-
     }
 
     /**
@@ -144,7 +133,7 @@ public class Controller4 {
             try {
                 getCard();
             } catch (IllegalArgumentException e) {
-                System.out.println("ERROR: imagen no encontrada");
+                System.out.println("ERROR: not found image");
 
             }
 

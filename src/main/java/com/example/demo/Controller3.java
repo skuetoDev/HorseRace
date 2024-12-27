@@ -48,12 +48,12 @@ public class Controller3 {
     private int numPlayers;
     private double startY;
 
-
+    /**
+     * Method to initialize the display and create database and tables of the game
+     */
     @FXML
     public void initialize() {
         submitButton.setOnAction(event -> {
-
-
             try {
                 numPlayers = Integer.parseInt(playersInput.getText());
                 createDynamicDisplay3_1(numPlayers);
@@ -216,7 +216,7 @@ public class Controller3 {
     }
 
     /**
-     * to create a dinamic display3.2 where there is one label with all players and his information
+     * Method to create a dinamic display3.2 where there is one label with all players and his information
      * (name,bet,horsesuit chosen), and one buton (play) to start the game.
      */
     private void dynamicDisplay3_2() {
@@ -293,7 +293,7 @@ public class Controller3 {
     }
 
     /**
-     * Method to back display3
+     * Method to back display2
      */
     private void goToDisplay2() {
         try {

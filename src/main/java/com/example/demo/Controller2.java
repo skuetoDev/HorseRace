@@ -17,7 +17,9 @@ public class Controller2 {
     @FXML
     private Button restoreGame;
 
-
+    /**
+     * Method to go to display 1 (back)
+     */
     @FXML
     protected void goToDisplay1() {
         try {
@@ -27,11 +29,14 @@ public class Controller2 {
 
             stage.setScene(scene);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("ERROR goToDisplay1 " + e.getMessage());
         }
 
     }
 
+    /**
+     * Method to go to display 3 (next)
+     */
     @FXML
     protected void goToDisplay3() {
         try {
@@ -40,12 +45,15 @@ public class Controller2 {
             Stage stage = (Stage) playGameButton.getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("ERROR in goToDisplay3 " + e.getMessage());
         }
 
 
     }
 
+    /**
+     * Method to go winners display
+     */
     @FXML
     protected void goToDisplayWinners() {
         try {
@@ -54,12 +62,15 @@ public class Controller2 {
             Stage stage = (Stage) display2Winners.getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("ERROR in goToDisplayWinners" + e.getMessage());
         }
 
 
     }
 
+    /**
+     * Method to go display of restored games
+     */
     @FXML
     protected void goToRestoreDisplay() {
         try {
@@ -68,7 +79,7 @@ public class Controller2 {
             Stage stage = (Stage) restoreGame.getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("ERROR in goToRestoreDisplay " + e.getMessage());
         }
 
 

@@ -64,12 +64,12 @@
             <Font name="Britannic Bold" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="nextButtonDisplay5" layoutX="1052.0" layoutY="703.0" mnemonicParsing="false" onAction="#goToDisplay5" opacity="0.0" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display1Button" stylesheets="@styles.css" text="Next" textFill="WHITE">
+      <Button fx:id="nextButtonDisplay5" layoutX="1052.0" layoutY="703.0" mnemonicParsing="false" onAction="#goToDisplay5" opacity="0.0" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" stylesheets="@styles.css" text="Next" textFill="WHITE">
          <font>
             <Font name="Britannic Bold" size="36.0" />
          </font>
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="DEFAULT" />
          </cursor>
          <effect>
             <Lighting diffuseConstant="1.37" surfaceScale="3.22">
@@ -87,5 +87,23 @@
             <Font name="Britannic Bold" size="36.0" />
          </font>
       </Label>
+      <Button fx:id="backToDisplay2Button" layoutX="909.0" layoutY="703.0" mnemonicParsing="false" onAction="#goToDisplay2" style="-fx-background-color: #CE9D0A; -fx-background-radius: 50px;" styleClass="display1Button" stylesheets="@styles.css" text="Back" textFill="WHITE">
+         <font>
+            <Font name="Britannic Bold" size="36.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Lighting diffuseConstant="1.37" surfaceScale="3.22">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+      </Button>
    </children>
 </Pane>

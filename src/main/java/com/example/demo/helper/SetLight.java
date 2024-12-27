@@ -7,10 +7,11 @@ import javafx.scene.paint.Color;
 
 public class SetLight {
 
-/**
- * Method to get lighting Effect in a dynamics buttons
- * @return object of type effect
- */
+    /**
+     * Method to get lighting Effect in a dynamics buttons
+     *
+     * @return object of type effect
+     */
     public static Effect setLight() {
         Lighting lightingEffect = new Lighting();
         Light.Distant light = new Light.Distant();

@@ -1,7 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.helper.CardImageLoader;
-import com.example.demo.helper.File.FileWinnersAcess;
+import com.example.demo.helper.File.FileWinnersAccess;
 import com.example.demo.helper.Pause;
 import com.example.demo.model.GameLogic;
 import com.example.demo.model.players.Player;
@@ -14,7 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import java.io.*;
+
 import java.net.URL;
 import java.util.*;
 
@@ -36,21 +36,12 @@ public class Controller5 {
 
     private Image winnerHorse;
 
-
-
-
-
-
-
-
+    /**
+     * Method to initialize the display and call the next game
+     */
     @FXML
     public void initialize() {
-
         showWinner();
-
-
-
-
     }
 
     /**
@@ -82,7 +73,7 @@ public class Controller5 {
             });
         });
 
-        FileWinnersAcess fileWinnersAcess = new FileWinnersAcess();
+        FileWinnersAccess fileWinnersAcess = new FileWinnersAccess();
         fileWinnersAcess.loadWinnersFromJson();
         fileWinnersAcess.addWinner(winnerPlayer,jackpot);
         fileWinnersAcess.saveWinnersToJson();

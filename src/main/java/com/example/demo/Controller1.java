@@ -15,17 +15,26 @@ public class Controller1 {
     @FXML
     private Button enterButton;
 
-
+    /**
+     * Method to get the next display
+     */
     @FXML
-    protected void goNextScene() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("display2.fxml"));
-        Scene scene2 = new Scene(loader.load());
-        Stage stage = (Stage) enterButton.getScene().getWindow();
-        stage.setScene(scene2);
+    protected void goNextScene(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("display2.fxml"));
+            Scene scene2 = new Scene(loader.load());
+            Stage stage = (Stage) enterButton.getScene().getWindow();
+            stage.setScene(scene2);
+        }catch (IOException e){
+            System.out.println("ERROR goNextScene "+ e.getMessage());
+        }
 
 
     }
 
+    /**
+    Method to go out of game
+     */
     @FXML
     protected void exit() {
         DatabaseManager.closeConnection();

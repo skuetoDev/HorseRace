@@ -50,6 +50,9 @@ public class Controller4 {
 
     @FXML
     private Button nextButtonDisplay5;
+
+    @FXML
+    private Button backToDisplay2Button;
     private ImageView horse ;
 
 
@@ -61,31 +64,46 @@ public class Controller4 {
 
     protected int counterException = 0;
 
-
     private FileLogsAccess fileAccess;
 
 
 
-    private static boolean isRestoring = false;
-    public static void setRestoring(boolean restoring) {
-        isRestoring = restoring;
+    @FXML
+    protected void goToDisplay2() {
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("display2.fxml")));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) backToDisplay2Button.getScene().getWindow();
+
+            stage.setScene(scene);
+        } catch (Exception e) {
+            System.out.println("ERROR goToDisplay2Controller4 " + e.getMessage());
+        }
+
     }
 
 
 
+
+    /**
+     * Method to initialize the display and indentify if the game is restored or is a new game
+     */
     @FXML
     public void initialize() {
-        if(isRestoring){
+        if(ControllerRestoreDisplay.getIsRestoring()){
+            System.out.println(ControllerRestoreDisplay.getIsRestoring());
+            System.out.println("juego restaurado");
+            round = ControllerRestoreDisplay.roundNumber;
+            gameStart();
+
+        }else{
+            System.out.println(ControllerRestoreDisplay.getIsRestoring());
 
             round = 1;
             gameStart();
-            System.out.println("juego no restaurado initialize");
+            System.out.println("juego no restaurado");
 
-        }else{
-            System.out.println("juego restaurado initialize");
 
-            round = ControllerRestoreDisplay.roundNumber;
-            gameStart();
 
 
         }
@@ -118,6 +136,8 @@ public class Controller4 {
             GameLogic.checkRound(round, counterException);
             if (winner) {
                 nextButtonDisplay5.setOpacity(1);
+                nextButtonDisplay5.getStyleClass().add("display1Button");
+                nextButtonDisplay5.setStyle("-fx-cursor: hand; -fx-background-color: #CE9D0A; -fx-background-radius: 50px;" );
                 return;
             }
 
@@ -268,7 +288,7 @@ public class Controller4 {
                 DatabaseManager.updateWinnerDatabase(winHorseSuit);
 
             }catch (IOException ex){
-                System.out.println(ex.getMessage());
+                System.out.println("ERROR in isWinner in controller4 " + ex.getMessage());
             }
 
             return true;

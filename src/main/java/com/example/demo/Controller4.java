@@ -9,6 +9,7 @@ import com.example.demo.model.Cards.Card;
 import com.example.demo.model.GameLogic;
 import com.example.demo.model.players.Human;
 import com.example.demo.model.players.Player;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,24 +67,7 @@ public class Controller4 {
 
     private FileLogsAccess fileAccess;
 
-
-
-    @FXML
-    protected void goToDisplay2() {
-        try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("display2.fxml")));
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) backToDisplay2Button.getScene().getWindow();
-
-            stage.setScene(scene);
-        } catch (Exception e) {
-            System.out.println("ERROR goToDisplay2Controller4 " + e.getMessage());
-        }
-
-    }
-
-
-
+    private boolean isGameRuning= true;
 
     /**
      * Method to initialize the display and indentify if the game is restored or is a new game
@@ -165,8 +149,14 @@ public class Controller4 {
             Pause.updateImageWithPause(showCard, cardImage, 1, () -> {
                 Pause.updateLabelWithPause(actionLabel, "Card Taken : " + card.getDescription(), 1, () -> {
                     updateHorsePosition(card);
-                    round++;
-                    gameRound();
+                    if(isGameRuning){
+                        round++;
+                        gameRound();
+                    }else{
+                        System.out.println("game Stop");
+
+                    }
+
                 });
             });
 
@@ -204,9 +194,28 @@ public class Controller4 {
     private void goToDisplay1() {
 
         try {
+            isGameRuning = false;
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("display1.fxml")));
             Scene scene = new Scene(root);
             Stage stage = (Stage) nextButtonDisplay5.getScene().getWindow();
+            stage.setScene(scene);
+        } catch (Exception e) {
+            System.out.println("ERROR goToDisplay1 " + e.getMessage());
+        }
+
+
+    }
+    /**
+     * Method to go display2
+     */
+    @FXML
+    private void goToDisplay2ExitButton() {
+
+        try {
+            isGameRuning = false;
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("display2.fxml")));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) backToDisplay2Button.getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
             System.out.println("ERROR goToDisplay1 " + e.getMessage());
@@ -334,9 +343,6 @@ public class Controller4 {
 
 
     }
-
-
-
 
 }
 

@@ -66,7 +66,7 @@ public class FileWinnersAccess {
             for (int i = 0; i < playersNode.size(); i++) {
                 ObjectNode winnerNode = (ObjectNode) playersNode.get(i);
                 String name = winnerNode.get("Winner").asText();
-                String bet = winnerNode.get("jackpot").asText();
+                String bet = winnerNode.get("Jackpot").asText();
                 winners.add(new String[]{name, bet});
 
             }

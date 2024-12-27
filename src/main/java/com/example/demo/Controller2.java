@@ -61,8 +61,10 @@ public class Controller2 {
             Scene scene = new Scene(root);
             Stage stage = (Stage) display2Winners.getScene().getWindow();
             stage.setScene(scene);
+
         } catch (Exception e) {
-            System.out.println("ERROR in goToDisplayWinners" + e.getMessage());
+            System.out.println("ERROR in goToDisplayWinners " + e.getMessage());
+            e.printStackTrace();
         }
 
 

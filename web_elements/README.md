@@ -2,7 +2,7 @@
 
 
 # Bienvenido a...Carrera de caballos 🐎
-[entry](horseRace.png)
+![entry](horseRace.png)
 ## Donde podras probar tu suerte ✨ 
 by mariognDev
 

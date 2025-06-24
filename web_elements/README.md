@@ -2,9 +2,9 @@
 
 
 # Bienvenido a...Carrera de caballos 🐎
-![entry](/horseRace.png)
+[entry](horseRace.png)
 ## Donde podras probar tu suerte ✨ 
-by mariogarcianavas
+by mariognDev
 
 
  Para saber de va aqui tenmos un [video](https://www.tiktok.com/@crown_ex/video/7224712441635163438) donde se refleja a grandes rasgos el funcionamiento.

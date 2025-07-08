@@ -2,5 +2,11 @@
   "Winners" : [ {
     "Winner" : "Daenerys",
     "Jackpot" : 105
+  }, {
+    "Winner" : "JAIMIE",
+    "Jackpot" : 241
+  }, {
+    "Winner" : "Aria",
+    "Jackpot" : 313
   } ]
 }

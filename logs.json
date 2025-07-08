@@ -1,33 +1,27 @@
 {
   "Game" : [ {
-    "round" : 1,
-    "Card " : "9 of CLUBS"
-  }, {
-    "round" : 2,
-    "Card " : "2 of CUPS"
-  }, {
-    "round" : 3,
-    "Card " : "7 of GOLD"
-  }, {
-    "round" : 4,
-    "Card " : "3 of SWORDS"
-  }, {
-    "round" : 5,
-    "Card " : "2 of CLUBS"
-  }, {
-    "round" : 6,
+    "round" : 22,
     "Card " : "7 of CLUBS"
   }, {
-    "round" : 7,
-    "Card " : "4 of GOLD"
+    "round" : 23,
+    "Card " : "9 of SWORDS"
   }, {
-    "round" : 8,
-    "Card " : "8 of CUPS"
+    "round" : 24,
+    "Card " : "4 of CUPS"
   }, {
-    "round" : 9,
-    "Card " : "1 of CLUBS"
+    "round" : 25,
+    "Card " : "6 of GOLD"
   }, {
-    "round" : 10,
-    "Card " : "5 of CLUBS"
+    "round" : 26,
+    "Card " : "7 of CUPS"
+  }, {
+    "round" : 27,
+    "Card " : "8 of CLUBS"
+  }, {
+    "round" : 28,
+    "Card " : "2 of CUPS"
+  }, {
+    "round" : 28,
+    "Card " : " END GAME CUPS WINS"
   } ]
 }
